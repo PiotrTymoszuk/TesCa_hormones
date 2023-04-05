@@ -50,4 +50,18 @@
     
   }
   
+# multiple testing -------
+  
+  adjust_fdr <- function(x, variable, adj_method = 'BH') {
+    
+    x %>% 
+      mutate(p_adjusted = p.adjust(.data[[variable]], adj_method), 
+             significance = ifelse(p_adjusted < 0.05, 
+                                   paste('p =', signif(p_adjusted, 2)), 
+                                   paste0('ns (p = ', 
+                                          signif(p_adjusted, 2), ')')))
+    
+  }
+  
+  
 # END -------

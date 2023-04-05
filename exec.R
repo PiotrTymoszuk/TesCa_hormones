@@ -4,6 +4,7 @@
   
   print(source_all(c('import.R', 
                      'exploration.R', 
-                     'modeling.R', 
+                     'survival.R', 
+                     'clustering.R', 
                      'report.R'), 
                    crash = TRUE, message = TRUE))

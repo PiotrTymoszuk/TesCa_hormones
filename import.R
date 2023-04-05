@@ -194,6 +194,21 @@
               E2 = stri_replace(E2, fixed = ',', replacement = '.'), 
               E2 = as.numeric(E2))
   
+# cutoffs for LDH, HCG and AFP -------
+  
+  insert_msg('Cutoffs for LDH, HCG and AFP')
+  
+  tesca$cleared <- tesca$cleared %>% 
+    mutate(LDH_class = cut(LDH, 
+                           c(-Inf, 190, Inf), 
+                           c('0 - 190 U/L', '> 190 U/L')),
+           AFP_class = cut(AFP, 
+                           c(-Inf, 40, Inf), 
+                           c('0 - 40 ng/mL', '> 40 ng/mL')), 
+           HCG_class = cut(HCG, 
+                           c(-Inf, 5, Inf), 
+                           c('0 - 5 IU/L', '> 5 IU/L')))
+  
 # analysis data set: patients with the survival data provided --------
   
   insert_msg('Analysis dataset: patients with survival data')
