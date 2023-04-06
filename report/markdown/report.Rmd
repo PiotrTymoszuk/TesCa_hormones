@@ -1,0 +1,93 @@
+---
+title: "Histology and pre-surgery sex hormone levels in testicular cancer"
+subtitle: "Short analysis report"
+author: "Piotr Tymoszuk for the Department of Urology"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+
+output: 
+  bookdown::html_document2:
+    css: "style.css"
+    
+bibliography: tesca.bib
+
+csl: frontiers_medical.csl
+
+header-includes:
+  \usepackage{longtable}
+  \usepackage{tabu}
+  \usepackage{caption}
+  \usepackage{makecell}
+  \usepackage{pdflscape}
+  \usepackage{array}
+  \usepackage{booktabs}
+  \usepackage{threeparttable}
+  \usepackage{threeparttablex}
+  \usepackage{wrapfig}
+  \usepackage{multirow}
+  \usepackage[normalem]{ulem}
+  \usepackage{colortbl}
+  \usepackage{xcolor}
+  \usepackage{float} \floatplacement{figure}{H} \floatplacement{table}{H}
+
+---
+
+```{r, setup, include = FALSE}
+
+
+opts_chunk$set(echo = FALSE, 
+                      warning = FALSE, 
+                      message = FALSE, 
+                      dev = "png", 
+                      dpi = 600)
+
+set_flextable_defaults(font.family = "Helvetica", 
+                       font.size = 10)
+
+
+```
+
+
+<center>
+
+![](logo_large.png){#id .class width="40mm"}
+
+</center>
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+
+# Analysis summary
+
+<hr style = "border-top: 5px solid #417a8b" />
+
+# Explorative data analysis
+
+<hr style = "border-top: 5px solid #417a8b" />
+
+# Characteristic of the study cohort
+
+<hr style = "border-top: 5px solid #417a8b" />
+
+# Seminoma and mixed-histology types of testicle cancer
+
+<hr style = "border-top: 5px solid #417a8b" />
+
+# Pre-surgery blood levels of sex hormones
+
+<hr style = "border-top: 5px solid #417a8b" />
+
+# Prognostic significance of pre-surgery sex hormone levels
+
+<hr style = "border-top: 5px solid #417a8b" />
+
+# Methods
+
+<hr style = "border-top: 5px solid #417a8b" />
+
+# Data and code availability
+
+The analysis dataset entire R analysis pipeline is available as a [GitHub repository](https://github.com/PiotrTymoszuk/TesCa_hormones).
+
+<hr style = "border-top: 5px solid #417a8b" />
+
+# References

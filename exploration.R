@@ -8,9 +8,7 @@
 #
 # 4) Distribution tests for normality and mean/variance equality
 #
-# 5) PCA and clustering tendency of the sex hormone dataset
-#
-# 6) Correlation analysis of the sex hormone dataset
+# 5) Differences between tumor histologies (seminoma vs mixed)
 
 # tools ------
 
@@ -22,7 +20,6 @@
   library(exda)
   library(rstatix)
   library(DescTools)
-  library(clustTools)
 
   library(ggrepel)
 
@@ -31,6 +28,7 @@
 
   insert_head()
   
+  select <- dplyr::select
   explore <- exda::explore
   set_rownames <- trafo::set_rownames
   
@@ -59,12 +57,10 @@
   insert_msg('Analysis scripts')
   
   c('./exploration scripts/missingness.R', 
-    './exploration scripts/cohort.R', 
     './exploration scripts/gini.R', 
     './exploration scripts/distribution.R', 
-    './exploration scripts/relapse.R', 
-    './exploration scripts/pca.R', 
-    './exploration scripts/correlation.R') %>% 
+    './exploration scripts/cohort.R', 
+    './exploration scripts/relapse.R') %>% 
     source_all(message = TRUE, crash = TRUE)
   
 # END -------

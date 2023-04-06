@@ -36,6 +36,7 @@
   
   insert_head()
 
+  select <- dplyr::select
   explore <- exda::explore
   set_rownames <- trafo::set_rownames
   
@@ -84,7 +85,12 @@
               pt_stage = factor(pt_stage, c('I', 'II - III')), 
               age_surgery_sqrt = sqrt(age_surgery), 
               bmi_sqrt = sqrt(bmi), # convergence problems!
-              body_mass_class = body_mass_class)
+              body_mass_class = body_mass_class, 
+              T_total_class = T_total_class, 
+              E2_class = E2_class, 
+              FSH_class = FSH_class, 
+              LH_class = LH_class, 
+              PRL_class = PRL_class)
   
   ## Z scores of the numeric variables
   

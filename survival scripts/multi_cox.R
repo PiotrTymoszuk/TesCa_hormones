@@ -1,4 +1,4 @@
-# Multi-parameter Cox modeling
+# Multi-parameter Cox modeling with numeric sex hormone levels
 # Explanatory variables listed below, it was hard to find a good initial set
 # with acceptable missingness
 
@@ -10,7 +10,7 @@
   
 # Parallel backend -------
   
-  insert_msg('Parallel backnd')
+  insert_msg('Parallel backend')
   
   plan('multisession')
   
@@ -21,6 +21,12 @@
   ## variables
   
   multi_cox$variables <- c('PRL_sqrt', 
+                           'T_total_sqrt', 
+                           'E2_sqrt',
+                           'FSH_sqrt', 
+                           'LH_sqrt', 
+                           'FSH_sqrt', 
+                           'HCG_class', 
                            'testosterone_replacement', 
                            'LDH_class', 
                            'cs_lugano', 
@@ -75,7 +81,7 @@
   
   ## alpha and number of repeats
   
-  multi_cox$alpha <- 1
+  multi_cox$alpha <- 0.5
   
   multi_cox$n_repeats <- 100
   
@@ -238,8 +244,8 @@
                          name = 'abs(log HR)') + 
     globals$common_theme + 
     theme(axis.title.y = element_blank()) + 
-    labs(title = 'LASSO Cox model coefficients', 
-         x = expression('HR'[LASSO]))
+    labs(title = 'Elastic Net Cox model coefficients', 
+         x = expression('HR'[ElasticNet]))
   
 # Linear predictor score tertile and survival ------
   
@@ -265,8 +271,8 @@
                      'coral2', 
                      'coral4'), 
          cust_theme = globals$common_theme, 
-         show_cox = FALSE,  
-         title = 'LASSO Score', 
+         show_cox = TRUE,  
+         title = 'Elastic Net Score', 
          xlab = 'Relapse-free survival, days') + 
     labs(subtitle = multi_cox$n_numbers) +
     theme(legend.position = 'right', 

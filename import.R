@@ -24,7 +24,7 @@
   
   insert_msg('Reading the raw data set')
   
-  tesca$raw <- read_xlsx('./data/HoTuHo_final_22032023.xlsx')
+  tesca$raw <- read_xlsx('./data/HoTuHo_final_06042023.xlsx')
   
 # Wrangling ------
   
@@ -112,7 +112,7 @@
                           0, as.numeric(`LH (mU/ml)`)), 
               FSH = ifelse(stri_detect(`FSH (mU/ml)`, fixed = '<'), 
                            0, as.numeric(`FSH (mU/ml)`)), 
-              PRL = `Prolaktin (µU/ml)`, 
+              PRL = `Prolaktin (uU/mL) RICHTIG!`, 
               T_total = stri_replace(`Testosteron (gesamt) - ng/ml`, 
                                      fixed = '>', replacement = ''), 
               T_total = as.numeric(T_total), 
@@ -194,20 +194,44 @@
               E2 = stri_replace(E2, fixed = ',', replacement = '.'), 
               E2 = as.numeric(E2))
   
-# cutoffs for LDH, HCG and AFP -------
+# cutoffs for LDH, HCG and AFP, SHBG and sex hormones -------
   
-  insert_msg('Cutoffs for LDH, HCG and AFP')
+  insert_msg('Cutoffs for LDH, HCG and AFP and sex hormones')
   
   tesca$cleared <- tesca$cleared %>% 
     mutate(LDH_class = cut(LDH, 
-                           c(-Inf, 190, Inf), 
-                           c('0 - 190 U/L', '> 190 U/L')),
+                           c(-Inf, 150, Inf), 
+                           c('0 - 150 U/L', '> 150 U/L')),
            AFP_class = cut(AFP, 
-                           c(-Inf, 40, Inf), 
-                           c('0 - 40 ng/mL', '> 40 ng/mL')), 
+                           c(-Inf, 7, Inf), 
+                           c('0 - 7 ng/mL', '> 7 ng/mL')), 
            HCG_class = cut(HCG, 
-                           c(-Inf, 5, Inf), 
-                           c('0 - 5 IU/L', '> 5 IU/L')))
+                           c(-Inf, 2, Inf), 
+                           c('0 - 2 IU/L', '> 2 IU/L')), 
+           T_total_class = cut(T_total, 
+                               c(-Inf, 3.5, 9, Inf), 
+                               c('0 - 3.5 ng/mL', 
+                                 '3.5 - 9 ng/mL', 
+                                 '> 9 ng/mL')), 
+           E2_class = cut(E2, 
+                          c(-Inf, 20, 55, Inf), 
+                          c('0 - 20 pg/mL', 
+                            '20 - 55 pg/mL', 
+                            '> 55 pg/mL')), 
+           FSH_class = cut(FSH, 
+                           c(-Inf, 1, 10, Inf), 
+                           c('0 - 1 mU/mL', 
+                             '1 - 10 mU/mL', 
+                             '> 10 mU/mL')), 
+           LH_class = cut(LH, 
+                          c(-Inf, 1.7, 8.6, Inf), 
+                          c('0 - 1.7 mU/mL', 
+                            '1.7 - 8.6 mU/mL', 
+                            '> 8.6 mU/mL')), 
+           PRL_class = cut(PRL, 
+                           c(-Inf, 480, Inf), 
+                           c('0 - 480 µU/mL', 
+                             '> 480 µU/mL')))
   
 # analysis data set: patients with the survival data provided --------
   

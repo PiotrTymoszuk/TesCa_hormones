@@ -31,7 +31,10 @@
   insert_msg('Report scripts')
   
   c('./report scripts/tables.R', 
-    './report scripts/figures.R') %>% 
+    './report scripts/figures.R', 
+    './report scripts/html.R', 
+    './report scripts/links.R', 
+    './report scripts/render.R') %>% 
     source_all(message = TRUE, crash = TRUE)
   
 # END ------

@@ -1,5 +1,5 @@
 # Multi-parameter Cox modeling
-# Strata of PRL concntration (high versus low) and explanatory variables 
+# Clinical strata of sex hormone levels and explanatory variables 
 # listed below, it was hard to find a good initial set
 # with acceptable missingness
 
@@ -19,7 +19,12 @@
 
   ## variables
   
-  multi_cut$variables <- c('PRL_strata', 
+  multi_cut$variables <- c('PRL_class',
+                           'E2_class', 
+                           'T_total_class', 
+                           'LH_class', 
+                           'FSH_class', 
+                           'HCG_class', 
                            'testosterone_replacement', 
                            'LDH_class', 
                            'cs_lugano', 
@@ -60,23 +65,6 @@
              !!i := scale(.data[[i]])[, 1])
     
   }
-  
-  ## appending the analysis table with the PRL strata
-  
-  multi_cut$prl_cutoff <- uni_cut$survcut_obj$PRL$cutoff[1]
-  
-  multi_cut$analysis_tbl <- multi_cut$analysis_tbl %>% 
-    left_join(tesca$data[c('ID', 'PRL')], 
-              by = 'ID') %>% 
-    mutate(PRL_strata = cut(PRL, 
-                            c(-Inf, multi_cut$prl_cutoff, Inf), 
-                            c(paste('0 -', 
-                                    signif(multi_cut$prl_cutoff, 2), 
-                                    'µU/mL'), 
-                              paste('>', 
-                                    signif(multi_cut$prl_cutoff, 2), 
-                                    'µU/mL')))) %>% 
-    select(-PRL)
   
   multi_cut$analysis_tbl <- multi_cut$analysis_tbl %>%
     filter(complete.cases(.)) %>% 
@@ -258,7 +246,7 @@
                          name = 'abs(log HR)') + 
     globals$common_theme + 
     theme(axis.title.y = element_blank()) + 
-    labs(title = 'LASSO Cox model coefficients', 
+    labs(title = 'Elastic Net Cox model coefficients', 
          x = expression('HR'[LASSO]))
   
 # Linear predictor score tertile and survival ------
@@ -285,7 +273,7 @@
                      'coral2', 
                      'coral4'), 
          cust_theme = globals$common_theme, 
-         show_cox = FALSE,  
+         show_cox = TRUE,  
          title = 'LASSO Score', 
          xlab = 'Relapse-free survival, days') + 
     labs(subtitle = multi_cut$n_numbers) +
