@@ -628,6 +628,161 @@ Association of demographic, clinical, pathological, therapy-related and endocrin
 
 # Methods
 
+## Data sources
+
+The study dataset was provided as an Excel sheet. 
+Data import in R was accomplished with the `read_xslx()` R function (package _readxl_) [@Wickham2022]
+. 
+The dataset was formatted with an in-house developed script. 
+
+Predominantly embryonic cancers, predominantly teratoma, predominantly yolk sac cancers and predominantly chorionic cancers were defined by the cutoff of $\geq$ 75% of the respective histology in pathological examination. 
+Tumor stages and Lugano classes were expressed in simplified form as 'I', 'II', 'III'. 
+Laboratory parameter values beyond the detection range were set to their respective lower and upper detection limit. 
+For record with the last follow-up date provided but missing relapse index, the relapse-free status was assumed. 
+For relapse-free cases with missing relapse dates, the relapse dates were set to 2023/03/22, i.e. the latest dataset update. 
+In cases of missing testosterone replacement variable with provided dates of the replacement therapy, the tesosterone replacement therapy was assumed to be present.
+
+Laboratory parameters were stratified as follows:
+
+* lactate dehydrogenase (LDH): normal: 0 - 150 U/L, elevated: > 150 U/L
+* alpha fetoprotein: normal: 0 - 7 ng/mL, elevated: > 7 ng/mL
+* human chorionic gonadotropin (HCG): normal: 0 - 2 IU/L, elevated: > 2 IU/L
+* total testosterone (T total): low: 0 - 3.5 ng/mL, normal: 3.5 - 9 ng/mL, elevated: > 9 ng/mL
+* estradiol (E2): low: 0 - 20 pg/mL, normal: 20 - 55 pg/mL, elevated: > 55 pg/mL
+* follicle stimulating hormone (FSH): low: 0 - 1 mU/mL, normal: 1 - 10 mU/mL, elevated: > 10 mU/mL
+* luteinizing hormone (LH): low: 0 - 1.7 mU/mL, normal: 1.7 - 8.6 mU/mL, elevated: > 8.6 mU/mL
+* prolactin (PRL): normal: 0 - 480 µU/mL, elevated: > 480 µU/mL
+
+A list of study variables with stratification scheme is provided in __Table \@ref(tab:tab-study-vars)__.
+
+## Software
+
+Data analysis was done with R version 4.2.3.
+
+Tabular data was handled with the _tidyverse_ package bundle [@Wickham2019], _rlang_ [@Henry2022] and [_trafo_](https://github.com/PiotrTymoszuk/trafo).
+Text data manipulation and search was accomplished with _stringi_ [@Gagolewski2021]. 
+
+Descriptive statistics were computed with _DescTools_ [@Signorell2022], _rstatix_ [@Kassambara2021] and [_ExDA_](https://github.com/PiotrTymoszuk/ExDA). 
+Statistical hypothesis testing was done for numeric and categorical variables with the packages _rstatix_ [@Kassambara2021] and [_ExDA_](https://github.com/PiotrTymoszuk/ExDA), and with the _survival_ [@Therneau2000] and _survminer_ [@Kassambara2016] packages for survival data.
+
+Principal component analysis (PCA) was performed with the development package [_clustTools_](https://github.com/PiotrTymoszuk/clustTools) employing the pcaPP algorithm by Croux et al. [@Croux2007; @Todorov2013]. 
+Multi-dimensional correspondence analysis (MCA) was done with the _MASS_ package [@Ripley2022].
+
+Hormonal subsets of testicle cancer were defined by maximum-likelihood latent class analysis done with _poLCA_ [@Bandeen-roche1997; @Linzer2011].
+
+Multi-parameter classifiers for cancer histology types and hormonal subsets of testicle cancer were established with the conditional Random Forest algorithm [@Strobl2007; @Hothorn2006] provided by the package _party_ [@Hothorn2022]. 
+For cross-validation, computation of fit statistics and quality control of the Random Forest models, the packages _caret_ [@Kuhn2008], _plotroc_ [@Sachs2017] and the development package [_caretExtra_](https://github.com/PiotrTymoszuk/caretExtra). 
+
+For univariable survival Cox modeling, the packages _survival_ [@Therneau2000] and [_coxExtensions_](https://github.com/PiotrTymoszuk/coxExtensions) were employed. 
+Multi-parameter survival modeling was done with the Elastic Net cox algorithm implemented by the _glmnet_ package [@Friedman2010; @Zou2005; @Simon2011].
+
+Analysis results were visualized with _ggplot2_ [@Wickham2016] (bar and scatter plots), [_ExDA_](https://github.com/PiotrTymoszuk/ExDA) (violin, stack and radar plots), [_caretExtra_](https://github.com/PiotrTymoszuk/caretExtra) and _plotroc_ [@Sachs2017] (receiver-operating characteristic [ROC], heat maps of confusion matrices), _survminer_ [@Kassambara2016] and [_coxExtensions_](https://github.com/PiotrTymoszuk/coxExtensions) (Kaplan-Meier and Brier Score plots), and [_clustTools_](https://github.com/PiotrTymoszuk/clustTools) (PCA loadings and MCA column factors). 
+Report figures were generated with _cowplot_ [@Wilke2019]. 
+Tables were created with _flextable_ [@Gohel2022]. 
+
+The analysis report was written in the _rmarkdown_ environment [@Allaire2022] with the package _bookdown_ [@Xie2016]. 
+Management of figures, tables, links and references in the rmarkdown document was accomplished with [_figur_](https://github.com/PiotrTymoszuk/figur).
+The report was rendered as a html document with _knitr_ [@Xie2022] and _rmdformats_ [@Barnier2022]. 
+
+## Statistical significance and multiple testing adjustment
+
+If not indicated otherwise, statistical testing p values were corrected for multiple testing with the false discovery rate method (FDR) [@Benjamini1995] within each analysis task. 
+Effects with FDR-corrected p < 0.05 are considered statistically significant.
+
+## Explorative data analysis
+
+In the first step of explorative data analysis, fractions of missing observations per participant and study variable were determined. 
+Information content or variability of study variables was assessed with Gini coefficient (function `Gini()`, package _DescTools_) (__Figure \@ref(fig:fig-gini)__, __Table \@ref(tab:tab-miss-inf)__). 
+Normality of distribution of numeric variables without any transformation and upon logarithm (log) and squared root transformation (sqrt) was assessed by Shapiro-Wilk test (function `explore(what = 'normality')`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)) and quantile-quantile plots (QQ plots, function `explore(what = 'plots', type = 'qq')`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)). 
+The optimal normality-stabilizing transformations are listed in __Table \@ref(tab:tab-best-transformation)__ and shown in __Figure \@ref(fig:fig-normality)__. 
+Descriptive characteristic of the cohort was generated with the `explore(what = 'table', pub_styled = TRUE)` function (package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)) and is presented in __Table \@ref(tab:tab-cohort-demo-cancer)__ and __Table \@ref(tab:tab-cohort-hormones)__.
+
+## Comparison of seminoma and mixed histology cancers
+
+Demographic, clinical, pathological, therapy-related and endocrinologic parameters were compared between the histology types with Mann-Whitney test and r effect size statistic (numeric variables) or $\chi^2$ test with Cramer V effect size statistic (function `compare_variables()`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)). 
+The comparison results are presented in __Table \@ref(tab:tab-histology-demo-cancer)__ and __Table \@ref(tab:tab-histology-hormones)__.
+Differences in survival between the histology types were analyzed with log-rank test (function `surv_pvalue()`, package _survminer_, __Figure \@ref(fig:fig-histology-survival)__).
+
+## Multi-parameter signature of the histology types of testicle cancer
+
+The multi-parameter model discriminating between tumor histology types employing a wide range of demographic, clinical, pathological and endocrinologic explanatory variables (available observations: n = `r nrow(histo_class$analysis_tbl)`, __Figure \@ref(fig:fig-histology-class)__) was constructed with the conditional Random Forest algorithm [@Hothorn2022; @Hothorn2006; @Strobl2007] using the `train(method = 'cforest')` wrapper function from the package _caret_. 
+The optimal value of the `mtry` parameter (mtry = `r histo_class$model$bestTune$mtry[1]`) defining the size of random variable subset for tree model construction was found by 10-fold cross-validation of Random Forest models with varying parameter values. 
+The parameter choice criterion was minimal value of Cohen's $\kappa$ in the cross-validation. 
+The remaining model parameters such as split rule (set to the maximum test statistic), splitting criterion (set to 1.28) and number of random trees (500) were specified by the control objects returned by the `cforest_classical()` function from the package _party_. 
+
+Performance statistics such as area under the ROC curve, sensitivity, specificity, Cohen's $\kappa$ and $R^2$ were retrieved from the model with the `summary()` method (package [_caretExtra_](https://github.com/PiotrTymoszuk/caretExtra)). 
+ROC curves for the Random Forest classifier in the training data and cross-validation were generated with the `plot(type = 'roc')` method (package [_caretExtra_](https://github.com/PiotrTymoszuk/caretExtra)). 
+Brier Scores for particular observations serving as a measure of model calibration were calculated with the following formula:
+
+$$BS_i = (fitted_i - outcome_i)^2$$
+
+where $BS_i$ stands for the Brier Score for the i-th observation. 
+Integrated Bries Score (IBS) was computed as the arithmetic mean of all available Brier Scores:
+
+$$IBS = \frac{1}{N}\sum_i^N(fitted_i - outcome_i)^2$$
+
+The key model performance statistics are presented in __Figure \@ref(fig:fig-histology-class)B__.
+
+Importance of the Random Forest model's explanatory variables was expressed as difference in out-of-bad (OOB) accuracy of the original model and a model with the particular variable randomly reshuffled (permutation importance, computed by `varimp()`, package _party_, __Figure \@ref(fig:fig-histology-class)A__). 
+
+
+## Components of pre-surgery sex hormone levels
+
+Trends or components of pre-surgery sex hormone levels treated as normalized, median-centered numeric variables were investigated by 4-dimensional PCA [@Croux2007; @Todorov2013] (function `reduce_data(kdim = 4, red_fun = 'pca')`). 
+The first four components of the PCA explained >90% of the entire hormone dataset variance as investigated by visual analysis of the scree plot (not shown). 
+PCA loadings for the first two major principal components were visualized with the `plot(type = 'loadings')` method (package [_clustTools_](https://github.com/PiotrTymoszuk/clustTools)). 
+
+Trends or overlaps in strata of sex hormone levels (categorical variables) were explored by two-dimensional MCA performed with the `mca()` function from the _MASS_ package [@Ripley2022]. 
+Column factors were visualized with a custom script. 
+
+A total of n = `r nrow(pca$analysis_tbl)` observations were available for these analysis. 
+The results of component and correspondence analysis are presented in __Figure \@ref(fig:fig-hormone-components)__.
+
+## Definition of hormonal subsets with latent class analysis
+
+To define subsets of testicle cancers based on clinical strata of pre-surgery sex hormone levels (categorical variables, available observations: n = `r nrow(lca$analysis_tbl)`) termed further 'hormonal subsets', latent class analysis was employed (LCA, 5000 iterations, 5 algorithm runs, function `poLCA(maxiter = 5000, nrep = 5)`, package _poLCA_) [@Bandeen-roche1997; @Linzer2011].
+
+The optimal number of hormonal subsets was determined by comparing values of Bayesian Information Criterion (BIC) for LCA models with varying number of classes. 
+The LCA solution with k = 3 classes/hormonal subsets displayed the minimal BIC value suggestive of the optimal model fit. 
+Convergence of this model was achieved in n = `r lca$model$numiter` iterations out of 5000 iterations in total. 
+Posterior probabilities of assignment to particular hormone subsets and the final hormone assignment scheme (defined by the maximal posterior probability/modal assignment) are presented in __Table \@ref(tab:tab-lca-posterior)__ available as a supplementary Excel file.
+
+Differences in distribution of sex hormone strata between the hormone subsets were assessed by $\chi^2$ test with Cramer V effect size statistic. 
+Differences in blood hormone concentrations expressed as numeric variables between the hormone subsets were investigated by Kruskal-Wallis test with $\eta^2$ effect size statistic (both comparison types done with `compare_variables()`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)). 
+
+## Demographic and clinical characteristic of the hormonal subsets
+
+Demographic, clinical, pathological and therapy-related parameters were compared between the hormonal subsets with Kruskal-Wallis test and $\eta^2$ effect size statistic (numeric variables) or $\chi^2$ test with Cramer V effect size statistic (function `compare_variables()`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)). 
+The comparison results are presented in __Table \@ref(tab:tab-classes)__. 
+Differences in survival between the hormone subsets were analyzed with log-rank test (function `surv_pvalue()`, package _survminer_, __Figure \@ref(fig:fig-classes-survival)__).
+
+## Multi-paramater discrimination between the hormonal subsets
+
+A multi-parameter model allowing for discrimination between the hormone subsets with solely non-endocrine explanatory variables (available observations: n = `r nrow(class_rf$analysis_tbl)`, __Figure \@ref(fig:fig-classes-random-forest)A__) was established with the conditional Random Forest algorithm as described above for the histology types. 
+The optimal `mtry` parameter value obtained by cross-validation-based tuning with Cohen's $\kappa$ as the tuning metric was `r class_rf$model$bestTune$mtry[1]`. 
+Model performance in the training dataset and 10-fold cross-validation was assessed by the accuracy and Cohen's $\kappa$ statistics computed with the `summary()` method (package [_caretExtra_](https://github.com/PiotrTymoszuk/caretExtra)) and are presented in __Figure \@ref(fig:fig-classes-random-forest)B__. 
+Confusion matrices of the predicted and actual hormone subset assignment were visualized with the `plot(type = 'confusion')` method provided by the [_caretExtra_](https://github.com/PiotrTymoszuk/caretExtra) package.
+Permutation importance for explanatory variables was computed as described for the  histology types and is presented in __Figure \@ref(fig:fig-classes-random-forest)A__.
+
+## Survival modeling
+
+Effects of pre-surgery sex hormone levels expressed as numeric or factor variables on relapse-free survival was explored by univariable Cox regression (functions `coxph()` and `as_coxex()`, packages _survival_ and [_coxExtensions_](https://github.com/PiotrTymoszuk/coxExtensions)) [@Therneau2000]. 
+To improve normality of numeric explanatory variables, the square root transformation was applied (__Table \@ref(tab:tab-best-transformation)__). 
+Numeric variables were included in the models as solely first-order terms and as both first- and second-order terms to account for non-linear association between the explanatory variable and relapse-free survival. 
+Numeric variables were additionally normalized prior to modeling. 
+Model's proportional hazard assumption was checked with the `summary(type = 'assumptions')` method employing provided by the [_coxExtensions_](https://github.com/PiotrTymoszuk/coxExtensions) package and employing the original `zph()` algorithm [@Grambsch1994].
+Model fit stats (Harrell's concordance index [C], $R^2$, Integrated Brier Score [IBS]) [@Graf1999; @Harrell1996] were computed with the `summary(type = 'fit')` for the training data and with the `validate()` method for 10-fold cross validation (package [_coxExtensions_](https://github.com/PiotrTymoszuk/coxExtensions)). 
+Model estimates expressed as hazard ratios (HR) with their confidence intervals and statistical significance assessed by z test were calculated with the `summary(type = 'inference')` method from the [_coxExtensions_](https://github.com/PiotrTymoszuk/coxExtensions) package.
+
+Multi-parameter survival regression was done with the Elastic Net Cox algorithm implemented by the _glmnet_ package [@Friedman2010; @Zou2005; @Simon2011]. 
+The initial explanatory variable set encompassed `r length(multi_cox$variables)` demographic, clinical, pathological and endocrinologic variables listed in __Table \@ref(tab:tab-elastic-net)__. 
+Pre-processing of numeric variables was identical as in case of the univariate survival modeling. 
+The optimal value of the shrinkage factor $\lambda$ ($\lambda$ = `r signif(multi_cox$opt_lambda$lambda, 2)`) was found by 100-repeats 10-fold cross-validation done with the `cv.glmnet()` function (package _glmnet_) and corresponded to the minimal cross-validated model deviance. 
+The final Elastic Net model was constructed for the optimal $\lambda$ parameter with the `glmnet()` function (package _glmnet_). 
+HR values for the non-zero model estimates were retrieved with the `coef()` method and visualized in __Figure \@ref(fig:fig-multi-cox)A__. 
+Subsequently, the association of the linear predictor score of the glmnet model with relapse-free survival was assessed by canonical univariable Cox regression as described above. 
+Concordance of the Elastic Net model was assessed by Harrell's C index, model calibration was investigated by plotting Brier scores as a function of survival time and visual analysis of relapse-free survival in tertiles of the Elastic Net model linear score (__Figure \@ref(fig:fig-multi-cox)S__).
+
 <hr style = "border-top: 5px solid #417a8b" />
 
 # Data and code availability

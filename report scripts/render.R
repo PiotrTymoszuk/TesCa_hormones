@@ -6,7 +6,7 @@
   
   insert_msg('Reading the bibliography')
   
-  ajuba_bib <- read_bib('./report/markdown/tesca.bib') %>% 
+  tescs_bib <- read_bib('./report/markdown/tesca.bib') %>% 
     as_mdbib
   
 # Rendering the report ------
