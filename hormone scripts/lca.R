@@ -54,16 +54,32 @@
   
   ## plotting BIC as a function of class number
   
-  lca$tuning$bic_plot <- lca$tuning$stats %>% 
-    ggplot(aes(x = factor(class_number), 
-               y = bic, 
-               group = 'a')) + 
-    geom_path(color = 'steelblue') + 
-    globals$common_theme + 
-    labs(title = 'LCA: optimal class number', 
-         subtitle = 'MLE-drivel latent class analysis', 
-         x = 'class number', 
-         y = 'BIC')
+  lca$tuning[c('aic_plot', 
+               'bic_plot', 
+               'Gsq_plot', 
+               'Chisq_plot', 
+               'llik_plot')] <- 
+    list(x = c('aic', 'bic', 'Gsq', 'Chisq', 'llik'), 
+         y = c('Akaike Information Criterion', 
+               'Bayesian Information Criterion', 
+               'Likelihood ratio', 
+               '\u03C7\u00B2', 
+               'log-likelihood'), 
+         z = c('AIC', 'BIC', 'Likelihood ratio', 
+               '\u03C7\u00B2', 'log-likelihood')) %>% 
+    pmap(function(x, y, z) lca$tuning$stats %>% 
+           ggplot(aes(x = factor(class_number), 
+                      y = .data[[x]], 
+                      group = 'a')) + 
+           geom_vline(xintercept = '3', 
+                      linetype = 'dashed', 
+                      color = 'coral3') + 
+           geom_path(color = 'steelblue') + 
+           globals$common_theme + 
+           labs(title = y, 
+                subtitle = 'MLE-driven latent class analysis', 
+                x = 'class number', 
+                y = z))
   
 # final model -------
   

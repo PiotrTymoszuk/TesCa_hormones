@@ -44,7 +44,7 @@
               type = .x, 
               cust_theme = globals$common_theme)) %>% 
     map(~.x + 
-          labs(title = paste('Numeric hormone levels, n =', 
+          labs(subtitle = paste('Numeric hormone levels, n =', 
                              nrow(pca$analysis_tbl))))
   
 # UMAP ------

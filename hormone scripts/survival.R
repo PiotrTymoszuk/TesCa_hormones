@@ -65,7 +65,7 @@
                pval = class_surv$test$significance, 
                pval.size = 2.75, 
                legend.labs = class_surv$n_strata, 
-               title = 'Cancer subsets and survival', 
+               title = 'Hormonal subsets and survival', 
                xlab = 'Relapse-free survival, days')
   
   class_surv$plot <- class_surv$plot$plot + 

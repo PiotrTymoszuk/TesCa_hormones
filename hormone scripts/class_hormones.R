@@ -89,7 +89,7 @@
     pmap(plot_variable, 
          split_factor = 'class', 
          class_hormo$analysis_tbl, 
-         x_lab = 'Cancer subset', 
+         x_lab = 'Hormonal subset', 
          cust_theme = globals$common_theme, 
          scale = 'percent', 
          x_n_labs = TRUE) %>% 

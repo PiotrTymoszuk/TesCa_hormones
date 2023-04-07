@@ -28,7 +28,9 @@
               by = 'variable') %>% 
     mutate(variable = exchange(variable, 
                                dict = tesca$lexicon, 
-                               value = 'table_label')) %>% 
+                               value = 'table_label'), 
+           perc_missing = signif(perc_missing, 2), 
+           gini = signif(gini, 2)) %>% 
     select(variable, n_complete, n_missing, perc_missing, gini) %>% 
     set_names(c('Variable', 'Complete observations', 
                 'Missing observations', 'Percentage missing observations', 
@@ -37,20 +39,30 @@
             ref_name = 'miss_inf', 
             caption = paste('Percentage of missing records and Gini', 
                             'coefficients as measure of information content', 
-                            'ofthe study variables.'))
+                            'of the study variables.'))
   
 # Table 3: Normality testing: normality testing ------
   
   insert_msg('Table 3: normality testing, best transformations')
 
   tables$best_transf <- distr$best_trans %>% 
+    filter(source_variable != 'rfs_days') %>% 
+    adjust_fdr('p_value', 'none') %>% 
     mutate(source_variable = exchange(source_variable, 
                                       dict = tesca$lexicon, 
-                                      value = 'table_label')) %>% 
+                                      value = 'table_label'), 
+           w = signif(w, 2)) %>% 
     select(source_variable, 
            transformation,
-           w, p_value, n_complete) %>% 
+           w, 
+           significance, 
+           n_complete) %>% 
     arrange(-w) %>% 
+    set_names('Variable', 
+              'Optimal transformation', 
+              'Shapiro-Wilk W', 
+              'Significance', 
+              'Complete observations') %>% 
     mdtable(label = 'table_3_normality', 
             ref_name = 'best_transformation', 
             caption = paste('Normality assessment by Shapiro-Wilk', 
@@ -106,8 +118,8 @@
     list(x = ., 
          label = c('table_4_cohort_demography_cancer', 
                    'table_5_cohort_sex_hormones'), 
-         ref_name = c('cohort_demo_cancer', 
-                      'cohort_hormones'), 
+         ref_name = c('histology_demo_cancer', 
+                      'histology_hormones'), 
          caption = c(paste('Demographic and cancer-related characteristic', 
                            'of study participants with seminomas', 
                            'and mixed-type cancers.', 
@@ -129,9 +141,30 @@
     pmap(mdtable)
     
   
-# Table 8: differences between hormone classes ------
+# Table 8: posterior probabilities and class assignment ------
   
-  insert_msg('Table 8')
+  insert_msg('Table 8: posterior p and class assigment')
+  
+  tables$lca_posterior <- 
+    left_join(lca$posterior %>% 
+                as.data.frame %>% 
+                rownames_to_column('ID'), 
+              lca$assingment, 
+              by = 'ID') %>% 
+    set_names(c('Participant ID', 
+                levels(lca$assingment$class), 
+                'Hormonal subset')) %>% 
+    map_dfc(function(x) if(is.numeric(x)) signif(x, 2) else x) %>% 
+    mdtable(label = 'table_8_hormonal_subsets', 
+            ref_name = 'lca-posterior', 
+            caption = paste('Posterior probabilities of the hormonal subset', 
+                            'assignment obtained by latent class analysis.', 
+                            'The table is available in a', 
+                            'supplementary Excel file.'))
+  
+# Table 9: differences between hormone classes ------
+  
+  insert_msg('Table 9')
   
   tables$classes <- class_bcg$result_tbl %>% 
     select(-class) %>% 
@@ -141,7 +174,7 @@
                 'Pituitary', 
                 'Significance', 
                 'Effect size')) %>% 
-    mdtable(label = 'table_8_hormone_subsets', 
+    mdtable(label = 'table_9_hormone_subsets', 
             ref_name = 'classes', 
             caption = paste('Demographic and clinical characteristic', 
                             'of participant subsets developed by', 
@@ -153,6 +186,35 @@
                             'Categorical variables are presented', 
                             'as percentages and counts within the', 
                             'complete observation set.'))
+  
+# Table 10: Elastic Net Cox regression -----
+  
+  insert_msg('Table 10: Elastic Net Cox regression')
+  
+  tables$elastic_net <- multi_cox$analysis_tbl %>% 
+    names
+  
+  tables$elastic_net <- 
+    tables$elastic_net[!tables$elastic_net %in% c('relapse', 'rfs_days')] %>% 
+    tibble(variable = .) %>% 
+    mutate(order = ifelse(stri_detect(variable, regex = '_sec$'), 
+                          'second', 'first'), 
+           variable = stri_replace(variable, 
+                                   regex = '_sec$', 
+                                   replacement = ''), 
+           label = exchange(variable, 
+                            dict = surv_globals$lexicon), 
+           label = ifelse(order == 'second',
+                          paste0('(', label, ')\u00B2'), 
+                          label))
+  
+  tables$elastic_net <- 
+    tibble(`Explanatory variable` = paste(tables$elastic_net$label, 
+                                          collapse = ', ')) %>% 
+    mdtable(label = 'table_10_elastic_net_variables', 
+            ref_name = 'elastic_net', 
+            caption = paste('Explanatory variables in multi-parameter', 
+                            'Elastic Cox modeling of relapse-free survival.'))
   
 # Saving tables on the disc -------
   

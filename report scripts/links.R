@@ -11,20 +11,19 @@
   insert_msg('Links to development packages')
   
   proj_links <- 
-    list(ExDA = 'https://github.com/PiotrTymoszuk/ExDA', 
-         trafo = 'https://github.com/PiotrTymoszuk/trafo', 
-         figur = 'https://github.com/PiotrTymoszuk/figur', 
-         microViz = 'https://github.com/PiotrTymoszuk/microViz', 
-         clustTools = 'https://github.com/PiotrTymoszuk/clustTools', 
-         biggrExtra = 'https://github.com/PiotrTymoszuk/biggrExtra', 
-         xena = 'https://github.com/PiotrTymoszuk/xena', 
-         gseaTools = 'https://github.com/PiotrTymoszuk/gseaTools') %>% 
-    compress(names_to = 'ref_name', 
-             values_to = 'x')
+    list('ExDA' = 'https://github.com/PiotrTymoszuk/ExDA', 
+         'trafo' = 'https://github.com/PiotrTymoszuk/trafo', 
+         'figur' = 'https://github.com/PiotrTymoszuk/figur', 
+         'clustTools' = 'https://github.com/PiotrTymoszuk/clustTools', 
+         'coxExtensions' = 'https://github.com/PiotrTymoszuk/coxExtensions',
+         'caretExtra' = 'https://github.com/PiotrTymoszuk/caretExtra') %>% 
+    compress(names_to = 'obj_name', 
+             values_to = 'x') %>% 
+    mutate(ref_name = paste0('_', obj_name, '_'))
   
-  proj_links <- proj_links %>% 
+  proj_links <- proj_links[c('ref_name', 'x')] %>% 
     pmap(mdlink) %>% 
-    set_names(proj_links$ref_name)
+    set_names(proj_links$obj_name)
   
 # END ------
   

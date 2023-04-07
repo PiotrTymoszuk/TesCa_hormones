@@ -182,6 +182,37 @@
     validate(method = 'crossvalidation', 
              B = 10)
   
+# C-index plot ------
+  
+  insert_msg('C-index plot')
+  
+  multi_cox$c_index_plot <- multi_cox$resample_stats %>% 
+    filter(dataset %in% c('training', 'test')) %>% 
+    ggplot(aes(x = c_index, 
+               y = dataset, 
+               color = dataset)) + 
+    geom_vline(xintercept = 0.5, 
+               linetype = 'dashed') +
+    geom_point(shape = 16, 
+               size = 2) +
+    scale_color_manual(values = c(test = 'coral3', 
+                                  training = 'steelblue'), 
+                       labels = c(test = '10-fold CV', 
+                                  training = 'data')) +
+    scale_x_continuous(limits = c(0.5, 1)) + 
+    scale_y_discrete(labels = c(test = '10-fold CV', 
+                                training = 'data')) + 
+    geom_text_repel(aes(label = signif(c_index, 2)), 
+                    size = 2.5, 
+                    hjust = 0.5, 
+                    vjust = -1.2, 
+                    direction = 'x') + 
+    globals$common_theme + 
+    theme(axis.title.y = element_blank(), 
+          legend.position = 'none') + 
+    labs(title = 'Model concordance', 
+         x = 'C-index')
+  
 # Model coefficients -------
   
   insert_msg('Model coefficients')
@@ -292,10 +323,29 @@
   multi_cox$brier_obj <- multi_cox$coxph_model %>% 
     surv_brier(splitMethod = 'cv10')
   
+  ## IBS
+  
+  multi_cox$resample_stats <- multi_cox$brier_obj %>% 
+    select(training, test) %>% 
+    map_dbl(mean, na.rm = TRUE) %>% 
+    compress(names_to = 'dataset', 
+             values_to = 'IBS') %>% 
+    left_join(multi_cox$resample_stats, ., by = 'dataset')
+  
+  ## plot
+  
   multi_cox$brier_plot <- multi_cox$brier_obj %>% 
     plot(show_reference = FALSE, 
-         cust_theme = globals$common_theme)
-  
+         cust_theme = globals$common_theme) + 
+    labs(subtitle = paste0('IBS: training: ', 
+                           signif(multi_cox$resample_stats$IBS[2], 2), 
+                           ', test: ', 
+                           signif(multi_cox$resample_stats$IBS[3], 2))) + 
+    scale_color_manual(values = c(test = 'coral3', 
+                                  training = 'steelblue'), 
+                       labels = c(test = '10-fold CV', 
+                                  training = 'data'), 
+                       name = '')
 # END ------
   
   plan('sequential')

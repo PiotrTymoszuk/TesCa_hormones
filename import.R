@@ -263,7 +263,9 @@
     map(function(x) if(is.factor(x)) levels(x) else NA) %>% 
     map_chr(paste, collapse = ', ') %>% 
     compress(names_to = 'variable', 
-             values_to = 'levels')
+             values_to = 'levels') %>% 
+    mutate(levels = ifelse(levels == 'NA', 
+                           NA, levels))
   
   tesca$lexicon <- left_join(tesca$lexicon, 
                              tesca$levels, 

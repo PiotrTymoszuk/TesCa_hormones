@@ -22,6 +22,10 @@
 
   insert_head()
   
+  select <- dplyr::select
+  explore <- exda::explore
+  width <- flextable::width
+  
   c('./tools/globals.R', 
     './tools/functions.R') %>% 
     source_all(message = TRUE, crash = TRUE)

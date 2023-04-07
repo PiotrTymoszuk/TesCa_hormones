@@ -60,23 +60,569 @@ set_flextable_defaults(font.family = "Helvetica",
 
 <hr style = "border-top: 5px solid #417a8b" />
 
+# Analysis strategy
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-inclusion-scheme, fig.width = figur::convert(figures$inclusion, to = 'in')$w, fig.height = figur::convert(figures$inclusion, to = 'in')$h, fig.cap = 'Analysis inclusion scheme and data analysis strategy.'}
+
+figures$inclusion$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-inclusion-scheme). Analysis inclusion scheme and data analysis strategy.</b>
+</p>
+
+<hr style = "border-top: 5px solid #417a8b" />
+
 # Explorative data analysis
+
+## Study variables, data missingness and variability
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-study-vars, tab.cap = 'Study variables.'}
+
+flextable::flextable(tables$study_vars) %>% 
+  width(1, width = 2.7, unit = 'cm') %>% 
+  width(2, width = 7, unit = 'cm') %>% 
+  width(3, width = 3, unit = 'cm') %>% 
+  width(4, width = 3, unit = 'cm') %>% 
+  width(5, width = 1.8, unit = 'cm') %>% 
+  theme_vanilla
+
+```
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-missing, fig.width = figur::convert(figures$missing, to = 'in')$w, fig.height = figur::convert(figures$missing, to = 'in')$h, fig.cap = 'Missing data per participant and variable.'}
+
+figures$missing$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-missing). Missing data per participant and variable.</b>
+<br>
+Percentages of missing observations per participant (A) and variable (B) are presented in a histogram and bar plot, respectively. Total number of participants with survival information included in the analysis and the number of study variables are displayed in the plot captions.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-gini, fig.width = figur::convert(figures$gini, to = 'in')$w, fig.height = figur::convert(figures$gini, to = 'in')$h, fig.cap = 'Information content of the variables measured by Gini coefficient.'}
+
+figures$gini$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-gini). Information content of the variables measured by Gini coefficient.</b>
+<br>
+Gini coefficients serving as measures of variable information content are presented in a bar plot.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-miss-inf, tab.cap = 'Percentage of missing records and Gini coefficients as measure of information content of the study variables.'}
+
+flextable::flextable(tables$miss_inf) %>% 
+  width(1, width = 6, unit = 'cm') %>% 
+  width(2:5, width = 3, unit = 'cm') %>% 
+  theme_vanilla
+
+```
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+## Distribution of the study variables
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-normality, fig.width = figur::convert(figures$normailty, to = 'in')$w, fig.height = figur::convert(figures$normailty, to = 'in')$h, fig.cap = 'Normality of numeric study variables assessed by Shapiro-Wilk test.'}
+
+figures$normailty$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-normality). Normality of numeric study variables assessed by Shapiro-Wilk test.</b>
+<br>
+Normality of distribution of numeric study variables following the identity, logarithm (log) and squared root (sqrt) transformation was assessed by Shapiro-Wilk test. Values of the test statistic W (0: highly non-normal distribution, 1: perfect normality) are presented in a bar plot.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-best-transformation, tab.cap = 'Normality assessment by Shapiro-Wilk test for the optimal normality-improving transformations of the numeric study variables.'}
+
+flextable::flextable(tables$best_transf) %>% 
+  width(1, width = 4, unit = 'cm') %>% 
+  width(2:5, width = 3, unit = 'cm') %>% 
+  merge_v(1) %>% 
+  theme_vanilla
+
+```
 
 <hr style = "border-top: 5px solid #417a8b" />
 
 # Characteristic of the study cohort
 
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-cohort-demo-cancer, tab.cap = 'Demographic and cancer-related characteristic of the study cohort. Numeric variables are presented as medians with interqurtile ranges (IQR) and ranges. Categorical variables are presented as percentages and counts within the complete observation set.'}
+
+flextable::flextable(tables$cohort_demo_cancer) %>% 
+  width(1, width = 8, unit = 'cm') %>% 
+  width(2, width = 4.5, unit = 'cm') %>% 
+  footnote(1, 1, 
+           value = as_paragraph('IGCCCG: International Germ Cell Cancer Collaborative Group; AFP: alpha fetoprotein; LDH: lactate dehydrogenase.'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
+  theme_vanilla
+
+```
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-cohort-hormones, tab.cap = 'Pre-surgery levels of sex hormones in the study cohort. Numeric variables are presented as medians with interqurtile ranges (IQR) and ranges. Categorical variables are presented as percentages and counts within the complete observation set.'}
+
+flextable::flextable(tables$cohort_hormones) %>% 
+  width(1, width = 6, unit = 'cm') %>% 
+  width(2, width = 6, unit = 'cm') %>% 
+  footnote(1, 1, 
+           value = as_paragraph('T: testosterone; E2: estradiol; SHBG: sex hormone binding globulin; PRL: prolactin; HCG: human chorionic gonadotropin; FSH: follicle-stimulating hormone; LH: luteinizing hormone.'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
+  theme_vanilla
+
+```
+
 <hr style = "border-top: 5px solid #417a8b" />
 
 # Seminoma and mixed-histology types of testicle cancer
+
+## Differences in demographic, pathologic cand endocrinologic features
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-histology-cancer, fig.width = figur::convert(figures$histology_cancer, to = 'in')$w, fig.height = figur::convert(figures$histology_cancer, to = 'in')$h, fig.cap = 'Significant differences in demographic and cancer features between seminoma and mixed-histology tumors.'}
+
+figures$histology_cancer$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-histology-cancer). Significant differences in demographic and cancer features between seminoma and mixed-histology tumors.</b>
+<br>
+Differences in age at cancer surgery and alpha fetoprotein (AFP) blood concentration between the histology types were assessed by Mann-Whitney test with r effect size statistic. Differences in distribution of tumor stages, Lugano classes (CS Lugano), IGCCCG (International Germ Cell Cancer Collaborative Group) risk classes, and frequency of lymphovascular invasion between the histology types were investigated by $\chi^2$ test with Cramer V effect size statistic. P values were corrected for multiple testing with the false discovery rate (FDR). Numeric variables are presented in violin plots with single observations depicted as points, and medians with interquartile ranges represented by red diamonds and whiskers. Frequencies for levels of categorical variables are shown in stack plots. Effect sizes and p values are displayed in the plot captions. Numbers of complete observations are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-histology-therapy, fig.width = figur::convert(figures$histology_therapy, to = 'in')$w, fig.height = figur::convert(figures$histology_therapy, to = 'in')$h, fig.cap = 'Differences in frequency of retroperitoneal lymphadenectomy chemo- and radiotherapy between seminoma and mixed-histology tumors.'}
+
+figures$histology_therapy$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-histology-therapy). Differences in frequency of retroperitoneal lymphadenectomy chemo- and radiotherapy between seminoma and mixed-histology tumors.</b>
+<br>
+Differences in frequency of retroperitoneal lymphadenectomy (RLA), chemo- and radiotherapy between the histological types were investigated by $\chi^2$ test with Cramer V effect size statistic. P values were corrected for multiple testing with false-discovery rate (FDR) method. Frequencies are presented in stack plots. Effect sizes and p values are displayed in the plot captions. Numbers of complete observations are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+
+```{r tab-histology-demo-cancer, tab.cap = 'Demographic and cancer-related characteristic of study participants with seminomas and mixed-type cancers. Numeric variables are presented as medians with interqurtile ranges (IQR) and ranges. Categorical variables are presented as percentages and counts within the complete observation set.'}
+
+flextable::flextable(tables$histology_demo_cancer) %>% 
+  width(1, width = 3.5, unit = 'cm') %>% 
+  width(2:3, width = 4, unit = 'cm') %>% 
+  width(4, width = 2.3, unit = 'cm') %>% 
+  width(5, width = 2.1, unit = 'cm') %>%
+  footnote(1, 1, 
+           value = as_paragraph('IGCCCG: International Germ Cell Cancer Collaborative Group; AFP: alpha fetoprotein; LDH: lactate dehydrogenase.'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
+  footnote(1, 4:5, 
+           value = as_paragraph('Numeric variables: Mann-Whitney test with r effect size statistic. Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic. P values corrected for multiple testing with the false discovery rate method.'), 
+           part = 'header', 
+           ref_symbols = 'b') %>% 
+  theme_vanilla
+
+```
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-histology-estro-testo-hcg, fig.width = figur::convert(figures$histology_estro_testo_hcg, to = 'in')$w, fig.height = figur::convert(figures$histology_estro_testo_hcg, to = 'in')$h, fig.cap = 'Differences in pre-surgery levels of testosterone, estradiol and human chorionic gonadotropin between seminoma and mixed-histology cancers.'}
+
+figures$histology_estro_testo_hcg$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-histology-estro-testo-hcg). Differences in pre-surgery levels of testosterone, estradiol and human chorionic gonadotropin between seminoma and mixed-histology cancers.</b>
+<br>
+Differences in blood concentrations of testosterone (T), estradiol (E2) and human chorionic gonadotropin (HCG) between the histology types were assessed by Mann-Whitney test with r effect size statistic. Differences in frequency of clinical strata of hormone levels were investigated by $\chi^2$ test with Cramer V effect size statistic. P values were corrected for multiple testing with the false discovery rate (FDR) method. Numeric variables are presented in violin plots with single observations depicted as points, and medians with interquartile ranges represented by red diamonds and whiskers. Frequencies for levels of categorical variables are shown in stack plots. Effect sizes and p values are displayed in the plot captions. Numbers of complete observations are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-histology-fsh-ld-prl, fig.width = figur::convert(figures$histology_fsh_ld_prl, to = 'in')$w, fig.height = figur::convert(figures$histology_fsh_ld_prl, to = 'in')$h, fig.cap = 'Differences in pre-surgery levels of follicle-stimulating hormone, luteinizing hormone and prolactin between seminoma and mixed-histology cancers.'}
+
+figures$histology_fsh_ld_prl$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-histology-fsh-ld-prl). Differences in pre-surgery levels of follicle-stimulating hormone, luteinizing hormone and prolactin between seminoma and mixed-histology cancers.</b>
+<br>
+Differences in blood concentrations of follicle-stimulating hormone (FSH), luteinizing hormone (LH) and prolactin (PRL) between the histology types were assessed by Mann-Whitney test with r effect size statistic. Differences in frequency of clinical strata of hormone levels were investigated by $\chi^2$ test with Cramer V effect size statistic. P values were corrected for multiple testing with the false discovery rate (FDR) method. Numeric variables are presented in violin plots with single observations depicted as points, and medians with interquartile ranges represented by red diamonds and whiskers. Frequencies for levels of categorical variables are shown in stack plots. Effect sizes and p values are displayed in the plot captions. Numbers of complete observations are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-histology-hormones, tab.cap = 'Pre-surgery levels of sex hormones in study participants with seminomas and mixed-type cancers. Numeric variables are presented as medians with interqurtile ranges (IQR) and ranges. Categorical variables are presented as percentages and counts within the complete observation set.'}
+
+flextable::flextable(tables$histology_hormones) %>% 
+  width(1, width = 3.5, unit = 'cm') %>% 
+  width(2:3, width = 4, unit = 'cm') %>% 
+  width(4, width = 2.3, unit = 'cm') %>% 
+  width(5, width = 2.1, unit = 'cm') %>%
+  footnote(1, 1, 
+           value = as_paragraph('T: testosterone; E2: estradiol; HCG: human chorionic gonadotropin; FSH:  follicle-stimulating hormone; LH: luteinizing hormone; PRL: prolactin.'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
+  footnote(1, 4:5, 
+           value = as_paragraph('Numeric variables: Mann-Whitney test with r effect size statistic. Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic. P values corrected for multiple testing with the false discovery rate method.'), 
+           part = 'header', 
+           ref_symbols = 'b') %>% 
+  theme_vanilla
+
+```
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+## Multi-parameter signature of histology types
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-histology-class, fig.width = figur::convert(figures$histology_classifier, to = 'in')$w, fig.height = figur::convert(figures$histology_classifier, to = 'in')$h, fig.cap = 'Multi-parameter clinical signature of mixed-histology cancers established by conditional Random Forest modeling.'}
+
+figures$histology_classifier$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-histology-class). Multi-parameter clinical signature of mixed-histology cancers established by conditional Random Forest modeling.</b>
+<br>
+Multi-parameter model employing demographic, clinical, pathological, therapy and hormone explanatory variables for discrimination between seminoma and mixed histology cancers was developed with the conditional Random Forest algorithm and corroborated by 10-fold cross-validation (CV).
+<br>
+(A) Permutation importance of explanatory variables expressed as difference in accuracy ($\Delta$ accuracy) between the original model and the model with a particular variable randomly re-shuffled. Accuracy differences are displayed in a bar plot. Numbers of samples in the histology types are shown in the plot caption.
+<br>
+(B) Discriminant performance of the Random Forest model in the original data set and 10-fold CV was assessed by receiver-operating characteristic (ROC). Calibration of the model was investigated with Brier Score. Fit statistics: $R^2$, Cohen's $\kappa$, area under the ROC curve (AUC), sensitivity (Se), specificity (Sp) and integrated Brier Score (IBS) are presented in the plot captions and in the plots.
+</p>
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+## Relapse in seminoma and mixed gistology testicle cancers
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-histology-survival, fig.width = figur::convert(figures$histology_survival, to = 'in')$w, fig.height = figur::convert(figures$histology_survival, to = 'in')$h, fig.cap = 'Relapse-free survival in patients with seminoma and mixed-histology tumors.'}
+
+figures$histology_survival$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-histology-survival). Relapse-free survival in patients with seminoma and mixed-histology tumors.</b>
+<br>
+
+Differences in relapse-free survival between seminoma and mixed histology cancers were assessed by log-rank test. Fractions of surviving individuals are presented in a Kaplan-Meier plot. Numbers of observations and relapses are displayed in the plot caption. The test p value is shown in the the plot.
+</p>
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+## Histology of testicle cancer, result summary
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-histology-summary, fig.width = figur::convert(figures$histology_summary, to = 'in')$w, fig.height = figur::convert(figures$histology_summary, to = 'in')$h, fig.cap = 'Key differences between seminoma and mixed histology testicle cancers.'}
+
+figures$histology_summary$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-histology-summary). Key differences between seminoma and mixed histology testicle cancers.</b>
+</p>
 
 <hr style = "border-top: 5px solid #417a8b" />
 
 # Pre-surgery blood levels of sex hormones
 
+## Components of pre-surgery sex hormone levels in testicle cancer
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-hormone-components, fig.width = figur::convert(figures$hormone_components, to = 'in')$w, fig.height = figur::convert(figures$hormone_components, to = 'in')$h, fig.cap = 'Component analysis of pre-surgery sex hormone levels.'}
+
+figures$hormone_components$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-hormone-components). Component analysis of pre-surgery sex hormone levels.</b>
+<br>
+Blood concentrations of sex hormones (T: testosterone, E2: estradiol, HCG: human chorionic gonadotropin, FSH: follicle stimulating hormone, LH: luteinizing hormone; PRL: prolactin) as numeric variables and as clinical strata were subjected to 4-dimensional principal component analysis (PCA, A) and multidimensional correspondence analysis (MCA, B). Loadings (PCA) and column factors (MCA) for the first two dimensions are presented in the plots. Numbers of observations are indicated in the plot captions.
+</p>
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+## Definition of the hormonal subsets of testicle cancer
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-lca-tuning, fig.width = figur::convert(figures$lca_tuning, to = 'in')$w, fig.height = figur::convert(figures$lca_tuning, to = 'in')$h, fig.cap = 'Determination of the optimal number of hormonal subsets of testicle cancer with latent class analysis.'}
+
+figures$lca_tuning$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-lca-tuning). Determination of the optimal number of hormonal subsets of testicle cancer with latent class analysis.</b>
+<br>
+Hormonal subsets of testicle cancer were defined latent class analysis (LCA) employing clinical strata of pre-surgery blood concentration of sex hormones. Goodness of fit of the LCA models for various subset numbers was measured by Bayesian Information Criterion (BIC). Note improving goodness of fit with decreasing BIC. BIC values for the investigated class numbers are presented in a line plot. The vertical dashed line indicates the subset number chosen for the final model.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-lca-posterior, tab.cap = 'Posterior probabilities of the hormonal subset assignment obtained by latent class analysis. The table is available in a supplementary Excel file.'}
+
+tables$lca_posterior[1, 1] %>% 
+  mutate(`Participant ID` = '') %>% 
+  set_names(' ') %>% 
+  flextable
+
+```
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-latent-classes, fig.width = figur::convert(figures$latent_classes, to = 'in')$w, fig.height = figur::convert(figures$latent_classes, to = 'in')$h, fig.cap = 'Hormonal subsets of testis cancer patients defined by latent class analysis in respect to pre-surgery strata of sex hormones.'}
+
+figures$latent_classes$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-latent-classes). Hormonal subsets of testis cancer patients defined by latent class analysis in respect to pre-surgery strata of sex hormones.</b>
+<br>
+Distribution of clinical strata of pre-surgery sex hormone levels in the hormone subsets of testicle cancer defined by latent class analysis (T: testosterone, E2: estradiol, HCG: human chorionic gonadotropin, FSH: follicle stimulating hormone, LH: luteinizing hormone, PRL: prolactin). Statistical significance was determined by $\chi^2$ test with Cramer V effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Strata frequencies within the hormonal subsets are presented in stack plots. Effect sizes and p values are displayed in the plot captions. Numbers of observations in the subsets are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-hormone-classes, fig.width = figur::convert(figures$hormone_classes, to = 'in')$w, fig.height = figur::convert(figures$hormone_classes, to = 'in')$h, fig.cap = 'Pre-surgery blood concentrations of sex hormones in the hormonal subsets of testis cancer.'}
+
+figures$hormone_classes$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-hormone-classes). Pre-surgery blood concentrations of sex hormones in the hormonal subsets of testis cancer.</b>
+<br>
+Normalized pre-surgery blood concentrations of sex hormones (Z-scores; T: testosterone, E2: estradiol, HCG: human chorionic gonadotropin, FSH: follicle stimulating hormone, LH: luteinizing hormone, PRL: prolactin) were compared between the hormonal subsets of testicle cancer defined by latent class analysis by Kruskal-Wallis test with $\eta^2$ effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Mean values with 2 $\times$ SEM are presented as solid lines with tinted ribbons in a radar plot. Effect sizes and p values are indicated in the plot. Numbers of observations in the subsets are displayed in the plot legend. - 
+</p>
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+## Differences in demographic, clinical and pathological cancer features between the hormonal subsets
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-demography-classes, fig.width = figur::convert(figures$classes_demography, to = 'in')$w, fig.height = figur::convert(figures$classes_demography, to = 'in')$h, fig.cap = 'Differences in age and body mass index between the hormonal subsets of testis cancer.'}
+
+figures$classes_demography$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-demography-classes). Differences in age and body mass index between the hormonal subsets of testis cancer.</b>
+<br>
+Differences in age and body mass index (BMI) between the hormonal subsets were assessed by Kruskal-Wallis test with $\eta^2$ effect size statistic. Differences in distribution of body mass classes were investigated by $\chi^2$ test with Cramer V effect size statistic. P values were corrected for multiple comparisons with the false discovery rate. Numeric variables are presented in violin plots with single observations depicted as points, and medians with interquartile ranges represented by red diamonds and whiskers. Frequencies for levels of categorical variables are shown in stack plots. Effect sizes and p values are displayed in the plot captions. Numbers of observations in the subsets are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-classes-pathology, fig.width = figur::convert(figures$classes_pathology, to = 'in')$w, fig.height = figur::convert(figures$classes_pathology, to = 'in')$h, fig.cap = 'Pathological cancer characteristic in the hormonal subsets of testis cancer.'}
+
+figures$classes_pathology$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-classes-pathology). Pathological cancer characteristic in the hormonal subsets of testis cancer.</b>
+<br>
+Differences in maximal tumor size between the hormonal subsets were were assessed by Kruskal-Wallis test with $\eta^2$ effect size statistic. Differences in distribution of tumor stages and Lugano classes (CS Lugano), and frequencies of lymphovascular invasion (LVI) and histology types between the hormonal subsets were investigated by $\chi^2$ test with Cramer V effect size statistic. P values were corrected for multiple testing with the false discovery rate. Numeric variables are presented in violin plots with single observations depicted as points, and medians with interquartile ranges represented by red diamonds and whiskers. Frequencies for levels of categorical variables are shown in stack plots. Effect sizes and p values are displayed in the plot captions. Numbers of observations in the subsets are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-classes-markers, fig.width = figur::convert(figures$classes_markers, to = 'in')$w, fig.height = figur::convert(figures$classes_markers, to = 'in')$h, fig.cap = 'Blood levels of biochemical cancer markers in the hormonal subsets of testis cancer.'}
+
+figures$classes_markers$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-classes-markers). Blood levels of biochemical cancer markers in the hormonal subsets of testis cancer.</b>
+<br>
+Differences in blood concentrations of alpha fetoprotein (AFP) and activity of lactate dehydrogenase (LDH) were compared between the hormonal subsets by Kruskal-Wallis test with $\eta^2$ effect size statistic. Differences in distribution of AFP and LDH strata were assessed by $\chi^2$ test with Cramer V effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Numeric variables are presented in violin plots with single observations depicted as points, and medians with interquartile ranges represented by red diamonds and whiskers. Frequencies for levels of categorical variables are shown in stack plots. Effect sizes and p values are displayed in the plot captions. Numbers of observations in the subsets are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-classes-therapy, fig.width = figur::convert(figures$classes_therapy, to = 'in')$w, fig.height = figur::convert(figures$classes_therapy, to = 'in')$h, fig.cap = 'Therapy in the hormonal subsets of testis cancer.'}
+
+figures$classes_therapy$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-classes-therapy). Therapy in the hormonal subsets of testis cancer.</b>
+<br>
+Rates of retroperitoneal lymphadenectomy (RLA), chemo- and radiotherapy in the hormonal subsets were compared by $\chi^2$ test with Cramer V effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Therapy frequencies in the subsets are presented in stack plots. Effect sizes and p values are displayed in the plot captions. Numbers of observations in the subsets are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-classes, tab.cap = 'Demographic and clinical characteristic of participant subsets developed by latent class analysis in respect to pre-surgery sex hormone levels. Numeric variables are presented as medians with interqurtile ranges (IQR) and ranges. Categorical variables are presented as percentages and counts within the complete observation set.'}
+
+flextable::flextable(tables$classes) %>% 
+  width(1, width = 3.5, unit = 'cm') %>% 
+  width(2:4, width = 4, unit = 'cm') %>% 
+  width(5, width = 2.3, unit = 'cm') %>% 
+  width(6, width = 2.1, unit = 'cm') %>%
+  footnote(1, 1, 
+           value = as_paragraph('IGCCCG: International Germ Cell Cancer Collaborative Group; AFP: alpha fetoprotein; LDH: lactate dehydrogenase; SHBG: sex hormone binding globulin.'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
+  footnote(1, 5:6, 
+           value = as_paragraph('Numeric variables: Mann-Whitney test with r effect size statistic. Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic. P values corrected for multiple testing with the false discovery rate method.'), 
+           part = 'header', 
+           ref_symbols = 'b') %>% 
+  theme_vanilla
+
+```
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+## Multi-paramater signature of the hormonal subsets of testicle cancer
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-classes-random-forest, fig.width = figur::convert(figures$classes_random_forest, to = 'in')$w, fig.height = figur::convert(figures$classes_random_forest, to = 'in')$h, fig.cap = 'Demographic and clinical signature of the hormonal subsets of testis cancer developed by conditional Random Forest modeling.'}
+
+figures$classes_random_forest$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-classes-random-forest). Demographic and clinical signature of the hormonal subsets of testis cancer developed by conditional Random Forest modeling.</b>
+<br>
+Multi-parameter model employing demographic, clinical, pathological, therapy and hormone explanatory variables for discrimination between the hormonal subsets of testicle cancer was developed with the conditional Random Forest algorithm and corroborated by 10-fold cross-validation (CV).
+<br>
+(A) Permutation importance of explanatory variables expressed as difference in accuracy ($\Delta$ accuracy) between the original model and the model with a particular variable randomly re-shuffled. Accuracy differences are displayed in a bar plot. Numbers of samples in the hormonal subsets are shown in the plot caption.
+<br>
+(B) Discriminant performance of the Random Forest model in the original data set and 10-fold CV was visualized as heat maps of 
+confusion matrices. The overall subset assignment accuracy and Cohen's $\kappa$ are displayed in the plot captions. Fractions of observations correctly assigned to the neutral, testicle and pituitary subsets are indicated in X axes.
+</p>
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+## Survival in the hormonal subsets
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-classes-survival, fig.width = figur::convert(figures$classes_survival, to = 'in')$w, fig.height = figur::convert(figures$classes_survival, to = 'in')$h, fig.cap = 'Relapse-free survival in the hormonal subsets of testis cancer.'}
+
+figures$classes_survival$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-classes-survival). Relapse-free survival in the hormonal subsets of testis cancer.</b>
+<br>
+Differences in relapse-free survival in the hormonal subsets were assessed by log-rank test. Fractions of surviving patients are displayed in a Kaplan-Meier plot. The test p value is presented in the plot. Numbers of observations and relapses are shown in the plot caption.
+</p>
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+## Hormonal subsets of testicle cancer, result summary
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-classes-summary, fig.width = figur::convert(figures$classes_summary, to = 'in')$w, fig.height = figur::convert(figures$classes_summary, to = 'in')$h, fig.cap = 'Key characteristic of the hormonal subsets of testicle cancer.'}
+
+figures$classes_summary$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-classes-summary). Key characteristic of the hormonal subsets of testicle cancer.</b>
+</p>
+
 <hr style = "border-top: 5px solid #417a8b" />
 
 # Prognostic significance of pre-surgery sex hormone levels
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-uni-cox, fig.width = figur::convert(figures$uni_cox, to = 'in')$w, fig.height = figur::convert(figures$uni_cox, to = 'in')$h, fig.cap = 'Modeling of relapse-free survival as a function of pre-surgery sex hormone levels by uni-variable Cox regression.'}
+
+figures$uni_cox$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-uni-cox). Modeling of relapse-free survival as a function of pre-surgery sex hormone levels by uni-variable Cox regression.</b>
+<br>
+Effects of pre-surgery levels of blood hormones expressed as clinical strata and numeric variables on relapse-free survival were investigated by univariable Cox regression. For the numeric variables, two types of models were constructed: with solely first-order term and both first- and second-order terms to account for non-linear association of the hormone levels with survival. The numeric explanatory variables were normalized and median-centered prior to modeling. The Cox model estimates expressed as hazard ratios (HR) with 95% confidence intervals (95% CI) are shown in Forest plots. Total numbers of observations and numbers of cases in the strata are indicated in the Y axes. Color of the points and whiskers codes for significance and sign of association of the variable with relapse risk. Note that none of the investigated parameters was found significantly associated with relapse risk.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-elastic-net, tab.cap = 'Explanatory variables in multi-parameter Elastic Cox modeling of relapse-free survival.'}
+
+flextable::flextable(tables$elastic_net) %>% 
+  width(1, width = 14, unit = 'cm') %>% 
+  footnote(1, 1, 
+           value = as_paragraph('sqrt: squared root; PRL: prolactin; T: testosterone; E2: estradiol; FSH: follicle stimulating hormone; LH: luteinizing hormone; HCG: homan chorionic gonadotropin; LDH: lactate dehydrogenase; CS Lugano: Lugano class; RTI: rete testis invasion; SemiCa: saminoma cancer histology; ECa: embryonic cancer histology; RLA: retroperitoneal lymphadenectomy; LVI: lymphovascular invasion.'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
+  theme_vanilla
+
+```
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-multi-cox, fig.width = figur::convert(figures$multi_cox, to = 'in')$w, fig.height = figur::convert(figures$multi_cox, to = 'in')$h, fig.cap = 'Multi-parameter Elastic Net Cox modeling of effects of pre-surgery sex hormone levels on relapse-free survival.'}
+
+figures$multi_cox$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-multi-cox). Multi-parameter Elastic Net Cox modeling of effects of pre-surgery sex hormone levels on relapse-free survival.</b>
+<br>
+Association of demographic, clinical, pathological, therapy-related and endocrinologic explanatory variables with relapse-free survival was investigated by Elastic Net Cox regression and corroborated by 10-fold cross-validation (CV).
+<br>
+(A) Coefficients of the Elastic Net model expressed as hazard ratios (HR). Point sizes code for absolute values of log(HR). Point colors code for log(HR) values.
+<br>
+(B) Performance of the model measured by Harrell's concordance index (C), model calibration assessed by Brier Score (Integrated Brier Scores [IBS] presented in the plot caption) and survival in tertiles of the Elastic Net model's linear predictor score visualized in a Kaplan-Meier plot (significance assessed by log-rank test).
+</p>
 
 <hr style = "border-top: 5px solid #417a8b" />
 

@@ -107,7 +107,7 @@
     pmap(plot_variable, 
          class_bcg$analysis_tbl, 
          split_factor = 'class', 
-         x_lab = 'Cancer subset', 
+         x_lab = 'Hormonal subset', 
          cust_theme = globals$common_theme, 
          scale = 'percent', 
          x_n_labs = TRUE) %>% 
@@ -135,7 +135,7 @@
               by = 'variable') %>% 
     left_join(class_bcg$lexicon[c('variable', 'class')], 
               by = 'variable') %>% 
-    format_tbl
+    format_tbl(value = 'table_label')
   
 # END -------
   
