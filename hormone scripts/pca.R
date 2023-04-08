@@ -31,7 +31,7 @@
   insert_msg('PCA object')
   
   pca$pca_obj <- pca$analysis_tbl %>% 
-    reduce_data(kdim = 6, 
+    reduce_data(kdim = 4, 
                 red_fun = 'pca')
   
 # PCA: plots ------

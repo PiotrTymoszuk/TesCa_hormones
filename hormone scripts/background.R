@@ -1,4 +1,4 @@
-# Demographic and clinical characterstic of the clusters
+# Demographic and clinical characteristic of the clusters
 
 # Characteristic of the latent classes: hormone strata and hormone levels
   

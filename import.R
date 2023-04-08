@@ -69,8 +69,8 @@
                                          c('good', 'intermediate', 'poor')), 
               ## histology
               histology = car::recode(`Reines Seminom (0=nein, 1=ja)`, 
-                                          "'0' = 'mixed'; '1' = 'seminoma'"), 
-              histology = factor(histology, c('seminoma', 'mixed')), 
+                                          "'0' = 'NSGCT'; '1' = 'seminoma'"), 
+              histology = factor(histology, c('seminoma', 'NSGCT')), 
               teratoma_percent = as.numeric(stri_extract(`Teratom (%)`, regex = '\\d+')), 
               embryonal_percent = as.numeric(stri_extract(`embryonales CA (%)`, regex = '\\d+')), 
               chorion_ca_percent = as.numeric(stri_extract(`ChorionCA (%)`, regex = '\\d+')), 
@@ -198,6 +198,9 @@
   
   insert_msg('Cutoffs for LDH, HCG and AFP and sex hormones')
   
+  ## and definition of marker-negative cancers (AFP- HCG-)
+  ## and marker-positive cancers (AFP+ or HCG+)
+  
   tesca$cleared <- tesca$cleared %>% 
     mutate(LDH_class = cut(LDH, 
                            c(-Inf, 150, Inf), 
@@ -231,7 +234,13 @@
            PRL_class = cut(PRL, 
                            c(-Inf, 480, Inf), 
                            c('0 - 480 µU/mL', 
-                             '> 480 µU/mL')))
+                             '> 480 µU/mL')), 
+           marker_status = ifelse(is.na(AFP_class) | is.na(HCG_class), 
+                                  NA, 
+                                  ifelse(AFP_class == '0 - 7 ng/mL' & HCG_class == '0 - 2 IU/L', 
+                                         'AFP/HCG-', 'AFP/HCG+')), 
+           marker_status = factor(marker_status, 
+                                  c('AFP/HCG-', 'AFP/HCG+')))
   
 # analysis data set: patients with the survival data provided --------
   

@@ -1,5 +1,5 @@
 # Differences in clinical parameters and hormones between tumors of seminoma 
-# and mixed histology
+# and NSGCT histology
 
 # tools --------
 

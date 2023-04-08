@@ -126,7 +126,7 @@
     map(transmute, 
         .observation = .observation, 
         .outcome = as.numeric(.outcome) - 1, 
-        .fitted = mixed, 
+        .fitted = NSGCT, 
         bs = (.fitted - .outcome)^2)
   
   ## integrated Brier scores

@@ -47,7 +47,7 @@
   ## variables, sex hormones and their clinical strata
   
   hor_globals$numeric_variables <- 
-    c('E2', 'T_total', 'HCG', 'FSH', 'LH', 'PRL')
+    c('E2', 'T_total', 'FSH', 'LH', 'PRL')
   
   hor_globals$factor_variables <- 
     paste0(hor_globals$numeric_variables, '_class')
@@ -80,7 +80,8 @@
     './hormone scripts/class_hormones.R', 
     './hormone scripts/background.R', 
     './hormone scripts/classifier.R', 
-    './hormone scripts/survival.R') %>% 
+    './hormone scripts/survival.R', 
+    './hormone scripts/marker.R ') %>% 
     source_all(message = TRUE, crash = TRUE)
   
 # END -------

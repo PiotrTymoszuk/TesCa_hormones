@@ -20,7 +20,7 @@
   ## analysis formula
   
   lca$formula <- 
-    cbind(E2_class, T_total_class, HCG_class, FSH_class, LH_class, PRL_class) ~ 1
+    cbind(E2_class, T_total_class, FSH_class, LH_class, PRL_class) ~ 1
   
 # Tuning ------
   
@@ -108,8 +108,8 @@
   
   lca$assingment <- lca$assingment %>% 
     mutate(class = car::recode(class, 
-                               "'#1' = 'neutral'; 
-                               '#2' = 'pituitary'; 
+                               "'#1' = 'pituitary'; 
+                               '#2' = 'neutral'; 
                                '#3' = 'testicle'"), 
            class = factor(class, c('neutral', 'testicle', 'pituitary')))
   

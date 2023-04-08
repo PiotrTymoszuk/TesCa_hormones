@@ -63,5 +63,27 @@
     
   }
   
+# plot panels -------
+  
+  factor_plot_pair <- function(x, y) {
+    
+    ## stitches two plots for factor variables together
+    ## and provides a common legend below the plot
+    
+    list(x, y) %>% 
+      map(~.x + 
+            theme(legend.position = 'none',
+                  axis.text.x = element_text(size = 7))) %>% 
+      plot_grid(plotlist = ., 
+                ncol = 2, 
+                align = 'hv',
+                axis = 'tblr') %>% 
+      plot_grid(get_legend(x + 
+                             theme(legend.position = 'bottom')), 
+                nrow = 2, 
+                rel_heights = c(0.8, 0.2))
+    
+  }
+  
   
 # END -------

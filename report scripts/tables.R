@@ -113,7 +113,7 @@
          c('hormones')) %>% 
     map(~filter(histology$result_tbl, class %in% .x)) %>% 
     map(select, - class) %>% 
-    map(set_names, c('Variable', 'Seminoma', 'Mixed', 
+    map(set_names, c('Variable', 'Seminoma', 'NSGCT', 
                      'Significance', 'Effect size')) %>% 
     list(x = ., 
          label = c('table_4_cohort_demography_cancer', 
@@ -122,7 +122,7 @@
                       'histology_hormones'), 
          caption = c(paste('Demographic and cancer-related characteristic', 
                            'of study participants with seminomas', 
-                           'and mixed-type cancers.', 
+                           'and non-seminomatous germ cell tumors.', 
                            'Numeric variables are presented as', 
                            'medians with interqurtile ranges (IQR)', 
                            'and ranges.', 
@@ -131,7 +131,7 @@
                            'complete observation set.'), 
                      paste('Pre-surgery levels of sex hormones', 
                            'in study participants with seminomas', 
-                           'and mixed-type cancers.', 
+                           'and non-seminomatous germ cell tumors.', 
                            'Numeric variables are presented as', 
                            'medians with interqurtile ranges (IQR)', 
                            'and ranges.', 
@@ -164,7 +164,7 @@
   
 # Table 9: differences between hormone classes ------
   
-  insert_msg('Table 9')
+  insert_msg('Table 9: hormone subsets')
   
   tables$classes <- class_bcg$result_tbl %>% 
     select(-class) %>% 
@@ -186,10 +186,35 @@
                             'Categorical variables are presented', 
                             'as percentages and counts within the', 
                             'complete observation set.'))
+
+# Table 10: hormone classes and marker status -------
   
-# Table 10: Elastic Net Cox regression -----
+  insert_msg('Table 10: hormone subsets and marker status')
   
-  insert_msg('Table 10: Elastic Net Cox regression')
+  tables$classes_markers <- class_mark$result_table %>% 
+    compress(names_to = 'subset') %>%
+    relocate(subset) %>% 
+    set_names(c('Hormonal subset', 
+                'Variable', 
+                levels(class_mark$analysis_tbl[[1]]$marker_status), 
+                'Significance', 
+                'Effect size')) %>% 
+    mdtable(label = 'table_10_differences_hormon_subsets_marker', 
+            ref_name = 'classes_markers', 
+            caption = paste('Significant differences in neutral and pituitary', 
+                            'hormonal subset participants split by', 
+                            'cancer marker positivity.', 
+                            'Numeric variables are presented as', 
+                            'medians with interqurtile ranges (IQR)', 
+                            'and ranges.', 
+                            'Categorical variables are presented', 
+                            'as percentages and counts within the', 
+                            'complete observation set.'))
+  
+  
+# Table 11: Elastic Net Cox regression -----
+  
+  insert_msg('Table 11: Elastic Net Cox regression')
   
   tables$elastic_net <- multi_cox$analysis_tbl %>% 
     names
@@ -211,7 +236,7 @@
   tables$elastic_net <- 
     tibble(`Explanatory variable` = paste(tables$elastic_net$label, 
                                           collapse = ', ')) %>% 
-    mdtable(label = 'table_10_elastic_net_variables', 
+    mdtable(label = 'table_11_elastic_net_variables', 
             ref_name = 'elastic_net', 
             caption = paste('Explanatory variables in multi-parameter', 
                             'Elastic Cox modeling of relapse-free survival.'))

@@ -18,11 +18,18 @@
                           'pt_stage', 
                           'residual_tumor', 
                           'max_size_cm', 
+                          'histology', 
+                          'teratoma_percent', 
+                          'embryonal_percent', 
+                          'yolk_sac_ca_percent',
+                          'seminoma_percent', 
                           'infiltration_rete_testis', 
                           'lymphovas_invasion', 
                           'cs_lugano', 
                           'AFP', 
                           'AFP_class', 
+                          'HCG', 
+                          'HCG_class', 
                           'LDH',
                           'LDH_class', 
                           'chemotherapy', 
@@ -31,7 +38,7 @@
                           'testosterone_replacement')
 
   class_rf$analysis_tbl <- tesca$data %>% 
-    select(ID, histology, all_of(class_rf$variables)) %>% 
+    select(ID, all_of(class_rf$variables)) %>% 
     left_join(lca$assingment, ., by = 'ID') %>% 
     filter(complete.cases(.)) %>% 
     column_to_rownames('ID')
@@ -206,9 +213,3 @@
 # END -------
   
   insert_tail()
-    
-  
-  
-    
-  
-  
