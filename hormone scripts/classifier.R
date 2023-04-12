@@ -183,7 +183,7 @@
                                                       decreasing = TRUE), 
                                                  collapse = '|')), 
            level = stri_replace(parameter, 
-                                regex = paste(sort(histo_class$variables, 
+                                regex = paste(sort(class_rf$variables, 
                                                    decreasing = TRUE), 
                                               collapse = '|'), 
                                 replacement = ''), 

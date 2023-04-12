@@ -26,7 +26,13 @@
                            'FSH_sqrt', 
                            'LH_sqrt', 
                            'FSH_sqrt', 
+                           'PRL_class',
+                           'E2_class', 
+                           'T_total_class', 
+                           'LH_class', 
+                           'FSH_class', 
                            'HCG_class', 
+                           'AFP_class', 
                            'testosterone_replacement', 
                            'LDH_class', 
                            'cs_lugano', 
@@ -49,9 +55,7 @@
   ## normalization
   
   multi_cox$analysis_tbl <- surv_globals$data %>% 
-    select(ID, relapse, rfs_days, all_of(multi_cox$variables)) %>% 
-    filter(complete.cases(.)) %>% 
-    column_to_rownames('ID')
+    select(ID, relapse, rfs_days, any_of(multi_cox$variables))
   
   multi_cox$numeric_vars <- multi_cox$analysis_tbl %>% 
     map_lgl(is.numeric)
@@ -69,6 +73,15 @@
              !!i := scale(.data[[i]])[, 1])
     
   }
+  
+  ## adding the hormone subset information, complete cases
+  
+  multi_cox$analysis_tbl <- 
+    left_join(multi_cox$analysis_tbl,
+              lca$assingment, 
+              by = 'ID') %>% 
+    column_to_rownames('ID') %>% 
+    filter(complete.cases(.))
   
   ## X and Y matrices
   

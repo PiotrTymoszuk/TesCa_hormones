@@ -18,9 +18,32 @@
             ref_name = 'study_vars', 
             caption = 'Study variables.')
   
-# Table 2 missingness and information content of the variables ------
+# Table 2: differences between the analyzed and excluded patients -------
   
-  insert_msg('Table 2: missingness and information content of the variables')
+  insert_msg('Table 2: differences between included and excluded patients')
+
+  tables$excluded <- excl$result_tbl %>% 
+    set_names(c('Variable', 
+                'Included', 
+                'Excluded', 
+                'Significance', 
+                'Effect size')) %>% 
+    mdtable(label = 'table_2_included_excluded', 
+            ref_name = 'excluded', 
+            caption = paste('Significant differences between testic cancer', 
+                            'patients included in the analysis and patients', 
+                            'excluded from the analysis due to > 50%', 
+                            'data missingness.', 
+                            'Numeric variables are presented as', 
+                            'medians with interqurtile ranges (IQR)', 
+                            'and ranges.', 
+                            'Categorical variables are presented', 
+                            'as percentages and counts within the', 
+                            'complete observation set.'))
+    
+# Table 3 missingness and information content of the variables ------
+  
+  insert_msg('Table 3: missingness and information content of the variables')
   
   tables$miss_inf <- 
     left_join(missing$variable$stats, 
@@ -35,15 +58,15 @@
     set_names(c('Variable', 'Complete observations', 
                 'Missing observations', 'Percentage missing observations', 
                 'Gini index')) %>% 
-    mdtable(label = 'table_2_variable_missingness_gini', 
+    mdtable(label = 'table_3_variable_missingness_gini', 
             ref_name = 'miss_inf', 
             caption = paste('Percentage of missing records and Gini', 
                             'coefficients as measure of information content', 
                             'of the study variables.'))
   
-# Table 3: Normality testing: normality testing ------
+# Table 4: Normality testing: normality testing ------
   
-  insert_msg('Table 3: normality testing, best transformations')
+  insert_msg('Table 4: normality testing, best transformations')
 
   tables$best_transf <- distr$best_trans %>% 
     filter(source_variable != 'rfs_days') %>% 
@@ -63,15 +86,15 @@
               'Shapiro-Wilk W', 
               'Significance', 
               'Complete observations') %>% 
-    mdtable(label = 'table_3_normality', 
+    mdtable(label = 'table_4_normality', 
             ref_name = 'best_transformation', 
             caption = paste('Normality assessment by Shapiro-Wilk', 
                             'test for the optimal normality-improving', 
                             'transformations of the numeric study variables.'))
   
-# Table 4 - 5: characteristic of the study cohort --------
+# Table 5 - 6: characteristic of the study cohort --------
   
-  insert_msg('Table 4 and 5: characteristic of the study cohort')
+  insert_msg('Table 5 and 6: characteristic of the study cohort')
   
   tables[c('cohort_demo_cancer', 
            'cohort_hormones')] <- 
@@ -81,8 +104,8 @@
     map(select, - class) %>% 
     map(set_names, c('Variable', 'Statistic')) %>% 
     list(x = ., 
-         label = c('table_4_cohort_demography_cancer', 
-                   'table_5_cohort_sex_hormones'), 
+         label = c('table_5_cohort_demography_cancer', 
+                   'table_6_cohort_sex_hormones'), 
          ref_name = c('cohort_demo_cancer', 
                       'cohort_hormones'), 
          caption = c(paste('Demographic and cancer-related characteristic', 
@@ -103,9 +126,9 @@
                            'complete observation set.'))) %>% 
     pmap(mdtable)
   
-# Table 6 - 7: differences between histology types ------
+# Table 7 - 8: differences between histology types ------
   
-  insert_msg('Table 6 - 7: Differences between the histology types')
+  insert_msg('Table 7 - 8: Differences between the histology types')
   
   tables[c('histology_demo_cancer', 
            'histology_hormones')] <- 
@@ -116,8 +139,8 @@
     map(set_names, c('Variable', 'Seminoma', 'NSGCT', 
                      'Significance', 'Effect size')) %>% 
     list(x = ., 
-         label = c('table_4_cohort_demography_cancer', 
-                   'table_5_cohort_sex_hormones'), 
+         label = c('table_7_cohort_demography_cancer', 
+                   'table_8_cohort_sex_hormones'), 
          ref_name = c('histology_demo_cancer', 
                       'histology_hormones'), 
          caption = c(paste('Demographic and cancer-related characteristic', 
@@ -141,9 +164,9 @@
     pmap(mdtable)
     
   
-# Table 8: posterior probabilities and class assignment ------
+# Table 9: posterior probabilities and class assignment ------
   
-  insert_msg('Table 8: posterior p and class assigment')
+  insert_msg('Table 9: posterior p and class assigment')
   
   tables$lca_posterior <- 
     left_join(lca$posterior %>% 
@@ -155,16 +178,16 @@
                 levels(lca$assingment$class), 
                 'Hormonal subset')) %>% 
     map_dfc(function(x) if(is.numeric(x)) signif(x, 2) else x) %>% 
-    mdtable(label = 'table_8_hormonal_subsets', 
+    mdtable(label = 'table_9_hormonal_subsets', 
             ref_name = 'lca-posterior', 
             caption = paste('Posterior probabilities of the hormonal subset', 
                             'assignment obtained by latent class analysis.', 
                             'The table is available in a', 
                             'supplementary Excel file.'))
   
-# Table 9: differences between hormone classes ------
+# Table 10: differences between hormone classes ------
   
-  insert_msg('Table 9: hormone subsets')
+  insert_msg('Table 10: hormone subsets')
   
   tables$classes <- class_bcg$result_tbl %>% 
     select(-class) %>% 
@@ -174,7 +197,7 @@
                 'Pituitary', 
                 'Significance', 
                 'Effect size')) %>% 
-    mdtable(label = 'table_9_hormone_subsets', 
+    mdtable(label = 'table_10_hormone_subsets', 
             ref_name = 'classes', 
             caption = paste('Demographic and clinical characteristic', 
                             'of participant subsets developed by', 
@@ -187,9 +210,9 @@
                             'as percentages and counts within the', 
                             'complete observation set.'))
 
-# Table 10: hormone classes and marker status -------
+# Table 11: hormone classes and marker status -------
   
-  insert_msg('Table 10: hormone subsets and marker status')
+  insert_msg('Table 11: hormone subsets and marker status')
   
   tables$classes_markers <- class_mark$result_table %>% 
     compress(names_to = 'subset') %>%
@@ -199,7 +222,7 @@
                 levels(class_mark$analysis_tbl[[1]]$marker_status), 
                 'Significance', 
                 'Effect size')) %>% 
-    mdtable(label = 'table_10_differences_hormon_subsets_marker', 
+    mdtable(label = 'table_11_differences_hormon_subsets_marker', 
             ref_name = 'classes_markers', 
             caption = paste('Significant differences in neutral and pituitary', 
                             'hormonal subset participants split by', 
@@ -212,9 +235,9 @@
                             'complete observation set.'))
   
   
-# Table 11: Elastic Net Cox regression -----
+# Table 12: Elastic Net Cox regression -----
   
-  insert_msg('Table 11: Elastic Net Cox regression')
+  insert_msg('Table 12: Elastic Net Cox regression')
   
   tables$elastic_net <- multi_cox$analysis_tbl %>% 
     names
@@ -231,12 +254,15 @@
                             dict = surv_globals$lexicon), 
            label = ifelse(order == 'second',
                           paste0('(', label, ')\u00B2'), 
+                          label), 
+           label = ifelse(is.na(label), 
+                          'Hormonal subset', 
                           label))
   
   tables$elastic_net <- 
     tibble(`Explanatory variable` = paste(tables$elastic_net$label, 
                                           collapse = ', ')) %>% 
-    mdtable(label = 'table_11_elastic_net_variables', 
+    mdtable(label = 'table_12_elastic_net_variables', 
             ref_name = 'elastic_net', 
             caption = paste('Explanatory variables in multi-parameter', 
                             'Elastic Cox modeling of relapse-free survival.'))

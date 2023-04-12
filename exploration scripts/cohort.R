@@ -26,7 +26,7 @@
   insert_msg('Descriptive stats')
   
   cohort$desc_stats <- tesca$data %>% 
-    explore(variables = cohort$variables, 
+    explore(variables = cohort$var_class$variable, 
             what = 'table', 
             pub_styled = TRUE) %>% 
     left_join(cohort$var_class, by = 'variable') %>% 

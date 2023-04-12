@@ -33,7 +33,20 @@
   tesca$cleared <- tesca$raw %>% 
     transmute(ID = paste0('P', 1:nrow(tesca$raw)), 
               birth_date = Geburtsdatum, 
-              surgery_date = `OP Datum`, 
+              ## there's an obvious error in surgery date for some patients
+              ## the year '1905' could not be true. In such cases, the surgery 
+              ## date is computed based on the (approximate) age at surgery 
+              ## provided by the study team
+              surgery_date = as.character(`OP Datum`),
+              surgery_date = ifelse(!stri_detect(surgery_date, regex = '^1905'), 
+                                    surgery_date, 
+                                    paste(as.numeric(stri_extract(as.character(Geburtsdatum), 
+                                                                  regex = '^\\d{4}')) + 
+                                            as.numeric(Alter), 
+                                          stri_extract(as.character(Geburtsdatum), 
+                                                       regex = '\\d{2}-\\d{2}$'), 
+                                          sep = '-')),   
+              surgery_date = as.Date(surgery_date), 
               age_surgery = difftime(surgery_date, birth_date),
               age_surgery = time_length(age_surgery, unit = 'years'), 
               surgery_type = car::recode(`OP (1=Sx, 2=Enukleation)`, 
@@ -76,15 +89,15 @@
               chorion_ca_percent = as.numeric(stri_extract(`ChorionCA (%)`, regex = '\\d+')), 
               yolk_sac_ca_percent = as.numeric(stri_extract(`DottersackTU (%)`, regex = '\\d+')), 
               seminoma_percent = as.numeric(stri_extract(`Seminom (%)`, regex = '\\d+')), 
-              teratoma_percent = ifelse(is.na(teratoma_percent) & histology == 'seminoma', 
+              teratoma_percent = ifelse(histology == 'seminoma', 
                                         0, teratoma_percent), 
-              embryonal_percent = ifelse(is.na(embryonal_percent) & histology == 'seminoma', 
+              embryonal_percent = ifelse(histology == 'seminoma', 
                                          0, embryonal_percent), 
-              chorion_ca_percent = ifelse(is.na(chorion_ca_percent) & histology == 'seminoma', 
+              chorion_ca_percent = ifelse(histology == 'seminoma', 
                                           0, chorion_ca_percent), 
-              yolk_sac_ca_percent = ifelse(is.na(yolk_sac_ca_percent) & histology == 'seminoma', 
+              yolk_sac_ca_percent = ifelse(histology == 'seminoma', 
                                             0, yolk_sac_ca_percent), 
-              seminoma_percent = ifelse(is.na(seminoma_percent) & histology == 'seminoma', 
+              seminoma_percent = ifelse(histology == 'seminoma', 
                                         100, seminoma_percent), 
               ## dummy variable for predominant cancer histologies:
               ## defined as >= 75% histology
@@ -108,6 +121,7 @@
                                     c(-Inf, 75, Inf), 
                                     c('no', 'yes'), 
                                     right = FALSE), 
+              ## sex hormones prior to surgery
               LH = ifelse(stri_detect(`LH (mU/ml)`, fixed = '<'), 
                           0, as.numeric(`LH (mU/ml)`)), 
               FSH = ifelse(stri_detect(`FSH (mU/ml)`, fixed = '<'), 
@@ -242,13 +256,33 @@
            marker_status = factor(marker_status, 
                                   c('AFP/HCG-', 'AFP/HCG+')))
   
-# analysis data set: patients with the survival data provided --------
+# analysis data set: patients with < 50% missing data included --------
   
-  insert_msg('Analysis dataset: patients with survival data')
+  insert_msg('Analysis dataset: patients with < 50% missing data')
   
+  tesca$missing <- tesca$cleared %>%
+    select(- ID) %>% 
+    map_dfc(is.na) %>% 
+    as.matrix %>% 
+    set_rownames(tesca$cleared$ID)
+  
+  tesca$missing <- tesca$missing %>% 
+    rowSums %>% 
+    compress(names_to = 'ID', 
+             values_to = 'n_missing') %>% 
+    mutate(perc_missing = n_missing/ncol(tesca$cleared) * 100)
+  
+  tesca$included_records <- tesca$missing %>% 
+    filter(perc_missing <= 50) %>% 
+    .$ID
+
   tesca$data <- tesca$cleared %>% 
-    filter(!is.na(rfs_days), 
-           !is.na(relapse))
+    filter(ID %in% tesca$included_records)
+  
+  tesca$missing <- NULL
+  tesca$included_records <- NULL
+  
+  tesca <- compact(tesca)
 
 # variable lexicon, variable levels and level n numbers -------
   

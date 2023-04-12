@@ -117,23 +117,23 @@
     predict %>% 
     compact
   
-# Brier scores -------
+# Squared errors and Brier scores -------
   
-  insert_msg('Brier scores')
+  insert_msg('Squared errors and brier scores')
   
-  histo_class$brier_scores <- histo_class$predictions %>% 
+  histo_class$sq_errors <- histo_class$predictions %>% 
     map(~.x$data) %>% 
     map(transmute, 
         .observation = .observation, 
         .outcome = as.numeric(.outcome) - 1, 
         .fitted = NSGCT, 
-        bs = (.fitted - .outcome)^2)
+        sq_error = (.fitted - .outcome)^2)
   
   ## integrated Brier scores
   
   histo_class$stats <- histo_class$stats %>% 
-    mutate(ibs = histo_class$brier_scores %>% 
-             map_dbl(~mean(.x$bs)))
+    mutate(bs = histo_class$sq_errors %>% 
+             map_dbl(~mean(.x$sq_error)))
 
 # Plots of the Brier scores -------
   
@@ -143,18 +143,18 @@
   
   histo_class$brier_caption <- 
     paste0('IBS, training: ', 
-           signif(histo_class$stats$ibs[1], 2), 
+           signif(histo_class$stats$bs[1], 2), 
            ', IBS CV: ', 
-           signif(histo_class$stats$ibs[2], 2), 
+           signif(histo_class$stats$bs[2], 2), 
            ', n = ', nrow(histo_class$analysis_tbl))
   
   ## observation number and BS
   
   histo_class$brier_plots$obs_score <- 
-    histo_class$brier_scores %>% 
+    histo_class$sq_errors %>% 
     compress(names_to = 'dataset') %>% 
     ggplot(aes(x = .observation, 
-               y = bs, 
+               y = sq_error, 
                color = dataset)) +
     geom_path() + 
     scale_color_manual(values = c(train = 'steelblue', 
@@ -163,21 +163,21 @@
                                   cv = '10-fold CV'), 
                        name = '') + 
     globals$common_theme + 
-    labs(title = 'Brier Score per observation', 
+    labs(title = 'Squared error per observation', 
          subtitle = histo_class$brier_caption, 
          x = 'Observation number', 
-         y = 'Brier Score')
+         y = 'Squared error')
   
   ## sorted BS and observation number
   
   histo_class$brier_plots$sorted_score <- 
-    histo_class$brier_scores %>% 
+    histo_class$sq_errors %>% 
     compress(names_to = 'dataset') %>% 
-    ggplot(aes(x = reorder(.observation, bs), 
-               y = bs, 
+    ggplot(aes(x = reorder(.observation, sq_error), 
+               y = sq_error, 
                color = dataset)) +
     geom_point(shape = 16, 
-               size = 1.2) + 
+               size = 1) + 
     scale_color_manual(values = c(train = 'steelblue', 
                                   cv = 'coral3'), 
                        labels = c(train = 'data', 
@@ -187,17 +187,17 @@
     theme(axis.text.x = element_blank(), 
           axis.ticks.x = element_blank(), 
           panel.grid.major.x = element_blank()) + 
-    labs(title = 'Brier Score per observation', 
+    labs(title = 'Squared error per observation', 
          subtitle = histo_class$brier_caption, 
-         x = 'Observation, sorted by Brier score', 
-         y = 'Brier Score')
+         x = 'Observation, sorted by squared error', 
+         y = 'Squared error')
   
   ## histogram
   
   histo_class$brier_plots$histogram <- 
-    histo_class$brier_scores %>% 
+    histo_class$sq_errors %>% 
     compress(names_to = 'dataset') %>% 
-    ggplot(aes(x = bs, 
+    ggplot(aes(x = sq_error, 
                color = dataset)) +
     geom_density() + 
     scale_color_manual(values = c(train = 'steelblue', 
@@ -206,9 +206,9 @@
                                  cv = '10-fold CV'), 
                       name = '') + 
     globals$common_theme + 
-    labs(title = 'Brier Score distribution', 
+    labs(title = 'Squared error distribution', 
          subtitle = histo_class$brier_caption, 
-         x = 'Brier Score', 
+         x = 'Squared error', 
          y = '# observations')
   
 # ROC curves -----

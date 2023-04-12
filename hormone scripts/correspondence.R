@@ -51,6 +51,9 @@
                         as.data.frame %>%
                         set_names(c('comp_1', 'comp_2')) %>% 
                         rownames_to_column('variable') %>% 
+                        mutate(variable = stri_replace(variable, 
+                                                       fixed = '.', 
+                                                       replacement = ' ')) %>% 
                         as_tibble, 
                       data = quo(hor_corresp$analysis_tbl)))
   

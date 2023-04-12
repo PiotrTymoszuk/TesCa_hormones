@@ -79,12 +79,7 @@
                                  "cs_lugano", 
                                  "IGCCCG_risk_group", 
                                  "lymphovas_invasion")] %>% 
-        map(~.x + theme(legend.position = 'bottom')), 
-      list(figures$histology_cancer$AFP + 
-             scale_y_continuous(trans = 'log10') + 
-             theme(legend.position = 'none')), 
-      list(figures$histology_cancer$AFP_class + 
-             theme(legend.position = 'bottom'))) %>% 
+        map(~.x + theme(legend.position = 'bottom'))) %>% 
     map(~.x + theme(axis.title.x = element_blank())) %>% 
     plot_grid(plotlist = ., 
               ncol = 3, 
@@ -96,11 +91,43 @@
                               'cancer features between seminoma and', 
                               'non-seminomatous germ cell tumors.'), 
               w = 180, 
+              h = 155)
+  
+# Figure 6: histology and cancer markers --------
+  
+  insert_msg('Figure 6: histology and cancer markers')
+  
+  figures$histology_markers <- 
+    c(list(histology$plots$AFP + 
+             scale_y_continuous(trans = 'log10') + 
+             theme(legend.position = 'none')), 
+      list(histology$plots$AFP_class), 
+      list(histology$plots$HCG + 
+             theme(legend.position = 'none') + 
+             scale_y_continuous(trans = 'log10')), 
+      list(histology$plots$HCG_class), 
+      list(histology$plots$LDH + 
+             theme(legend.position = 'none') + 
+             scale_y_continuous(trans = 'log10', 
+                                limits = c(90, 3300))), 
+      list(histology$plots$LDH_class)) %>% 
+    map(~.x + theme(axis.title.x = element_blank())) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 2, 
+              align = 'hv', 
+              axis = 'tblr') %>% 
+    as_figure(label = 'figure_6_histology_cancer markers', 
+              ref_name = 'histology_markers', 
+              caption = paste('Significant differences in blood', 
+                              'concentrations of cancer markers', 
+                              'between seminoma and', 
+                              'non-seminomatous germ cell tumors.'), 
+              w = 180, 
               h = 220)
   
-# Figure 6: differences in therapy between the histologies -----
+# Figure 7: differences in therapy between the histologies -----
   
-  insert_msg('Figure 6: differences in therapy between histologies')
+  insert_msg('Figure 7: differences in therapy between histologies')
   
   figures$histology_therapy <- 
     histology$plots[c("RLA", "chemotherapy", "radiotherapy")] %>% 
@@ -115,7 +142,7 @@
                            theme(legend.position = 'bottom')), 
               nrow = 2, 
               rel_heights = c(0.85, 0.15)) %>% 
-    as_figure(label = 'figure_6_histology_therapy', 
+    as_figure(label = 'figure_7_histology_therapy', 
               ref_name = 'histology_therapy',
               caption = paste('Differences in frequency of', 
                               'retroperitoneal lymphadenectomy', 
@@ -125,11 +152,11 @@
               w = 180, 
               h = 85)
   
-# Figure 7 - 8: histology and sex hormones -------
+# Figure 8 - 9: histology and sex hormones -------
   
-  insert_msg('Figure 7 - 8: histology and hormones')
+  insert_msg('Figure 8 - 9: histology and hormones')
   
-  ## figure 6: main sex hormones and HCG
+  ## figure 8: main sex hormones
   
   figures$histology_estro_testo_hcg <- 
     list(histology$plots$T_total + 
@@ -137,13 +164,9 @@
          histology$plots$T_total_class, 
          histology$plots$E2 + 
            theme(legend.position = 'none'), 
-         histology$plots$E2_class, 
-         histology$plots$HCG + 
-           theme(legend.position = 'none') + 
-           scale_y_continuous(trans = 'log10'), 
-         histology$plots$HCG_class)
+         histology$plots$E2_class)
   
-  ## Figure 7: FSH, LH and PRL
+  ## Figure 9: FSH, LH and PRL
   
   figures$histology_fsh_ld_prl <- 
     list(histology$plots$FSH + 
@@ -171,26 +194,26 @@
                    align = 'hv', 
                    axis = 'tblr')) %>% 
     list(x = ., 
-         label = c('figure_7_histology_major_sex_hormones', 
-                   'figure_8_histology_pituitary_sex_hormones'), 
+         label = c('figure_8_histology_major_sex_hormones', 
+                   'figure_9_histology_pituitary_sex_hormones'), 
          ref_name = c('histology_estro_testo_hcg', 
                       'histology_fsh_ld_prl'), 
          caption = c(paste('Differences in pre-surgery levels of testosterone,', 
-                           'estradiol and human chorionic gonadotropin', 
+                           'and estradiol', 
                            'between seminoma and non-seminomatous', 
                            'germ cell tumors.'), 
                      paste('Differences in pre-surgery levels of', 
                            'follicle-stimulating', 
                            'hormone, luteinizing hormone and prolactin', 
                            'between seminoma and', 
-                           'non-seminomatous germ cell tumors.'))) %>% 
+                           'non-seminomatous germ cell tumors.')), 
+         h = c(145, 220)) %>% 
     pmap(as_figure, 
-         w = 180, 
-         h = 220)
+         w = 180)
   
-# Figure 9: signature of NSGCT tumors --------
+# Figure 10: signature of NSGCT tumors --------
   
-  insert_msg('Figure 9: signature of NSGCT tumors')
+  insert_msg('Figure 10: signature of NSGCT tumors')
   
   ## right panel: model performance
   
@@ -204,12 +227,13 @@
               nrow = 3, 
               align = 'v', 
               axis = 'tblr') %>% 
-    plot_grid(histo_class$importance_plot, ., 
+    plot_grid(histo_class$importance_plot + 
+                theme(plot.title.position = 'plot'), ., 
               ncol = 2, 
               rel_widths = c(0.55, 0.45), 
               labels = LETTERS, 
               label_size = 10) %>%
-    as_figure(label = 'figure_9_histology_random_forest_classifier', 
+    as_figure(label = 'figure_10_histology_random_forest_classifier', 
               ref_name = 'histology_class', 
               caption = paste('Multi-paramater clinical signature of', 
                               'non-seminomatous germ cell tumors', 
@@ -218,12 +242,12 @@
               w = 180, 
               h = 220)
 
-# Figure 10: histology and survival -------
+# Figure 11: histology and survival -------
   
-  insert_msg('Figure 10: histology and survival')
+  insert_msg('Figure 11: histology and survival')
   
   figures$histology_survival <- histo_surv$plot %>% 
-    as_figure(label = 'figure_10_histology_survival', 
+    as_figure(label = 'figure_11_histology_survival', 
               ref_name = 'histology_survival', 
               caption = paste('Relapse-free surcical in patients', 
                               'with seminoma and non-seminomatous', 
@@ -231,23 +255,23 @@
               w = 120, 
               h = 75)
   
-# Figure 11: results of histology comparison -----
+# Figure 12: results of histology comparison -----
   
-  insert_msg('Figure 11: results of histology comparison, summary')
+  insert_msg('Figure 12: results of histology comparison, summary')
   
   figures$histology_summary <- 
     plot_grid(ggdraw() + 
                 draw_image('./schemes/results_histology.png')) %>% 
-    as_figure(label = 'figure_11_histology_result_summary', 
+    as_figure(label = 'figure_12_histology_result_summary', 
               ref_name = 'histology_summary', 
               caption = paste('Key differences between seminoma and', 
                               'non-seminomatous germ cell tumors.'), 
               w = 180, 
-              h = 180 * 1884/3858)
+              h = 180 * 1950/3858)
   
-# Figure 12: pre-surgery hormone levels, PCA and MCA -------
+# Figure 13: pre-surgery hormone levels, PCA and MCA -------
   
-  insert_msg('Figure 12: PCA and MCA')
+  insert_msg('Figure 13: PCA and MCA')
   
   figures$hormone_components <- 
     list(pca$pca_plots$loadings, 
@@ -266,19 +290,19 @@
               axis = 'tblr', 
               labels = LETTERS, 
               label_size = 12) %>% 
-    as_figure(label = 'figure_12_components_hormones', 
+    as_figure(label = 'figure_13_components_hormones', 
               ref_name = 'hormone_components', 
               caption = paste('Component analysis of pre-surgery', 
                               'sex hormone levels.'), 
-              w = 120,  
+              w = 140,  
               h = 200)
 
-# Figure 13: tuning of LC model ----
+# Figure 14: tuning of LC model ----
   
-  insert_msg('Figure 13: tuning of the LC model')
+  insert_msg('Figure 14: tuning of the LC model')
   
   figures$lca_tuning <- lca$tuning$bic_plot %>% 
-    as_figure(label = 'figure_13_lca_class_number', 
+    as_figure(label = 'figure_14_lca_class_number', 
               ref_name = 'lca_tuning',
               caption = paste('Determination of the optimal', 
                               'number of hormonal subsets of testicle cancer', 
@@ -286,9 +310,9 @@
               w = 110, 
               h = 80)
   
-# Figure 14: cancer subsets ------
+# Figure 15: cancer subsets ------
   
-  insert_msg('Figure 14: latent classes')
+  insert_msg('Figure 15: latent classes')
   
   figures$latent_classes <- 
     class_hormo$plots[c("T_total_class", "E2_class", 
@@ -297,7 +321,7 @@
               ncol = 2, 
               align = 'hv', 
               axis = 'tblr') %>% 
-    as_figure(label = 'figure_14_patient_subsets', 
+    as_figure(label = 'figure_15_patient_subsets', 
               ref_name = 'latent_classes', 
               caption = paste('Hormonal subsets of testis cancer patients', 
                               'defined by latent class analysis', 
@@ -306,9 +330,9 @@
               w = 180, 
               h = 220)
   
-# Figure 15: hormones in cancer subsets -------
+# Figure 16: hormones in cancer subsets -------
   
-  insert_msg('Figure 15: hormones of cancer subsets')
+  insert_msg('Figure 16: hormones of cancer subsets')
   
   figures$hormone_classes <- 
     plot_grid(class_hormo$ribbon_plot + 
@@ -319,7 +343,7 @@
               get_legend(class_hormo$ribbon_plot), 
               ncol = 2, 
               rel_widths = c(1, 0.3)) %>% 
-    as_figure(label = 'figure_15_patient_subsets_hormones', 
+    as_figure(label = 'figure_16_patient_subsets_hormones', 
               ref_name = 'hormone_classes', 
               caption = paste('Pre-surgery blood concentrations of', 
                               'sex hormones in the hormonal subsets', 
@@ -327,9 +351,9 @@
               w = 180, 
               h = 150)
   
-# Figure 16: subsets and demographic features ------
+# Figure 17: subsets and demographic features ------
   
-  insert_msg('Figure 16: subsets and demographics')
+  insert_msg('Figure 17: subsets and demographics')
   
   figures$classes_demography <- 
     plot_grid(class_bcg$plots$age_surgery, 
@@ -338,16 +362,16 @@
               ncol = 2, 
               align = 'hv', 
               axis = 'tblr') %>% 
-    as_figure(label = 'figure_16_patient_subsets_demography', 
+    as_figure(label = 'figure_17_patient_subsets_demography', 
               ref_name = 'demography_classes', 
               caption = paste('Differences in age and body mass index', 
                               'between the hormonal subsets of testis cancer.'), 
               w = 180,
               h = 140)
   
-# Figure 17: subsets, tumor size and pathology ------
+# Figure 18: subsets, tumor size and pathology ------
   
-  insert_msg('Figure 17: subsets and cancer pathology')
+  insert_msg('Figure 18: subsets and cancer pathology')
   
   figures$classes_pathology <-
     plot_grid(class_bcg$plots$max_size_cm, 
@@ -359,16 +383,16 @@
               ncol = 2, 
               align = 'hv', 
               axis = 'tblr') %>% 
-    as_figure(label = 'figure_17_patient_subsets_pathology', 
+    as_figure(label = 'figure_18_patient_subsets_pathology', 
               ref_name = 'classes_pathology', 
               caption = paste('Pathological cancer characteristic', 
                               'in the hormonal subsets of testis cancer.'), 
               w = 180, 
               h = 220)
 
-# Figure 18: subsets and histology -------
+# Figure 19: subsets and histology -------
   
-  insert_msg('Figure 18: subsets and histology')
+  insert_msg('Figure 19: subsets and histology')
   
   figures$classes_histology <- 
     class_bcg$plots[c("seminoma_percent", 
@@ -378,7 +402,7 @@
     plot_grid(plotlist = ., 
               ncol = 3, 
               align = 'hv') %>% 
-    as_figure(label = 'figure_18_subsets_histology', 
+    as_figure(label = 'figure_19_subsets_histology', 
               ref_name = 'classes_histology', 
               caption = paste('Percentages of seminoma, teratoma, embryonal', 
                               'and yolk sac cancer histologies in the', 
@@ -386,9 +410,9 @@
               w = 180, 
               h = 140)
   
-# Figure 19: subsets, cancer markers -------
+# Figure 20: subsets, cancer markers -------
   
-  insert_msg('Figure 19: subsets and cancer markers')
+  insert_msg('Figure 20: subsets and cancer markers')
   
   figures$classes_markers <- 
     plot_grid(class_bcg$plots$AFP + 
@@ -404,33 +428,58 @@
               ncol = 2, 
               align = 'hv', 
               axis = 'tblr') %>% 
-    as_figure(label = 'figure_19_patient_subsets_markers', 
+    as_figure(label = 'figure_20_patient_subsets_markers', 
               ref_name = 'classes_markers', 
               caption = paste('Blood levels of biochemical cancer markers', 
                               'in the hormonal subsets of testis cancer.'), 
               w = 180, 
               h = 220)
-
-# Figure 20: subsets and therapy -------
   
-  insert_msg('Figure 20: subsets and cancer therapy')
+# Figure 21: subsets, free testosterone and SHBG -------
   
-  figures$classes_therapy <- 
-    class_bcg$plots[c("RLA", "chemotherapy", "radiotherapy")] %>% 
+  insert_msg('Figure 21: free testosterone and SHBG')
+  
+  figures$classes_tfree_shbg <- class_bcg$plots[c("T_free", "SHBG")] %>% 
+    map(~.x + 
+          theme(legend.position = 'none', 
+                axis.title.x = element_blank())) %>% 
     plot_grid(plotlist = ., 
               ncol = 2, 
               align = 'hv', 
               axis = 'tblr') %>% 
-    as_figure(label = 'figure_20_patient_subsets_therapy', 
+    as_figure(label = 'figure_21_subsets_tfree_shbg', 
+              ref_name = 'classes_tfree_shbg', 
+              caption = paste('Differences in blood concentrations', 
+                              'of free testosterone and sex hormone-binding', 
+                              'globulin in the hormonal subsets.'),
+              w = 140, 
+              h = 75)
+
+# Figure 22: subsets and therapy -------
+  
+  insert_msg('Figure 22: subsets and cancer therapy')
+  
+  figures$classes_therapy <- 
+    class_bcg$plots[c("RLA", 
+                      "chemotherapy", 
+                      "radiotherapy", 
+                      "testosterone_replacement")] %>% 
+    map(~.x + theme(legend.position = 'none')) %>% 
+    c(list(get_legend(class_bcg$plots$chemotherapy))) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 3, 
+              align = 'hv', 
+              axis = 'tblr') %>% 
+    as_figure(label = 'figure_22_patient_subsets_therapy', 
               ref_name = 'classes_therapy', 
               caption = paste('Therapy in the hormonal subsets', 
                               'of testis cancer.'), 
               w = 180, 
-              h = 140)
+              h = 155)
   
-# Figure 20: multi-parameter classifier ------
+# Figure 23: multi-parameter classifier ------
   
-  insert_msg('Figure 21: subsets, Random Forest classifier')
+  insert_msg('Figure 23: subsets, Random Forest classifier')
   
   figures$classes_random_forest <- 
     class_rf$confusion_plots %>% 
@@ -440,12 +489,13 @@
     plot_grid(plotlist = ., 
               nrow = 3, 
               rel_heights = c(1, 1, 0.5)) %>%
-      plot_grid(class_rf$importance_plot, ., 
+      plot_grid(class_rf$importance_plot + 
+                  theme(plot.title.position = 'plot'), ., 
                 ncol = 2, 
-                rel_widths = c(0.6, 0.4), 
+                rel_widths = c(0.52, 0.48), 
                 labels = LETTERS, 
                 label_size = 10) %>% 
-    as_figure(label = 'figure_21_subsets_classifier', 
+    as_figure(label = 'figure_23_subsets_classifier', 
               ref_name = 'classes_random_forest', 
               caption = paste('Demographic and clinical signature', 
                               'of the hormonal subsets of testis cancer', 
@@ -454,25 +504,25 @@
               w = 180, 
               h = 180)
   
-# Figure 22: subsets and survival ------
+# Figure 24: subsets and survival ------
   
-  insert_msg('Figure 22: subsets and survival')
+  insert_msg('Figure 24: subsets and survival')
   
   figures$classes_survival <- class_surv$plot %>% 
-    as_figure(label = 'figure_22_subsets_survival', 
+    as_figure(label = 'figure_24_subsets_survival', 
               ref_name = 'classes_survival', 
               caption = paste('Relapse-free surcical in the hormonal subsets', 
                               'of testis cancer.'),
               w = 120, 
               h = 75)
   
-# Figure 23: subsets and marker status ------
+# Figure 25: subsets and marker status ------
   
-  insert_msg('Figure 23: subsets and marker status')
+  insert_msg('Figure 25: subsets and marker status')
   
   figures$classes_marker_status <- 
     plot_grid(class_bcg$plots$marker_status) %>% 
-    as_figure(label = 'figure_23_subsets_marker_status', 
+    as_figure(label = 'figure_25_subsets_marker_status', 
               ref_name = 'classes_marker',
               caption = paste('Alpha fetoprotein and human chorionic', 
                               'gonadotropin marker status', 
@@ -480,9 +530,9 @@
               w = 90, 
               h = 80)
   
-# Figure 24: markers: tumor size, LDH concentrations, staging and histology -----
+# Figure 26: markers: tumor size, LDH concentrations, staging and histology -----
   
-  insert_msg('Figure 24: marker status and cancer features')
+  insert_msg('Figure 26: marker status and cancer features')
   
   ## tumor size
   
@@ -546,7 +596,7 @@
               axis = 'tblr', 
               labels = LETTERS, 
               label_size = 10) %>% 
-    as_figure(label = 'figure_24_marker_status_subsets_pathology', 
+    as_figure(label = 'figure_26_marker_status_subsets_pathology', 
               ref_name = 'marker_cancer', 
               caption = paste('Significant differences in tumor pathology', 
                               'between neutral and pituitary hormonal subset', 
@@ -555,23 +605,53 @@
               w = 190, 
               h = 240)
   
-# Figure 25: hormonal subsets, summary -----
+# Figure 27: markers and therapy -------
   
-  insert_msg('Figure 25: hormonal subsets, summary')
+  insert_msg('Figure 27: markers and therapy')
+  
+  figures$marker_therapy <- 
+    class_mark$plots %>% 
+    map(~.x[c('RLA', 'chemotherapy', 
+              'radiotherapy', 'testosterone_replacement')]) %>% 
+    transpose %>% 
+    unlist(recursive = FALSE) %>% 
+    map(~.x + theme(legend.position = 'none')) %>% 
+    plot_grid(plotlist = .,
+              ncol = 4, 
+              align = 'hv', 
+              axis = 'tblr', 
+              labels = c('A', '', 'B', '', 
+                         'C', '', 'D', ''), 
+              label_size = 10) %>% 
+    plot_grid(get_legend(class_mark$plots$neutral$chemotherapy), 
+              nrow = 2, 
+              rel_heights = c(0.9, 0.1)) %>% 
+    as_figure(label = 'figure_27_subsets_marker_therapy', 
+              ref_name = 'marker_therapy', 
+              caption = paste('Differences in cancer therapy', 
+                              'between neutral and pituitary hormonal subset', 
+                              'participants split by the alpha fetoprotein', 
+                              'and human chorionic gonadotropin status.'), 
+              w = 200, 
+              h = 155)
+  
+# Figure 28: hormonal subsets, summary -----
+  
+  insert_msg('Figure 28: hormonal subsets, summary')
   
   figures$classes_summary <- 
     plot_grid(ggdraw() + 
                 draw_image('./schemes/results_hormones.png')) %>% 
-    as_figure(label = 'figure_25_subsets_summary', 
+    as_figure(label = 'figure_28_subsets_summary', 
               ref_name = 'classes_summary',
               caption = paste('Key characteristic of the hormonal subsets', 
                               'of testicle cancer.'), 
               w = 180, 
-              h = 180 * 2610/3936)
+              h = 180 * 2730/3936)
   
-# Figure 26: sex hormones and survival --------
+# Figure 29: sex hormones and survival --------
   
-  insert_msg('Figure 26: sex hormones and survival')
+  insert_msg('Figure 29: sex hormones and survival')
   
   figures$uni_cox <- uni_cox$forest_plots %>% 
     map2(., c('Hormones, clinical strata', 
@@ -601,7 +681,7 @@
               ncol = 2, 
               align = 'hv', 
               axis = 'tblr') %>% 
-    as_figure(label = 'figure_26_univariate_cox', 
+    as_figure(label = 'figure_29_univariate_cox', 
               ref_name = 'uni_cox', 
               caption = paste('Modeling of relapse-free survival as a function', 
                               'of pre-surgery sex hormone levels', 
@@ -609,9 +689,9 @@
               w = 180, 
               h = 220)
     
-# Figure 27: Elastic Net survival modeling -----  
+# Figure 30: Elastic Net survival modeling -----  
   
-  insert_msg('Figure 27: Elastic Net survival modeling')
+  insert_msg('Figure 30: Elastic Net survival modeling')
   
   figures$multi_cox <- 
     plot_grid(multi_cox$c_index_plot, 
@@ -633,7 +713,7 @@
               ncol = 2, 
               labels = LETTERS, 
               label_size = 10) %>% 
-    as_figure(label = 'figure_27_multi_parameter_cox_modeling', 
+    as_figure(label = 'figure_30_multi_parameter_cox_modeling', 
               ref_name = 'multi_cox', 
               caption = paste('Multi-paramater Elastic Net', 
                               'Cox modeling of effects of pre-surgery sex', 

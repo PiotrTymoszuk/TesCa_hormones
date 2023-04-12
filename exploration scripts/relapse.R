@@ -48,6 +48,7 @@
     mutate(relapse_factor = car::recode(relapse_factor, 
                                         "'no' = 'no relapse'; 
                                         'yes' = 'relapse'")) %>% 
+    filter(!is.na(relapse_factor)) %>% 
     map_dfc(function(x) if(is.factor(x)) droplevels(x) else x)
   
 # Descriptive stats -------

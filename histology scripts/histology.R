@@ -41,7 +41,7 @@
   insert_msg('Descriptive stats')
   
   histology$stats <- histology$analysis_tbl %>% 
-    explore(variables = histology$variables, 
+    explore(variables = histology$lexicon$variable, 
             split_factor = 'histology', 
             what = 'table', 
             pub_styled = TRUE) %>% 

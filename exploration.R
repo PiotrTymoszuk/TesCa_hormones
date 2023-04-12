@@ -43,6 +43,7 @@
   ex_globals <- list()
   
   ## variables to be explored
+  ## chorion cancer: only one category provided
   
   ex_globals$variables <- 
     names(tesca$data)[!names(tesca$data) %in% c('ID', 
@@ -50,7 +51,8 @@
                                                 'surgery_date', 
                                                 'relapse', 
                                                 'fup_date', 
-                                                'relapse_date')]
+                                                'relapse_date', 
+                                                'chorion_cancer')]
 
 # analysis scripts ------
   
@@ -60,7 +62,8 @@
     './exploration scripts/gini.R', 
     './exploration scripts/distribution.R', 
     './exploration scripts/cohort.R', 
-    './exploration scripts/relapse.R') %>% 
+    './exploration scripts/relapse.R', 
+    './exploration scripts/excluded.R') %>% 
     source_all(message = TRUE, crash = TRUE)
   
 # END -------

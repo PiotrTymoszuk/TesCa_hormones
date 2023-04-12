@@ -90,7 +90,7 @@
   
   class_mark$stats <- class_mark$analysis_tbl %>% 
     future_map(explore, 
-               variables = class_mark$variables, 
+               variables = class_mark$lexicon$variable, 
                split_factor = 'marker_status', 
                what = 'table', 
                pub_styled = TRUE, 

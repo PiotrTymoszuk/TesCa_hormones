@@ -52,12 +52,19 @@
     
     uni_cox$models[[i]] <- 
       uni_cox$formulas[[i]] %>% 
-      map(~call2(.fn = 'coxph', 
+      map2(., names(.), 
+           ~call2(.fn = 'coxph', 
                  formula = .x, 
-                 data = uni_cox$analysis_tbl, 
+                 data = uni_cox$analysis_tbl %>% 
+                   select(relapse, rfs_days, starts_with(.y)) %>% 
+                   filter(complete.cases(.)), 
                  x = TRUE)) %>% 
       map(eval) %>% 
-      map(~as_coxex(.x, data = uni_cox$analysis_tbl ))
+      map2(., names(.), 
+           ~as_coxex(.x, 
+                     data = uni_cox$analysis_tbl %>% 
+                       select(relapse, rfs_days, starts_with(.y)) %>% 
+                       filter(complete.cases(.))))
     
   }
   

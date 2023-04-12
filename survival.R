@@ -72,6 +72,7 @@
               embryonal_cancer = embryonal_cancer, 
               LDH_class = LDH_class, 
               HCG_class = HCG_class, 
+              AFP_class = AFP_class, 
               chemotherapy = chemotherapy, 
               teratoma_cancer = teratoma_cancer, 
               RLA = RLA, 

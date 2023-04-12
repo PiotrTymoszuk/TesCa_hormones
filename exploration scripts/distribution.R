@@ -14,7 +14,8 @@
   
   distr$variables <- tesca$lexicon %>% 
     filter(format == 'numeric', 
-           variable %in% ex_globals$variables) %>% 
+           variable %in% ex_globals$variables, 
+           !variable %in% c('relapse', 'rfs_days')) %>% 
     .$variable
   
   ## analysis tables: variables with sqrt(x) and log(x + 1) transformations
