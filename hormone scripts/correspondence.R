@@ -67,7 +67,8 @@
          jitter_height = c(0.001, 0)) %>% 
     pmap(plot, 
          x = hor_corresp$corr_obj, 
-         cust_theme = globals$common_theme) %>% 
+         cust_theme = globals$common_theme, 
+         txt_type = 'text') %>% 
     map2(., c('Correspondence analysis: row factors', 
               'Correspondence analysis: column factors'), 
          ~.x + 

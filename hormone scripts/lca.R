@@ -28,14 +28,14 @@
   
   ## class range
   
-  lca$tuning$range <- 2:6
+  lca$tuning$range <- 1:8
   
   ## comparing model fit stats for varying class numbers
   
   set.seed(1234)
   
   lca$tuning$models <- 
-    list(nclass = lca$tuning$range ) %>% 
+    list(nclass = lca$tuning$range) %>% 
     pmap(poLCA, 
          formula = lca$formula, 
          data = lca$analysis_tbl, 
@@ -68,17 +68,20 @@
          z = c('AIC', 'BIC', 'Likelihood ratio', 
                '\u03C7\u00B2', 'log-likelihood')) %>% 
     pmap(function(x, y, z) lca$tuning$stats %>% 
-           ggplot(aes(x = factor(class_number), 
+           ggplot(aes(x = class_number, 
                       y = .data[[x]], 
                       group = 'a')) + 
-           geom_vline(xintercept = '3', 
+           geom_vline(xintercept = 3, 
                       linetype = 'dashed', 
                       color = 'coral3') + 
            geom_path(color = 'steelblue') + 
+           geom_point(shape = 16, 
+                      color = 'steelblue') + 
+           scale_x_continuous(breaks = lca$tuning$range) + 
            globals$common_theme + 
            labs(title = y, 
                 subtitle = 'MLE-driven latent class analysis', 
-                x = 'class number', 
+                x = 'Class number, k', 
                 y = z))
   
 # final model -------
@@ -95,14 +98,7 @@
   
   ## class assignment of the observation by simple voting
   
-  lca$assingment <- rownames(lca$posterior) %>% 
-    map(~lca$posterior[.x, ]) %>% 
-    map(~.x[.x == max(.x)]) %>% 
-    map_chr(names) %>% 
-    set_names(rownames(lca$posterior)) %>% 
-    compress(names_to = 'ID', 
-             values_to = 'class') %>% 
-    mutate(class = factor(class))
+  lca$assingment <- nodal_vote(lca$posterior)
   
   ## renaming after the type of deregulated hormone family
   

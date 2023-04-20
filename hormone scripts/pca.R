@@ -42,7 +42,8 @@
     c('scree', 'scores', 'loadings') %>% 
     map(~plot(pca$pca_obj, 
               type = .x, 
-              cust_theme = globals$common_theme)) %>% 
+              cust_theme = globals$common_theme, 
+              txt_type = 'text')) %>% 
     map(~.x + 
           labs(subtitle = paste('Numeric hormone levels, n =', 
                              nrow(pca$analysis_tbl))))

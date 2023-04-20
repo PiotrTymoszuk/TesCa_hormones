@@ -7,5 +7,6 @@
                      'histology.R', 
                      'hormones.R', 
                      'survival.R', 
+                     'TCGA_analysis.R', 
                      'report.R'), 
                    crash = TRUE, message = TRUE))

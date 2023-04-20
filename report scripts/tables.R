@@ -47,7 +47,7 @@
   
   tables$miss_inf <- 
     left_join(missing$variable$stats, 
-              gini$stats, 
+              gini$stats$tesca, 
               by = 'variable') %>% 
     mutate(variable = exchange(variable, 
                                dict = tesca$lexicon, 
@@ -100,7 +100,7 @@
            'cohort_hormones')] <- 
     list(c('demography', 'pathology', 'treatment'),
          c('hormones')) %>% 
-    map(~filter(cohort$desc_stats, class %in% .x)) %>% 
+    map(~filter(cohort$desc_stats$tesca, class %in% .x)) %>% 
     map(select, - class) %>% 
     map(set_names, c('Variable', 'Statistic')) %>% 
     list(x = ., 
@@ -162,7 +162,6 @@
                            'as percentages and counts within the', 
                            'complete observation set.'))) %>% 
     pmap(mdtable)
-    
   
 # Table 9: posterior probabilities and class assignment ------
   

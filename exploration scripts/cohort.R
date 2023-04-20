@@ -1,4 +1,4 @@
-# Characteristic of the study cohort
+# Characteristic of the study cohorts: IBK and TCGA
 
   insert_head()
   
@@ -10,31 +10,39 @@
   
   insert_msg('Analysis globals')
   
-  ## classification of the variables
+  ## variable lexicons
+
+  cohort$lexicon$tesca <- tesca$lexicon %>% 
+    filter(variable %in% ex_globals$variables)
   
-  cohort$variables <- ex_globals$variables
+  cohort$lexicon$tcga <- tcga$lexicon %>% 
+    filter(!variable %in% c('ID', 'relapse', 'death', 'tumor_death', 
+                            'dss_days', 'progression', 'pfs_days'))
   
-  cohort$var_class <- tesca$lexicon %>% 
-    filter(variable %in% cohort$variables) %>% 
-    select(variable, class) %>% 
-    arrange(class)
-  
-  cohort$variables <- cohort$var_class$variable
-  
+  cohort$lexicon <- cohort$lexicon %>% 
+    map(arrange, class)
+
 # descriptive stats -----
   
   insert_msg('Descriptive stats')
   
-  cohort$desc_stats <- tesca$data %>% 
-    explore(variables = cohort$var_class$variable, 
-            what = 'table', 
-            pub_styled = TRUE) %>% 
-    left_join(cohort$var_class, by = 'variable') %>% 
-    relocate(class) %>% 
-    format_tbl(lexicon = tesca$lexicon, 
-               value = 'table_label') %>% 
-    mutate(class = factor(class, levels(cohort$var_class$class))) %>% 
-    arrange(class)
+  cohort$desc_stats <- 
+    list(data = list(tesca = tesca$data, 
+                     tcga = tcga$clinical), 
+         variables = map(cohort$lexicon, ~.$variable)) %>% 
+    pmap(explore, 
+         what = 'table', 
+         pub_styled = TRUE) %>% 
+    map2(., 
+         map(cohort$lexicon, ~.x[c('variable', 'class')]), 
+         left_join, 
+         by = 'variable') %>% 
+    map(relocate, class) %>% 
+    map2(., cohort$lexicon, 
+         ~format_tbl(.x, 
+                     lexicon = .y, 
+                     value = 'table_label'))
+
   
 # END ------
   
