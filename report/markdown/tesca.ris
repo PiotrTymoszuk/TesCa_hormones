@@ -1,0 +1,699 @@
+TY  - JOUR
+T1  - What Is a Normal Testosterone Level for Young Men? Rethinking the 300 ng/dL Cutoff for Testosterone Deficiency in Men 20-44 Years Old
+A1  - Zhu, Alex
+A1  - Andino, Juan
+A1  - Daignault-Newton, Stephanie
+A1  - Chopra, Zoey
+A1  - Sarma, Aruna
+A1  - Dupree, James M.
+Y1  - 2022/12//
+KW  - Adult
+KW  - Aged
+KW  - Alex Zhu
+KW  - Humans
+KW  - Hypogonadism* / drug therapy
+KW  - James M Dupree
+KW  - Juan Andino
+KW  - MEDLINE
+KW  - Male
+KW  - NCBI
+KW  - NIH
+KW  - NLM
+KW  - National Center for Biotechnology Information
+KW  - National Institutes of Health
+KW  - National Library of Medicine
+KW  - Nutrition Surveys
+KW  - PubMed Abstract
+KW  - Reference Values
+KW  - Testicular Neoplasms* / drug therapy
+KW  - Testosterone / therapeutic use
+KW  - United States / epidemiology
+KW  - Young Adult
+KW  - doi:10.1097/JU.0000000000002928
+KW  - pmid:36282060
+PB  - J Urol
+JF  - The Journal of urology
+VL  - 208
+IS  - 6
+SP  - 1295
+EP  - 1301
+DO  - 10.1097/JU.0000000000002928
+UR  - https://pubmed.ncbi.nlm.nih.gov/36282060/
+N2  - Purpose:There is an age-related decline in male testosterone production. It is therefore surprising that young men are evaluated for testosterone deficiency with the same cutoff of 300 ng/dL that was developed from samples of older men. Our aim is to describe normative total testosterone levels and age-specific cutoffs for low testosterone levels in men 20 to 44 years old.Materials and Methods:We analyzed the 2011-2016 National Health and Nutrition Examination Surveys, which survey nationally representative samples of United States residents. Men 20 to 44 years old with testosterone levels were included. Men on hormonal medications, with a history of testicular cancer or orchiectomy, and with afternoon/evening laboratory values were excluded. We separated men into 5-year intervals and evaluated the testosterone levels of each age group, and for all men 20 to 44 years old. We used the American Urological Association definition of a "normal testosterone level"(the "middle tertile") to calculate age-specific cutoffs for low testosterone levels.Results:Our final analytic cohort contained 1,486 men. Age-specific middle tertile levels were 409-558 ng/dL (20-24 years old), 413-575 ng/dL (25-29 years old), 359-498 ng/dL (30-34 years old), 352-478 ng/dL (35-39 years old), and 350-473 ng/dL (40-44 years old). Age-specific cutoffs for low testosterone levels were 409, 413, 359, 352, and 350 ng/dL, respectively.Conclusions:Diagnosis of testosterone deficiency has traditionally been performed in an age-indiscriminate manner. However, young men have different testosterone reference ranges than older men. Accordingly, age-specific normative values and cutoffs should be integrated into the evaluation of young men presenting with testosterone deficiency.
+ER  - 
+TY  - JOUR
+T1  - Role of biochemical markers in testicular cancer: diagnosis, staging, and surveillance
+A1  - Milose, Jaclyn C.
+A1  - Filson, Christopher P.
+A1  - Weizer, Alon Z.
+A1  - Hafez, Khaled S.
+A1  - Montgomery, Jeffrey S.
+Y1  - 2012/12//
+KW  - AFP
+KW  - Diagnosis
+KW  - Surveillance
+KW  - Testicular cancer
+KW  - Tumor markers
+KW  - bhCG
+PB  - Dove Press
+JF  - Open Access Journal of Urology
+VL  - 4
+IS  - 1
+SP  - 1
+EP  - 1
+DO  - 10.2147/OAJU.S15063
+UR  - /pmc/articles/PMC3818947/
+UR  - /pmc/articles/PMC3818947/?report=abstract
+UR  - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3818947/
+N2  - Testis cancer is one of the few solid organ malignancies for which reliable serum tumor markers are available to help guide disease management. Human chorionic gonadotropin, alpha fetoprotein, and lactate dehydrogenase play crucial roles in diagnosis, staging, prognosis, monitoring treatment response, and surveillance of seminomatous and nonseminomatous germ cell tumors. Herein we discuss the clinical applications of germ cell tumor markers, the limitations of these markers in the management of this disease, and additional serum molecules that have been identified with potential roles as novel germ cell tumor markers. © 2012 Milose et al, publisher and licensee Dove Medical Press Ltd.
+ER  - 
+TY  - JOUR
+T1  - Latent variable regression for multiple discrete outcomes
+A1  - Bandeen-roche, Karen
+A1  - Miglioretti, Diana L.
+A1  - Zeger, Scott L.
+A1  - Rathouz, Paul J.
+Y1  - 1997/12//
+KW  - Categorical data
+KW  - Diagnosis
+KW  - Identifiability
+KW  - Latent class
+KW  - Link function
+KW  - Mixture model
+PB  - Taylor & Francis Group
+JF  - Journal of the American Statistical Association
+VL  - 92
+IS  - 440
+SP  - 1375
+EP  - 1386
+DO  - 10.1080/01621459.1997.10473658
+UR  - https://www.tandfonline.com/doi/abs/10.1080/01621459.1997.10473658
+N2  - Quantifying human health and functioning poses significant challenges in many research areas. Commonly in the social and behavioral sciences and increasingly in epidemiologic research, multiple indicators are utilized as responses in lieu of an obvious single measure for an outcome of interest. In this article we study the concomitant latent class model for analyzing such multivariate categorical outcome data. We develop practical theory for reducing and identifying such models. We detail parameter and standard error fitting that parallels standard latent class methodology, thus supplementing the approach proposed by Dayton and Macready. We propose and study diagnostic strategies, exemplifying our methods using physical disability data from an ongoing gerontologic study. Throughout, the focus of our work is on applications for which a primary goal is to study the association between health or functioning and covariates. © 1997 Taylor & Francis Group, LLC.
+ER  - 
+TY  - JOUR
+T1  - poLCA: An R package for polytomous variable latent class analysis
+A1  - Linzer, Drew A.
+A1  - Lewis, Jeffrey B.
+Y1  - 2011/06//
+KW  - Categorical
+KW  - Concomitant
+KW  - Latent class analysis
+KW  - Latent class regression
+KW  - Polytomous
+PB  - American Statistical Association
+JF  - Journal of Statistical Software
+VL  - 42
+IS  - 10
+SP  - 1
+EP  - 29
+DO  - 10.18637/jss.v042.i10
+UR  - https://www.jstatsoft.org/index.php/jss/article/view/v042i10
+N2  - poLCA is a software package for the estimation of latent class and latent class regression models for polytomous outcome variables, implemented in the R statistical computing environment. Both models can be called using a single simple command line. The basic latent class model is a finite mixture model in which the component distributions are assumed to be multi-way cross-classification tables with all variables mutually independent. The latent class regression model further enables the researcher to estimate the effects of covariates on predicting latent class membership. poLCA uses expectation-maximization and Newton-Raphson algorithms to find maximum likelihood estimates of the model parameters.
+ER  - 
+TY  - JOUR
+T1  - Assessment and comparison of prognostic classification schemes for survival data.
+A1  - Graf, Erika
+A1  - Schmoor, Claudia
+A1  - Sauerbrei, Willi
+A1  - Schumacher, Martin
+Y1  - 1999/09//
+KW  - Europe PMC
+KW  - Europe PubMed Central
+KW  - ORCIDs
+KW  - REST APIs
+KW  - abstracts
+KW  - bioinformatics
+KW  - biological patents
+KW  - biomedical journals
+KW  - biomedical research
+KW  - citation networks
+KW  - citation search
+KW  - clinical guidelines
+KW  - full text
+KW  - journal articles
+KW  - life sciences
+KW  - literature search
+KW  - open access
+KW  - research articles
+KW  - text mining
+PB  - John Wiley and Sons Ltd
+JF  - Statistics in Medicine
+VL  - 18
+IS  - 17-18
+SP  - 2529
+EP  - 2545
+DO  - 10.1002/(sici)1097-0258(19990915/30)18:17/18<2529::aid-sim274>3.0.co;2-5
+UR  - https://europepmc.org/article/med/10474158
+N2  - Prognostic classification schemes have often been used in medical applications, but rarely subjected to a rigorous examination of their adequacy. For survival data, the statistical methodology to assess such schemes consists mainly of a range of ad hoc approaches, and there is an alarming lack of commonly accepted standards in this field. We review these methods and develop measures of inaccuracy which may be calculated in a validation study in order to assess the usefulness of estimated patient-specific survival probabilities associated with a prognostic classification scheme. These measures are meaningful even when the estimated probabilities are misspecified, and asymptotically they are not affected by random censorship. In addition, they can be used to derive R2-type measures of explained residual variation. A breast cancer study will serve for illustration throughout the paper.
+ER  - 
+TY  - JOUR
+T1  - Consistent Estimation of the Expected Brier Score in General Survival Models with Right-Censored Event Times
+A1  - Gerds, Thomas A.
+A1  - Schumacher, Martin
+Y1  - 2006/12//
+KW  - Brier Score
+KW  - Censoring Bias
+KW  - Inverse of Probability of Censoring Weighting
+KW  - Model Validation
+KW  - Survival Analysis
+PB  - John Wiley & Sons, Ltd
+JF  - Biometrical Journal
+VL  - 48
+IS  - 6
+SP  - 1029
+EP  - 1040
+DO  - 10.1002/BIMJ.200610301
+UR  - https://onlinelibrary.wiley.com/doi/full/10.1002/bimj.200610301
+UR  - https://onlinelibrary.wiley.com/doi/abs/10.1002/bimj.200610301
+UR  - https://onlinelibrary.wiley.com/doi/10.1002/bimj.200610301
+N2  - In survival analysis with censored data the mean squared error of prediction can be estimated by weighted averages of time-dependent residuals. Graf et al. (1999) suggested a robust weighting scheme based on the assumption that the censoring mechanism is independent of the covariates. We show consistency of the estimator. Furthermore, we show that a modified version of this estimator is consistent even when censoring and event times are only conditionally independent given the covariates. The modified estimators are derived on the basis of regression models for the censoring distribution. A simulation study and a real data example illustrate the results. © 2006 WILEY-VCH Verlag GmbH & Co. KGaA.
+ER  - 
+TY  - COMP
+T1  - pec: Prediction Error Curves for Risk Prediction Models in Survival Analysis
+A1  - Gerds, Thomas A
+Y1  - 2022///
+UR  - https://cran.r-project.org/web/packages/pec/index.html
+N2  - Validation of risk predictions obtained from survival models and competing risk models based on censored data using inverse weighting and cross-validation. Most of the 'pec' functionality has been moved to 'riskRegression'.
+ER  - 
+TY  - COMP
+T1  - rms: Regression Modeling Strategies
+A1  - Harrell, Frank E.
+Y1  - 2023///
+UR  - https://cran.r-project.org/web/packages/rms/index.html
+N2  - Regression modeling, testing, estimation, validation, graphics, prediction, and typesetting by storing enhanced model design attributes in the fit. 'rms' is a collection of functions that assist with and streamline modeling. It also contains functions for binary and ordinal logistic regression models, ordinal models for continuous Y with a variety of distribution families, and the Buckley-James multiple regression model for right-censored responses, and implements penalized maximum likelihood estimation for logistic and ordinary linear models. 'rms' works with almost any regression model, but it was especially written to work with binary or ordinal regression models, Cox regression, accelerated failure time models, ordinary linear models, the Buckley-James model, generalized least squares for serially or spatially correlated observations, generalized linear models, and quantile regression.
+ER  - 
+TY  - COMP
+T1  - readxl: Read Excel Files
+A1  - Wickham, Hadley
+A1  - Bryan, Jennifer
+A1  - Posit, PBC
+A1  - Kalicinski, Marcin
+A1  - Komarov, Valery
+A1  - Leitienne, Christophe
+A1  - Colbert, Bob
+A1  - Hoerl, David
+A1  - Miller, Evan
+Y1  - 2022///
+UR  - https://cran.r-project.org/web/packages/readxl/index.html
+N2  - Import excel files into R. Supports '.xls' via the embedded 'libxls' C library <https://github.com/libxls/libxls> and '.xlsx' via the embedded 'RapidXML' C++ library <https://rapidxml.sourceforge.net/>. Works on Windows, Mac and Linux without external dependencies.
+ER  - 
+TY  - JOUR
+T1  - An Introduction to Recursive Partitioning: Rationale, Application and Characteristics of Classification and Regression Trees, Bagging and Random Forests
+A1  - Strobl, Carolin
+A1  - Malley, James
+A1  - Tutz, Gerhard
+Y1  - 2009/12//
+KW  - classification
+KW  - prediction
+KW  - regression
+KW  - variable importance
+PB  - NIH Public Access
+JF  - Psychological methods
+VL  - 14
+IS  - 4
+SP  - 323
+EP  - 323
+DO  - 10.1037/A0016973
+UR  - /pmc/articles/PMC2927982/
+UR  - /pmc/articles/PMC2927982/?report=abstract
+UR  - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2927982/
+N2  - Recursive partitioning methods have become popular and widely used tools for nonparametric regression and classification in many scientific fields. Especially random forests, which can deal with large numbers of predictor variables even in the presence of complex interactions, have been applied successfully in genetics, clinical medicine, and bioinformatics within the past few years. High-dimensional problems are common not only in genetics, but also in some areas of psychological research, where only a few subjects can be measured because of time or cost constraints, yet a large amount of data is generated for each subject. Random forests have been shown to achieve a high prediction accuracy in such applications and to provide descriptive variable importance measures reflecting the impact of each variable in both main effects and interactions. The aim of this work is to introduce the principles of the standard recursive partitioning methods as well as recent methodological improvements, to illustrate their usage for low and high-dimensional data exploration, but also to point out limitations of the methods and potential pitfalls in their practical application. Application of the methods is illustrated with freely available implementations in the R system for statistical computing. © 2009 American Psychological Association.
+ER  - 
+TY  - JOUR
+T1  - Bias in random forest variable importance measures: Illustrations, sources and a solution
+A1  - Strobl, Carolin
+A1  - Boulesteix, Anne Laure
+A1  - Zeileis, Achim
+A1  - Hothorn, Torsten
+Y1  - 2007/01//
+KW  - Algorithms
+KW  - Bioinformatics
+KW  - Computational Biology/Bioinformatics
+KW  - Computer Appl. in Life Sciences
+KW  - Microarrays
+PB  - BioMed Central
+JF  - BMC Bioinformatics
+VL  - 8
+IS  - 1
+SP  - 1
+EP  - 21
+DO  - 10.1186/1471-2105-8-25/FIGURES/11
+UR  - https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-8-25
+N2  - Background: Variable importance measures for random forests have been receiving increased attention as a means of variable selection in many classification tasks in bioinformatics and related scientific fields, for instance to select a subset of genetic markers relevant for the prediction of a certain disease. We show that random forest variable importance measures are a sensible means for variable selection in many applications, but are not reliable in situations where potential predictor variables vary in their scale of measurement or their number of categories. This is particularly important in genomics and computational biology, where predictors often include variables of different types, for example when predictors include both sequence data and continuous variables such as folding energy, or when amino acid sequence data show different numbers of categories. Results: Simulation studies are presented illustrating that, when random forest variable importance measures are used with data of varying types, the results are misleading because suboptimal predictor variables may be artificially preferred in variable selection. The two mechanisms underlying this deficiency are biased variable selection in the individual classification trees used to build the random forest on one hand, and effects induced by bootstrap sampling with replacement on the other hand. Conclusion: We propose to employ an alternative implementation of random forests, that provides unbiased variable selection in the individual classification trees. When this method is applied using subsampling without replacement, the resulting variable importance measures can be used reliably for variable selection even in situations where the potential predictor variables vary in their scale of measurement or their number of categories. The usage of both random forest algorithms and their variable importance measures in the R system for statistical computing is illustrated and documented thoroughly in an application re-analyzing data from a study on RNA editing. Therefore the suggested method can be applied straightforwardly by scientists in bioinformatics research. © 2007 Strobl et al; licensee BioMed Central Ltd.
+ER  - 
+TY  - JOUR
+T1  - Unbiased recursive partitioning: A conditional inference framework
+A1  - Hothorn, Torsten
+A1  - Hornik, Kurt
+A1  - Zeileis, Achim
+Y1  - 2006///
+KW  - Multiple testing
+KW  - Multivariate regression trees
+KW  - Ordinal regression trees
+KW  - Permutation tests
+KW  - Variable selection
+PB  - Taylor & Francis
+JF  - Journal of Computational and Graphical Statistics
+VL  - 15
+IS  - 3
+SP  - 651
+EP  - 674
+DO  - 10.1198/106186006X133933
+UR  - https://www.tandfonline.com/doi/abs/10.1198/106186006X133933
+N2  - Recursive binary partitioning is a popular tool for regression analysis. Two fundamental problems of exhaustive search procedures usually applied to fit such models have been known for a long time: overfitting and a selection bias towards covariates with many possible splits or missing values. While pruning procedures are able to solve the overfitting problem, the variable selection bias still seriously affects the interpretability of tree-structured regression models. For some special cases unbiased procedures have been suggested, however lacking a common theoretical foundation. We propose a unified framework for recursive partitioning which embeds tree-structured regression models into a well defined theory of conditional inference procedures. Stopping criteria based on multiple test procedures are implemented and it is shown that the predictive performance of the resulting trees is as good as the performance of established exhaustive search procedures. It turns out that the partitions and therefore the models induced by both approaches are structurally different, confirming the need for an unbiased variable selection. Moreover, it is shown thai the prediction accuracy of trees with early stopping is equivalent to the prediction accuracy of pruned trees with unbiased variable selection. The methodology presented here is applicable to all kinds of regression problems, including nominal, ordinal, numeric, censored as well as multivariate response variables and arbitrary measurement scales of the covariates. Data from studies on glaucoma classification, node positive breast cancer survival and mammography experience are re-analyzed. © 2006 American Statistical Association, Institute of Mathematical Statistics, and Interface Foundation of North America.
+ER  - 
+TY  - COMP
+T1  - party: A Laboratory for Recursive Partytioning
+A1  - Hothorn, Thorsten
+A1  - Hornik, Kurt
+A1  - Strobl, Carolin
+A1  - Zeileis, Achim
+Y1  - 2022///
+UR  - https://cran.r-project.org/web/packages/party/index.html
+N2  - A computational toolbox for recursive partitioning. The core of the package is ctree(), an implementation of conditional inference trees which embed tree-structured regression models into a well defined theory of conditional inference procedures. This non-parametric class of regression trees is applicable to all kinds of regression problems, including nominal, ordinal, numeric, censored as well as multivariate response variables and arbitrary measurement scales of the covariates. Based on conditional inference trees, cforest() provides an implementation of Breiman's random forests. The function mob() implements an algorithm for recursive partitioning based on parametric models (e.g. linear models, GLMs or survival regression) employing parameter instability tests for split selection. Extensible functionality for visualizing tree-structured regression models is available. The methods are described in Hothorn et al. (2006) <doi:10.1198/106186006X133933>, Zeileis et al. (2008) <doi:10.1198/106186008X319331> and Strobl et al. (2007) <doi:10.1186/1471-2105-8-25>.
+ER  - 
+TY  - JOUR
+T1  - writexl: Export Data Frames to Excel 'xlsx' Format
+A1  - Ooms, Jeroen
+A1  - McNamara, John
+Y1  - 2023/01//
+PB  - Comprehensive R Archive Network (CRAN)
+UR  - https://cran.r-project.org/package=writexl
+N2  - Zero-dependency data frame to xlsx exporter based on 'libxlsxwriter'. Fast and no Java or Excel required.
+ER  - 
+TY  - COMP
+T1  - ggtext: Improved Text Rendering Support for 'ggplot2'
+A1  - Wilke, Claus O
+A1  - Wiernik, Brenton M
+Y1  - 2022/09//
+PB  - Comprehensive R Archive Network (CRAN)
+UR  - https://cran.r-project.org/package=ggtext
+N2  - A 'ggplot2' extension that enables the rendering of complex formatted plot labels (titles, subtitles, facet labels, axis labels, etc.). Text boxes with automatic word wrap are also supported.
+ER  - 
+TY  - COMP
+T1  - MASS: Support Functions and Datasets for Venables and Ripley's MASS
+A1  - Ripley, Brian
+Y1  - 2022/08//
+PB  - Comprehensive R Archive Network (CRAN)
+UR  - https://cran.r-project.org/package=MASS
+N2  - Functions and datasets to support Venables and Ripley, "Modern Applied Statistics with S" (4th edition, 2002).
+ER  - 
+TY  - COMP
+T1  - DescTools: Tools for Descriptive Statistics
+A1  - Signorell, Andri
+Y1  - 2022/10//
+PB  - Comprehensive R Archive Network (CRAN)
+UR  - https://cran.r-project.org/package=DescTools
+N2  - A collection of miscellaneous basic statistic functions and convenience wrappers for efficiently describing data. The author's intention was to create a toolbox, which facilitates the (notoriously time consuming) first descriptive tasks in data analysis, consisting of calculating descriptive statistics, drawing graphical summaries and reporting the results. The package contains furthermore functions to produce documents using MS Word (or PowerPoint) and functions to import data from Excel. Many of the included functions can be found scattered in other packages and other sources written partly by Titans of R. The reason for collecting them here, was primarily to have them consolidated in ONE instead of dozens of packages (which themselves might depend on other packages which are not needed at all), and to provide a common and consistent interface as far as function and arguments naming, NA handling, recycling rules etc. are concerned. Google style guides were used as naming rules (in absence of convincing alternatives). The 'BigCamelCase' style was consequently applied to functions borrowed from contributed R packages as well.
+ER  - 
+TY  - JOUR
+T1  - Regularization Paths for Cox's Proportional Hazards Model via Coordinate Descent
+A1  - Simon, Noah
+A1  - Friedman, Jerome
+A1  - Hastie, Trevor
+A1  - Tibshirani, Rob
+Y1  - 2011/03//
+KW  - Cox model
+KW  - Elastic net
+KW  - Lasso
+KW  - Survival
+PB  - American Statistical Association
+JF  - Journal of Statistical Software
+VL  - 39
+IS  - 5
+SP  - 1
+EP  - 13
+DO  - 10.18637/JSS.V039.I05
+UR  - https://www.jstatsoft.org/index.php/jss/article/view/v039i05
+N2  - We introduce a pathwise algorithm for the Cox proportional hazards model, regularized by convex combinations of l1 and l2 penalties (elastic net). Our algorithm fits via cyclical coordinate descent, and employs warm starts to find a solution along a regularization path. We demonstrate the efficacy of our algorithm on real and simulated data sets, and find considerable speedup between our algorithm and competing methods.
+ER  - 
+TY  - COMP
+T1  - Hmisc: Harrell Miscellaneous
+A1  - Harrell, Frank E.
+A1  - Dupont, Charles
+Y1  - 2022/08//
+PB  - Comprehensive R Archive Network (CRAN)
+UR  - https://cran.r-project.org/package=Hmisc
+N2  - Contains many functions useful for data analysis, high-level graphics, utility operations, functions for computing sample size and power, simulation, importing and annotating datasets, imputing missing values, advanced table making, variable clustering, character string manipulation, conversion of R objects to LaTeX and html code, and recoding variables.
+ER  - 
+TY  - JOUR
+T1  - Proportional Hazards Tests and Diagnostics Based on Weighted Residuals
+A1  - Grambsch, Patricia M.
+A1  - Therneau, Terry M.
+Y1  - 1994/08//
+PB  - JSTOR
+JF  - Biometrika
+VL  - 81
+IS  - 3
+SP  - 515
+EP  - 515
+DO  - 10.2307/2337123
+N2  - Nonproportional hazards can often be expressed by extending the Cox model to include time varying coefficients; e.g., for a single covariate, the hazard function for subject i is modelled as exp β(t)Zi(t). A common example is a treatment effect that decreases with time. We show that the function β(t) can be directly visualized by smoothing an appropriate residual plot. Also, many tests of proportional hazards, including those of Cox (1972), Gill & Schumacher (1987), Harrell (1986), Lin (1991), Moreau, O'Quigley & Mesbah (1985), Nagelkerke, Oosting & Hart (1984), O'Quigley & Pessione (1989), Schoenfeld (1980) and Wei (1984) are related to time-weighted score tests of the proportional hazards hypothesis, and can be visualized as a weighted least-squares line fitted to the residual plot.
+ER  - 
+TY  - JOUR
+T1  - Regularization and variable selection via the elastic net
+A1  - Zou, Hui
+A1  - Hastie, Trevor
+Y1  - 2005/04//
+KW  - Grouping effect
+KW  - LARS algorithm
+KW  - Lasso
+KW  - P ≫ n problem
+KW  - Penalization
+KW  - Variable selection
+JF  - Journal of the Royal Statistical Society. Series B: Statistical Methodology
+VL  - 67
+IS  - 2
+SP  - 301
+EP  - 320
+DO  - 10.1111/j.1467-9868.2005.00503.x
+UR  - https://onlinelibrary.wiley.com/doi/full/10.1111/j.1467-9868.2005.00503.x
+UR  - https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9868.2005.00503.x
+UR  - https://rss.onlinelibrary.wiley.com/doi/10.1111/j.1467-9868.2005.00503.x
+N2  - We propose the elastic net, a new regularization and variable selection method. Real world data and a simulation study show that the elastic net often outperforms the lasso, while enjoying a similar sparsity of representation. In addition, the elastic net encourages a grouping effect, where strongly correlated predictors tend to be in or out of the model together. The elastic net is particularly useful when the number of predictors (p) is much bigger than the number of observations (n). By contrast, the lasso is not a very satisfactory variable selection method in the p ≫ n case. An algorithm called LARS-EN is proposed for computing elastic net regularization paths efficiently, much like algorithm LARS does for the lasso. © 2005 Royal Statistical Society.
+ER  - 
+TY  - COMP
+T1  - Package 'stringi'
+A1  - Gagolewski, Marek
+A1  - Tartanus, Bartek
+Y1  - 2021///
+UR  - https://cran.r-project.org/web/packages/stringi/index.html
+UR  - http://cran.ism.ac.jp/web/packages/stringi/stringi.pdf
+N2  - A collection of character string/text/natural language processing tools for pattern searching (e.g., with 'Java'-like regular expressions or the 'Unicode' collation algorithm), random string generation, case mapping, string transliteration, concatenation, sorting, padding, wrapping, Unicode normalisation, date-time formatting and parsing, and many more. They are fast, consistent, convenient, and - thanks to 'ICU' (International Components for Unicode) - portable across all locales and platforms.
+ER  - 
+TY  - COMP
+T1  - flextable: Functions for Tabular Reporting
+A1  - Gohel, David
+Y1  - 2022///
+UR  - https://cran.r-project.org/web/packages/flextable/index.html
+N2  - Create pretty tables for 'HTML', 'PDF', 'Microsoft Word' and 'Microsoft PowerPoint' documents from 'R Markdown'. Functions are provided to let users create tables, modify and format their content. It also extends package 'officer' that does not contain any feature for customized tabular reporting.
+ER  - 
+TY  - COMP
+T1  - knitr: A General-Purpose Package for Dynamic Report Generation in R
+A1  - Xie, Yihui
+Y1  - 2022///
+UR  - https://cran.r-project.org/web/packages/knitr/index.html
+N2  - Provides a general-purpose tool for dynamic report generation in R using Literate Programming techniques.
+ER  - 
+TY  - COMP
+T1  - rmarkdown: Dynamic Documents for R
+A1  - Allaire, JJ
+A1  - Xie, Yihui
+A1  - McPherson, Jonathan
+A1  - Luraschi, Javier
+A1  - Ushey, Kevin
+A1  - Atkins, Aron
+A1  - Wickham, Hadley
+A1  - Cheng, Joe
+Y1  - 2022///
+UR  - https://cran.r-project.org/web/packages/rmarkdown/index.html
+N2  - Convert R Markdown documents into a variety of formats.
+ER  - 
+TY  - COMP
+T1  - rmdformats: HTML Output Formats and Templates for 'rmarkdown' Documents
+A1  - Barnier, Julien
+Y1  - 2022///
+UR  - https://cran.r-project.org/web/packages/rmdformats/index.html
+N2  - HTML formats and templates for 'rmarkdown' documents, with some extra features such as automatic table of contents, lightboxed figures, dynamic crosstab helper.
+ER  - 
+TY  - COMP
+T1  - rlang: Functions for Base Types and Core R and 'Tidyverse' Features
+A1  - Henry, Lionel
+A1  - Wickham, Hadley.
+Y1  - 2022///
+UR  - https://cran.r-project.org/web/packages/rlang/index.html
+N2  - A toolbox for working with base types, core R features like the condition system, and core 'Tidyverse' features like tidy evaluation.
+ER  - 
+TY  - COMP
+T1  - rstatix: Pipe-Friendly Framework for Basic Statistical Tests
+A1  - Kassambara, Alboukadel
+Y1  - 2021///
+UR  - https://cran.r-project.org/package=rstatix
+ER  - 
+TY  - JOUR
+T1  - Multivariable prognostic models: Issues in developing models, evaluating assumptions and adequacy, and measuring and reducing errors
+A1  - Harrell, Frank E.
+A1  - Lee, Kerry L.
+A1  - Mark, Daniel B.
+Y1  - 1996/02//
+KW  - pmid:8668867, doi:10.1002/(SICI)1097-0258(19960229
+PB  - Stat Med
+JF  - Statistics in Medicine
+VL  - 15
+IS  - 4
+SP  - 361
+EP  - 387
+DO  - 10.1002/(SICI)1097-0258(19960229)15:4<361::AID-SIM168>3.0.CO;2-4
+UR  - https://pubmed.ncbi.nlm.nih.gov/8668867/
+N2  - Multivariable regression models are powerful tools that are used frequently in studies of clinical outcomes. These models can use a mixture of categorical and continuous variables and can handle partially observed (censored) responses. However, uncritical application of modelling techniques can result in models that poorly fit the dataset at hand, or, even more likely, inaccurately predict outcomes on new subjects. One must know how to measure qualities of a model's fit in order to avoid poorly fitted or overfitted models. Measurement of predictive accuracy can be difficult for survival time data in the presence of censoring. We discuss an easily interpretable index of predictive discrimination as well as methods for assessing calibration of predicted survival probabilities. Both types of predictive accuracy should be unbiasedly validated using bootstrapping or cross-validation, before using predictions in a new data series. We discuss some of the hazards of poorly fitted and overfitted regression models and present one modelling strategy that avoids many of the problems discussed. The methods described are applicable to all regression models, but are particularly needed for binary, ordinal, and time-to-event outcomes. Methods are illustrated with a survival analysis in prostate cancer using Cox regression.
+ER  - 
+TY  - JOUR
+T1  - Conditional variable importance for random forests
+A1  - Strobl, Carolin
+A1  - Boulesteix, Anne Laure
+A1  - Kneib, Thomas
+A1  - Augustin, Thomas
+A1  - Zeileis, Achim
+Y1  - 2008/07//
+KW  - Algorithms
+KW  - Bioinformatics
+KW  - Computational Biology/Bioinformatics
+KW  - Computer Appl. in Life Sciences
+KW  - Microarrays
+PB  - BioMed Central
+JF  - BMC Bioinformatics
+VL  - 9
+IS  - 1
+SP  - 1
+EP  - 11
+DO  - 10.1186/1471-2105-9-307
+UR  - https://link.springer.com/articles/10.1186/1471-2105-9-307
+UR  - https://link.springer.com/article/10.1186/1471-2105-9-307
+L1  - file:///C:/Users/piotr/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Strobl et al. - 2008 - Conditional variable importance for random forests.pdf
+N2  - Background: Random forests are becoming increasingly popular in many scientific fields because they can cope with "small n large p" problems, complex interactions and even highly correlated predictor variables. Their variable importance measures have recently been suggested as screening tools for, e.g., gene expression studies. However, these variable importance measures show a bias towards correlated predictor variables. Results: We identify two mechanisms responsible for this finding: (i) A preference for the selection of correlated predictors in the tree building process and (ii) an additional advantage for correlated predictor variables induced by the unconditional permutation scheme that is employed in the computation of the variable importance measure. Based on these considerations we develop a new, conditional permutation scheme for the computation of the variable importance measure. Conclusion: The resulting conditional variable importance reflects the true impact of each predictor variable more reliably than the original marginal approach. © 2008 Strobl et al; licensee BioMed Central Ltd.
+ER  - 
+TY  - JOUR
+T1  - Building predictive models in R using the caret package
+A1  - Kuhn, Max
+Y1  - 2008///
+KW  - Model building
+KW  - NetWorkSpaces
+KW  - Parallel processing
+KW  - R
+KW  - Tuning parameters
+PB  - American Statistical Association
+JF  - Journal of Statistical Software
+VL  - 28
+IS  - 5
+SP  - 1
+EP  - 26
+DO  - 10.18637/jss.v028.i05
+N2  - The caret package, short for classification and regression training, contains numerous tools for developing predictive models using the rich set of models available in R. The package focuses on simplifying model training and tuning across a wide variety of modeling techniques. It also includes methods for pre-processing training data, calculating variable importance, and model visualizations. An example from computational chemistry is used to illustrate the functionality on a real data set and to benchmark the benefits of parallel processing with several types of models.
+ER  - 
+TY  - JOUR
+T1  - Algorithms for Projection-Pursuit robust principal component analysis
+A1  - Croux, C.
+A1  - Filzmoser, P.
+A1  - Oliveira, M. R.
+Y1  - 2007/06//
+KW  - Multivariate statistics
+KW  - Numerical precision
+KW  - Optimization
+KW  - Outliers
+KW  - Robustness
+KW  - Scale estimators
+PB  - Elsevier
+JF  - Chemometrics and Intelligent Laboratory Systems
+VL  - 87
+IS  - 2
+SP  - 218
+EP  - 225
+DO  - 10.1016/j.chemolab.2007.01.004
+N2  - The results of a standard principal component analysis (PCA) can be affected by the presence of outliers. Hence robust alternatives to PCA are needed. One of the most appealing robust methods for principal component analysis uses the Projection-Pursuit principle. Here, one projects the data on a lower-dimensional space such that a robust measure of variance of the projected data will be maximized. The Projection-Pursuit-based method for principal component analysis has recently been introduced in the field of chemometrics, where the number of variables is typically large. In this paper, it is shown that the currently available algorithm for robust Projection-Pursuit PCA performs poor in the presence of many variables. A new algorithm is proposed that is more suitable for the analysis of chemical data. Its performance is studied by means of simulation experiments and illustrated on some real data sets. © 2007 Elsevier B.V. All rights reserved.
+ER  - 
+TY  - CONF
+T1  - Comparing classical and robust sparse PCA
+A1  - Todorov, Valentin
+A1  - Filzmoser, Peter
+Y1  - 2013///
+KW  - Principcal component analysis
+KW  - robust statistics
+PB  - Springer Verlag
+JF  - Advances in Intelligent Systems and Computing
+VL  - 190 AISC
+SP  - 283
+EP  - 291
+SN  - 9783642330414
+DO  - 10.1007/978-3-642-33042-1_31
+UR  - https://link.springer.com/chapter/10.1007/978-3-642-33042-1_31
+N2  - The main drawback of principal component analysis (PCA) especially for applications in high dimensions is that the extracted components are linear combinations of all input variables. To facilitate the interpretability of PCA various sparse methods have been proposed recently. However all these methods might suffer from the influence of outliers present in the data. An algorithm to compute sparse and robust PCA was recently proposed by Croux et al. We compare this method to standard (non-sparse) classical and robust PCA and several other sparse methods. The considered methods are illustrated on a real data example and compared in a simulation experiment. It is shown that the robust sparse method preserves the sparsity and at the same time provides protection against contamination. © 2013 Springer-Verlag.
+ER  - 
+TY  - JOUR
+T1  - Random forests
+A1  - Breiman, Leo
+Y1  - 2001/10//
+KW  - Classification
+KW  - Ensemble
+KW  - Regression
+PB  - Springer
+JF  - Machine Learning
+VL  - 45
+IS  - 1
+SP  - 5
+EP  - 32
+DO  - 10.1023/A:1010933404324
+UR  - https://link.springer.com/article/10.1023/A:1010933404324
+L1  - file:///C:/Users/piotr/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Breiman - 2001 - Random forests.pdf
+N2  - Random forests are a combination of tree predictors such that each tree depends on the values of a random vector sampled independently and with the same distribution for all trees in the forest. The generalization error for forests converges a.s. to a limit as the number of trees in the forest becomes large. The generalization error of a forest of tree classifiers depends on the strength of the individual trees in the forest and the correlation between them. Using a random selection of features to split each node yields error rates that compare favorably to Adaboost (Y. Freund & R. Schapire, Machine Learning: Proceedings of the Thirteenth International conference, * * *, 148-156), but are more robust with respect to noise. Internal estimates monitor error, strength, and correlation and these are used to show the response to increasing the number of features used in the splitting. Internal estimates are also used to measure variable importance. These ideas are also applicable to regression.
+ER  - 
+TY  - JOUR
+T1  - Plotroc: A tool for plotting ROC curves
+A1  - Sachs, Michael C.
+Y1  - 2017/08//
+KW  - Graphics
+KW  - Interactive
+KW  - Plots
+KW  - ROC curves
+PB  - American Statistical Association
+JF  - Journal of Statistical Software
+VL  - 79
+IS  - 1
+SP  - 1
+EP  - 19
+DO  - 10.18637/jss.v079.c02
+UR  - https://www.jstatsoft.org/index.php/jss/article/view/v079c02/v79c02.pdf
+UR  - https://www.jstatsoft.org/index.php/jss/article/view/v079c02
+L1  - file:///C:/Users/piotr/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Sachs - 2017 - Plotroc A tool for plotting ROC curves.pdf
+N2  - Plots of the receiver operating characteristic (ROC) curve are ubiquitous in medical research. Designed to simultaneously display the operating characteristics at every possible value of a continuous diagnostic test, ROC curves are used in oncology to evaluate screening, diagnostic, prognostic and predictive biomarkers. I reviewed a sample of ROC curve plots from the major oncology journals in order to assess current trends in usage and design elements. My review suggests that ROC curve plots are often ineffective as statistical charts and that poor design obscures the relevant information the chart is intended to display. I describe my new R package that was created to address the shortcomings of existing tools. The package has functions to create informative ROC curve plots, with sensible defaults and a simple interface, for use in print or as an interactive web-based plot. A web application was developed to reach a broader audience of scientists who do not use R.
+ER  - 
+TY  - BOOK
+T1  - Bookdown: Authoring books and technical documents with R Markdown
+A1  - Xie, Yihui
+Y1  - 2016///
+JF  - Bookdown: Authoring Books and Technical Documents with R Markdown
+SP  - 1
+EP  - 113
+SN  - 9781351792608
+DO  - 10.1201/9781315204963
+N2  - bookdown: Authoring Books and Technical Documents with R Markdown presents a much easier way to write books and technical publications than traditional tools such as LaTeX and Word. The bookdown package inherits the simplicity of syntax and flexibility for data analysis from R Markdown, and extends R Markdown for technical writing, so that you can make better use of document elements such as figures, tables, equations, theorems, citations, and references. Similar to LaTeX, you can number and cross-reference these elements with bookdown. Your document can even include live examples so readers can interact with them while reading the book. The book can be rendered to multiple output formats, including LaTeX/PDF, HTML, EPUB, and Word, thus making it easy to put your documents online. The style and theme of these output formats can be customized. We used books and R primarily for examples in this book, but bookdown is not only for books or R. Most features introduced in this book also apply to other types of publications: journal papers, reports, dissertations, course handouts, study notes, and even novels. You do not have to use R, either. Other choices of computing languages include Python, C, C plus plus, SQL, Bash, Stan, JavaScript, and so on, although R is best supported. You can also leave out computing, for example, to write a fiction. This book itself is an example of publishing with bookdown and R Markdown, and its source is fully available on GitHub.
+ER  - 
+TY  - JOUR
+T1  - Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing
+A1  - Benjamini, Yoav
+A1  - Hochberg, Yosef
+Y1  - 1995/01//
+KW  - bonferroni‐type procedures
+KW  - familywise error rate
+KW  - multiple‐comparison procedures
+KW  - p‐values
+PB  - Wiley
+JF  - Journal of the Royal Statistical Society: Series B (Methodological)
+VL  - 57
+IS  - 1
+SP  - 289
+EP  - 300
+DO  - 10.1111/j.2517-6161.1995.tb02031.x
+N2  - The common approach to the multiplicity problem calls for controlling the familywise error rate (FWER). This approach, though, has faults, and we point out a few. A different approach to problems of multiple significance testing is presented. It calls for controlling the expected proportion of falsely rejected hypotheses- the false discovery rate. This error rate is equivalent to the FWER when all hypotheses are true but is smaller otherwise. Therefore, in problems where the control of the false discovery rate rather than that of the FWER is desired, there is potential for a gain in power. A simple sequential Bonferronitype procedure is proved to control the false discovery rate for independent test statistics, and a simulation study shows that the gain in power is substantial. The use of the new procedure and the appropriateness of the criterion are illustrated with examples.
+ER  - 
+TY  - BOOK
+T1  - Fundamentals of Data Visualization: A Primer on Making Informative and Compelling Figures
+A1  - Wilke, Claus O
+Y1  - 2019///
+PB  - O'Reilly Media
+JF  - O'Reilly Media
+ET  - 1
+SP  - 389
+EP  - 389
+CY  - Sebastopol
+SN  - 1492031089
+N2  - First edition. Intro; Copyright; Table of Contents; Preface; Thoughts on Graphing Software and Figure-Preparation Pipelines; Conventions Used in This Book; Using Code Examples; O'Reilly Online Learning; How to Contact Us; Acknowledgments; Chapter 1. Introduction; Ugly, Bad, and Wrong Figures; Part I. From Data to Visualization; Chapter 2. Visualizing Data: Mapping Data onto Aesthetics; Aesthetics and Types of Data; Scales Map Data Values onto Aesthetics; Chapter 3. Coordinate Systems and Axes; Cartesian Coordinates; Nonlinear Axes; Coordinate Systems with Curved Axes; Chapter 4. Color Scales Color as a Tool to DistinguishColor to Represent Data Values; Color as a Tool to Highlight; Chapter 5. Directory of Visualizations; Amounts; Distributions; Proportions; x-y relationships; Geospatial Data; Uncertainty; Chapter 6. Visualizing Amounts; Bar Plots; Grouped and Stacked Bars; Dot Plots and Heatmaps; Chapter 7. Visualizing Distributions: Histograms and Density Plots; Visualizing a Single Distribution; Visualizing Multiple Distributions at the Same Time; Chapter 8. Visualizing Distributions: Empirical Cumulative Distribution Functions and Q-Q Plots Empirical Cumulative Distribution FunctionsHighly Skewed Distributions; Quantile-Quantile Plots; Chapter 9. Visualizing Many Distributions at Once; Visualizing Distributions Along the Vertical Axis; Visualizing Distributions Along the Horizontal Axis; Chapter 10. Visualizing Proportions; A Case for Pie Charts; A Case for Side-by-Side Bars; A Case for Stacked Bars and Stacked Densities; Visualizing Proportions Separately as Parts of the Total; Chapter 11. Visualizing Nested Proportions; Nested Proportions Gone Wrong; Mosaic Plots and Treemaps; Nested Pies; Parallel Sets Chapter 12. Visualizing Associations Among Two or More Quantitative VariablesScatterplots; Correlograms; Dimension Reduction; Paired Data; Chapter 13. Visualizing Time Series and Other Functions of an Independent Variable; Individual Time Series; Multiple Time Series and Dose-Response Curves; Time Series of Two or More Response Variables; Chapter 14. Visualizing Trends; Smoothing; Showing Trends with a Defined Functional Form; Detrending and Time-Series Decomposition; Chapter 15. Visualizing Geospatial Data; Projections; Layers; Choropleth Mapping; Cartograms Chapter 16. Visualizing UncertaintyFraming Probabilities as Frequencies; Visualizing the Uncertainty of Point Estimates; Visualizing the Uncertainty of Curve Fits; Hypothetical Outcome Plots; Part II. Principles of Figure Design; Chapter 17. The Principle of Proportional Ink; Visualizations Along Linear Axes; Visualizations Along Logarithmic Axes; Direct Area Visualizations; Chapter 18. Handling Overlapping Points; Partial Transparency and Jittering; 2D Histograms; Contour Lines; Chapter 19. Common Pitfalls of Color Use; Encoding Too Much or Irrelevant Information
+ER  - 
+TY  - BOOK
+T1  - Modeling Survival Data: Extending the Cox Model
+A1  - Therneau, Terry M.
+A1  - Grambsch, Patricia M.
+Y1  - 2000///
+PB  - Springer Verlag
+ET  - 1
+CY  - New York
+SN  - 0-387-98784-3
+ER  - 
+TY  - JOUR
+T1  - survminer: Drawing Survival Curves using 'ggplot2'
+A1  - Kassambara, Alboukadel
+A1  - Kosinski, Marcin
+A1  - Biecek, Przemyslaw
+Y1  - 2016///
+UR  - https://cran.r-project.org/package=survminer
+ER  - 
+TY  - JOUR
+T1  - Welcome to the Tidyverse
+A1  - Wickham, Hadley
+A1  - Averick, Mara
+A1  - Bryan, Jennifer
+A1  - Chang, Winston
+A1  - McGowan, Lucy
+A1  - François, Romain
+A1  - Grolemund, Garrett
+A1  - Hayes, Alex
+A1  - Henry, Lionel
+A1  - Hester, Jim
+A1  - Kuhn, Max
+A1  - Pedersen, Thomas
+A1  - Miller, Evan
+A1  - Bache, Stephan
+A1  - Müller, Kirill
+A1  - Ooms, Jeroen
+A1  - Robinson, David
+A1  - Seidel, Dana
+A1  - Spinu, Vitalie
+A1  - Takahashi, Kohske
+A1  - Vaughan, Davis
+A1  - Wilke, Claus
+A1  - Woo, Kara
+A1  - Yutani, Hiroaki
+Y1  - 2019/11//
+PB  - The Open Journal
+JF  - Journal of Open Source Software
+VL  - 4
+IS  - 43
+SP  - 1686
+EP  - 1686
+DO  - 10.21105/joss.01686
+L1  - file:///C:/Users/piotr/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Wickham et al. - 2019 - Welcome to the Tidyverse.pdf
+N2  - At a high level, the tidyverse is a language for solving data science challenges with R code. Its primary goal is to facilitate a conversation between a human and a computer about data. Less abstractly, the tidyverse is a collection of R packages that share a high-level design philosophy and low-level grammar and data structures, so that learning one package makes it easier to learn the next. The tidyverse encompasses the repeated tasks at the heart of every data science project: data import, tidying, manipulation, visualisation, and programming. We expect that almost every project will use multiple domain-specific packages outside of the tidyverse: our goal is to provide tooling for the most common challenges; not to solve every possible problem. Notably, the tidyverse doesn't include tools for statistical modelling or communication. These toolkits are critical for data science, but are so large that they merit separate treatment. The tidyverse package allows users to install all tidyverse packages with a single command. There are a number of projects that are similar in scope to the tidyverse. The closest is perhaps Bioconductor (Gentleman et al., 2004; Huber et al., 2015), which provides an ecosystem of packages that support the analysis of high-throughput genomic data.
+ER  - 
+TY  - BOOK
+T1  - ggplot2: Elegant Graphics for Data Analysis
+A1  - Wickham, Hadley.
+Y1  - 2016///
+PB  - Springer-Verlag
+ET  - 1
+CY  - New York
+SN  - 978-3-319-24277-4
+UR  - https://ggplot2.tidyverse.org
+ER  - 
+TY  - JOUR
+T1  - Regularization paths for generalized linear models via coordinate descent
+A1  - Friedman, Jerome
+A1  - Hastie, Trevor
+A1  - Tibshirani, Rob
+Y1  - 2010/02//
+KW  - Coordinate-descent
+KW  - Elastic net
+KW  - L1 penalty
+KW  - Lasso
+KW  - Logistic regression
+KW  - Regularization path
+PB  - University of California at Los Angeles
+JF  - Journal of Statistical Software
+VL  - 33
+IS  - 1
+SP  - 1
+EP  - 22
+DO  - 10.18637/jss.v033.i01
+UR  - https://www.jstatsoft.org/index.php/jss/article/view/v033i01/v33i01.pdf
+UR  - https://www.jstatsoft.org/index.php/jss/article/view/v033i01
+L1  - file:///C:/Users/piotr/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Friedman, Hastie, Tibshirani - 2010 - Regularization paths for generalized linear models via coordinate descent.pdf
+N2  - We develop fast algorithms for estimation of generalized linear models with convex penalties. The models include linear regression, two-class logistic regression, and multinomial regression problems while the penalties include l1 (the lasso), l2 (ridge regression) and mixtures of the two (the elastic net). The algorithms use cyclical coordinate descent, computed along a regularization path. The methods can handle large problems and can also deal efficiently with sparse features. In comparative timings we find that the new algorithms are considerably faster than competing methods.
+ER  - 
