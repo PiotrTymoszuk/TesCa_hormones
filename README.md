@@ -13,11 +13,13 @@ The analysis pursues thee goals:
 
 * investigation of expression of sex hormone-related genes in testicle cancer tissue from the TCGA cohort and its implication for tumor biology, immunity, signaling and prognosis
 
+<br>
+
 <p align = "center"> 
-<img src = "https://user-images.githubusercontent.com/80723424/233738860-8d88f793-04c6-46a4-bcb8-42efd38b5767.png)" width = "65%">
+<img src = "https://user-images.githubusercontent.com/80723424/233738860-8d88f793-04c6-46a4-bcb8-42efd38b5767.png" width = "65%">
 </p>
 
-These tasks are addressed in a local cohort of 518 testis cancer patients. You may follow the analysis progress [here](https://github.com/PiotrTymoszuk/TesCa_hormones/tree/main/report).
+These tasks are addressed in a local Innsbruck cohort of 518 testis cancer patients and the testis cancer collactive of the TCGA pan-cancer project (n = 149). You may follow the analysis progress [here](https://github.com/PiotrTymoszuk/TesCa_hormones/tree/main/report).
 
 ## Terms of use
 
