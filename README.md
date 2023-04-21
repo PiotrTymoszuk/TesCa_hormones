@@ -11,8 +11,10 @@ The analysis pursues thee goals:
 
 * prognostic significance of pre-surgery sex hormone levels for relapse-free survival
 
+* investigation of expression of sex hormone-related genes in testicle cancer tissue from the TCGA cohort and its implication for tumor biology, immunity, signaling and prognosis
+
 <p align = "center"> 
-<img src = "https://user-images.githubusercontent.com/80723424/231457221-f6ab5a0a-7404-4ed8-8c36-1f9e7d2daab4.png" width = "65%">
+<img src = "https://user-images.githubusercontent.com/80723424/233738860-8d88f793-04c6-46a4-bcb8-42efd38b5767.png)" width = "65%">
 </p>
 
 These tasks are addressed in a local cohort of 518 testis cancer patients. You may follow the analysis progress [here](https://github.com/PiotrTymoszuk/TesCa_hormones/tree/main/report).
