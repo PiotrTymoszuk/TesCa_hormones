@@ -109,7 +109,7 @@
          ref_name = c('cohort_demo_cancer', 
                       'cohort_hormones'), 
          caption = c(paste('Demographic and cancer-related characteristic', 
-                           'of the study cohort.', 
+                           'of the Innsbruck study cohort.', 
                            'Numeric variables are presented as', 
                            'medians with interqurtile ranges (IQR)', 
                            'and ranges.', 
@@ -117,7 +117,7 @@
                            'as percentages and counts within the', 
                            'complete observation set.'), 
                      paste('Pre-surgery levels of sex hormones', 
-                           'in the study cohort.', 
+                           'in the Innsbruck study cohort.', 
                            'Numeric variables are presented as', 
                            'medians with interqurtile ranges (IQR)', 
                            'and ranges.', 
@@ -266,6 +266,210 @@
             caption = paste('Explanatory variables in multi-parameter', 
                             'Elastic Cox modeling of relapse-free survival.'))
   
+# Table 13: TCGA cohort characteristic ------
+  
+  insert_msg('Table 13: characteristic of the TCGA cohort')
+  
+  tables$tcga_cohort <- cohort$desc_stats$tcga %>% 
+    select(variable, statistic) %>% 
+    set_names(c('Variable', 'Statistic')) %>% 
+    mdtable(label = 'table_13_tcga_cohort_features', 
+            ref_name = 'tcga_cohort', 
+            caption = paste('Demographic and cancer-related characteristic', 
+                            'of the TCGA cohort.', 
+                            'Numeric variables are presented as', 
+                            'medians with interqurtile ranges (IQR)', 
+                            'and ranges.', 
+                            'Categorical variables are presented', 
+                            'as percentages and counts within the', 
+                            'complete observation set.'))
+  
+# Table 14: Genes of interest -------
+  
+  insert_msg('Table 14: genes of interest')
+  
+  tables$tcga_genes <- tcga$gene_lexicon %>% 
+    mutate(entrez_id = exchange(gene_symbol, 
+                                dict = tcga$annotation, 
+                                key = 'gene_symbol', 
+                                value = 'entrez_id')) %>% 
+    select(class, gene_symbol, entrez_id) %>% 
+    set_names(c('Gene class', 'Gene symbol', 'Entrez ID')) %>% 
+    mdtable(label = 'table_14_tcga_genes_of_interest', 
+            ref_name = 'tcga_genes', 
+            caption = paste('Hormone-related genes of interest investigated', 
+                            'in the TCGA cohort.'))
+  
+# Table 15: differences in hormone genes between the histologies -----
+  
+  insert_msg('Table 15: TCGA, histologies')
+  
+  tables$tcga_histology <- tcga_exp$result_tbl %>% 
+    set_names(c('Variable', 'Seminoma', 'NSGCT', 
+                'Significance', 'Effect size')) %>% 
+    mdtable(label = 'table_15_tcga_histology', 
+            ref_name = 'tcga_histology', 
+            caption = paste('Differences in expression of the', 
+                            'hormone-related genes of interest between', 
+                            'seminoma and NSGCT in the TCGA cohort.', 
+                            'Numeric variables are presented as', 
+                            'medians with interqurtile ranges (IQR)', 
+                            'and ranges.', 
+                            'Categorical variables are presented', 
+                            'as percentages and counts within the', 
+                            'complete observation set.'))
+  
+# Table 16: TCGA, subset assignment ------
+  
+  insert_msg('Table 16: TCga subset assignment')
+  
+  tables$tcga_assignment <- 
+    left_join(tcga_mix$posterior %>% 
+                as.data.frame %>% 
+                rownames_to_column('ID'), 
+              tcga_mix$assignment, 
+              by = 'ID') %>% 
+    map_dfc(function(x) if(is.numeric(x)) signif(x, 2) else x) %>% 
+    set_names(c('Patient ID', 
+                levels(tcga_mix$assignment$class), 
+                'Hormonal subset')) %>% 
+    as_tibble %>% 
+    mdtable(label = 'table_16_tcga_subset_assignment', 
+            ref_name = 'tcga_assignment', 
+            caption = paste('Assignment of the TCGA cancer samples to', 
+                            'the hormonal subsets by Gaussian mixture',
+                            'modeling.', 
+                            'Posterior probabilities for the subset assignemnt', 
+                            'and the final hormonal subset classification', 
+                            'are presented.', 
+                            'The table is available in a supplementary', 
+                            'Excel file.'))
+  
+# Table 17: Demographic and clinical characteristic of the subsets -----
+  
+  insert_msg('Table 17: demography and clinics of the hormonal subsets, TCGA')
+  
+  tables$tcga_class_clinic <- 
+    tcga_bcg$result_tbl %>% 
+    set_names(c('Variable', 
+                levels(tcga_bcg$analysis_tbl$class), 
+                'Significance', 
+                'Effect size')) %>% 
+    mdtable(label = 'table_17_tcga_subset_clnics', 
+            ref_name = 'tcga_class_clinic', 
+            caption = paste('Demographic and clinical characteristic of',
+                            'the hormonal subsets of the TCGA cohort cancers.', 
+                            'Numeric variables are presented as', 
+                            'medians with interqurtile ranges (IQR)', 
+                            'and ranges.', 
+                            'Categorical variables are presented', 
+                            'as percentages and counts within the', 
+                            'complete observation set.'))
+  
+# Table 18: TCGA, GSVA -----
+  
+  insert_msg('Table 18: TCGA, GSVA')
+  
+  tables$tcga_gsva <- tcga_biology$significant_lm %>% 
+    map_dfr(filter, regulation != 'ns') %>% 
+    transmute( Comparison = paste(level, 'vs #1'), 
+               Pathway = resp_label, 
+               `Fold-regulation` = signif(estimate, 2), 
+               `Lower CI` = signif(lower_ci, 2), 
+               `Upper CI` = signif(upper_ci, 2), 
+               pFDR = signif(p_adjusted)) %>% 
+    mdtable(label = 'table_18_tcga_gsva_reactome', 
+            ref_name = 'tcga_gsva', 
+            caption = paste('Significant differences in ssGSEA scores', 
+                            'of the Reactome pathways between the homonal', 
+                            'subsets of the TCGA cohort.', 
+                            'The table is available in a supplementary Excel', 
+                            'file.'))
+  
+# Table 19: immunity ------
+  
+  insert_msg('Table 19: TCGA, immunity')
+  
+  tables$tcga_infiltration <- 
+    list(`QuanTIseq` = tcga_quantiseq$result_tbl, 
+         `xCell` = tcga_xcell$result_tbl) %>% 
+    compress(names_to = 'algorithm') %>% 
+    filter(!stri_detect(significance, regex = '^ns') | is.na(significance)) %>% 
+    relocate(algorithm) %>% 
+    set_names(c('Algorithm', 
+                'Variable',
+                levels(tcga_quantiseq$analysis_tbl$class), 
+                'Significance', 
+                'Effect size')) %>% 
+    mdtable(label = 'table_19_tcga_infiltration', 
+            ref_name = 'tcga_infiltration', 
+            caption = paste('Significant differences in TME composition', 
+                            'and immunity signatures estimated by the QuanTIseq', 
+                            'and xCell algorithms between the hormonal subsets', 
+                            'of the TCGA cohort.', 
+                            'Numeric variables are presented as', 
+                            'medians with interqurtile ranges (IQR)', 
+                            'and ranges.'))
+  
+# Table 20: differential gene expression ------
+  
+  insert_msg('Table 20: TCGA, differential gene expression')
+  
+  tables$tcga_dge <- tcga_dge$significant_lm %>% 
+    map_dfr(transmute, 
+            `Comparison` = paste(level, 'vs #1'), 
+            `Gene symbol` = gene_symbol, 
+            `Fold-regulation` = signif(estimate, 2), 
+            `Lower CI` = signif(lower_ci, 2), 
+            `Upper CI` = signif(upper_ci, 2), 
+            pFDR = signif(p_adjusted)) %>% 
+    mdtable(label = 'table_20_tcga_differential_gene_expression', 
+            ref_name = 'tcga_dge', 
+            caption = paste('Genes differentially expressed between', 
+                            'the hormonal subsets of the TCGA cohort.', 
+                            'The table is available as a supplementary', 
+                            'Excel file.'))
+  
+# Table 21: signaling -------
+  
+  insert_msg('Table 21: signaling')
+  
+  tables$tcga_signaling <- tcga_spia$test %>% 
+    map(filter, pGFdr < 0.05) %>% 
+    compress(names_to = 'level') %>% 
+    transmute(`Comparison` = paste(level, 'vs #1'), 
+              `KEGG Pathway` = Name, 
+              `KEGG ID` = ID, 
+              `Fold-regulation` = signif(tA, 3), 
+              pFDR = signif(pGFdr)) %>% 
+    mdtable(label = 'table_21_tcga_signaling', 
+            ref_name = 'tcga_signaling', 
+            caption = paste('Differential activation of KEGG-listed',
+                            'signaling pathways between the homonal subsets', 
+                            'of the TCGA cohort predicted by the SPIA', 
+                            'algorithm. The table is available as',
+                            'a supplementary Excell table.'))
+  
+# Table 22: differential protein expression ------
+  
+  insert_msg('Table 22: differential protein expression')
+  
+  tables$tcga_protein <- tcga_protein$result_tbl %>% 
+    filter(!stri_detect(significance, regex = '^ns') | is.na(significance)) %>% 
+    set_names(c('Variable', 
+                levels(tcga_protein$analysis_tbl$class), 
+                'Significance', 
+                'Effect size')) %>% 
+    mdtable(label = 'table_22_tcga_differential_protein_expression', 
+            ref_name = 'tcga_protein', 
+            caption = paste('Differential protein expression', 
+                            'between the hormonal subsets of the TCGA cohort.', 
+                            'Numeric variables are presented as', 
+                            'medians with interqurtile ranges (IQR)', 
+                            'and ranges.', 
+                            'The table is available as a supplementary', 
+                            'Excel file'))
+
 # Saving tables on the disc -------
   
   insert_msg('Saving the tables')

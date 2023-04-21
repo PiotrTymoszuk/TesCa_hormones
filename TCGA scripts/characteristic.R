@@ -16,7 +16,7 @@
   
   tcga_class$analysis_tbl <- tcga_mix$analysis_tbl %>% 
     rownames_to_column('ID') %>% 
-    left_join(tcga_mix$assignment, 
+    inner_join(tcga_mix$assignment, 
               by = 'ID') %>% 
     as_tibble %>% 
     map_dfc(unname)
@@ -25,11 +25,10 @@
   
   tcga_class$identity_tbl <- tcga$expression %>% 
     select(ID, tcga_globals$clust_genes) %>% 
-    left_join(tcga_mix$assignment, 
-              by = 'ID') %>% 
+    inner_join(tcga_mix$assignment, 
+               by = 'ID') %>% 
     as_tibble %>% 
     map_dfc(unname)
-  
   
   ## n numbers
   
@@ -81,7 +80,7 @@
     pmap(plot_variable, 
          tcga_class$identity_tbl, 
          split_factor = 'class', 
-         type = 'violin', 
+         type = 'box', 
          cust_theme = globals$common_theme, 
          y_lab = expression('log'[2] * ' gene count'), 
          x_n_labs = TRUE, 

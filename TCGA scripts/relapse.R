@@ -109,10 +109,11 @@
   ## comparisons with the subset #1 with the longest survival
   
   tcga_relapse$classes$survfit_obj <- 
-    list(global = c('#1', '#2', '#3', '#4'), 
+    list(global = c('#1', '#2', '#3', '#4', '#5'), 
          s2_vs_s1 = c('#2', '#1'), 
          s3_vs_s1 = c('#1', '#3'), 
-         s4_vs_s1 = c('#1', '#4')) %>% 
+         s4_vs_s1 = c('#1', '#4'), 
+         s5_vs_s1 = c('#1', '#5')) %>% 
     map(~filter(tcga_relapse$analysis_tbl, class %in% .x)) %>% 
     map(survminer::surv_fit, formula = Surv(rfs_days, relapse) ~ class)
 
@@ -124,7 +125,8 @@
                                     "'global' = 'global'; 
                                     's2_vs_s1' = '#2 vs #1'; 
                                     's3_vs_s1' = '#3 vs #1'; 
-                                    's4_vs_s1' = '#4 vs #1'"))
+                                    's4_vs_s1' = '#4 vs #1'; 
+                                    's5_vs_s1' = '#5 vs #1'"))
   
   ## Kaplan-Meier plots
   
@@ -150,7 +152,7 @@
                legend.labs = tcga_relapse$classes$strata_n, 
                palette = unname(tcga_globals$clust_colors), 
                pval.size = 2.75, 
-               pval.coord = c(0.01, 0.1), 
+               pval.coord = c(0.16, 0.15), 
                xlab = 'Relapse-free survival, days')$plot + 
     globals$common_theme + 
     labs(subtitle = tcga_relapse$event_n)

@@ -18,7 +18,7 @@
               caption = paste('Analysis inclusion scheme', 
                               'and data analysis strategy.'), 
               w = 180, 
-              h = 180 * 2712/3906)
+              h = 180 * 4272/3906)
     
 # Figure 2: participant and variable missingness -------
   
@@ -720,6 +720,484 @@
                               'hormone levels on relapse-free survival.'), 
               w = 180, 
               h = 150)
+  
+# Figure 31: Hormone-related genes in the TCGA cohort ------
+  
+  insert_msg('Figure 31: hormone-related genes in the TCGA cohort')
+  
+  figures$tcga_expression <- 
+    tcga_exp$entire_plots[c("pituitary", "testicle")] %>% 
+    plot_grid(plotlist = ., 
+              ncol = 2, 
+              align = 'hv', 
+              axis = 'tblr') %>% 
+    as_figure(label = 'figure_31_tcga_hormone_gene_expression', 
+              ref_name = 'tcga_expression', 
+              caption = paste('Expression of sex hormone-related genes', 
+                              'in the TCGA testicle cancer cohort.'), 
+              w = 180, 
+              h = 110)
+  
+# Figure 32: gene expression and histology ------
+  
+  insert_msg('Figure 32: gene expression and histology, TCGA')
+  
+  figures$tcga_histology <- tcga_exp$plots %>% 
+    map(~.x + theme(legend.position = 'none')) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 4, 
+              align = 'hv', 
+              axis = 'tblr',
+              labels = c('A', '', '', '', 
+                         'B'), 
+              label_size = 10) %>% 
+    as_figure(label = 'figure_32_tcga_histology', 
+              ref_name = 'tcga_histology', 
+              caption = paste('Expression of sex hormone-related', 
+                              'genes in seminoma and NSGCT samples', 
+                              'from the TCGA cohort.'), 
+              w = 180, 
+              h = 210)
+  
+# Figure 33: gene expression PCA -----
+  
+  insert_msg('Figure 33: TCGA, PCA')
+  
+  figures$tcga_pca <- 
+    list(tcga_pca$plots$tcga$scree, 
+         tcga_pca$plots$tcga$loadings + 
+           geom_hline(yintercept = 0, 
+                      linetype = 'dashed') + 
+           geom_vline(xintercept = 0, 
+                      linetype = 'dashed')) %>% 
+    map(~.x + 
+          labs(subtitle = paste('n =', nrow(tcga_pca$analysis_tbl$tcga))) + 
+          theme(plot.tag = element_blank())) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 2, 
+              align = 'hv', 
+              axis = 'tblr', 
+              labels = c('A', 'B'), 
+              label_size = 10) %>% 
+    as_figure(label = 'figure_33_tcga_pca', 
+              ref_name = 'tcga_pca', 
+              caption = paste('Principal component analysis of the', 
+                              'sex hormone-related gene dataset in the', 
+                              'TCGA cohort.'), 
+              w = 180, 
+              h = 90)
+  
+# Figure 34: mixture model ------
+  
+  insert_msg('Figure 34: mixture model, BIC and parameters')
+
+  figures$tcga_gmm <- 
+    plot_grid(tcga_mix$gmm_tuning$plots$bic_plot, 
+              tcga_mix$mean_hm$plot + 
+                theme(legend.position = 'bottom'), 
+              ncol = 2, 
+              rel_widths = c(0.45, 0.55), 
+              align = 'hv', 
+              axis = 'tblr', 
+              labels = LETTERS, 
+              label_size = 10) %>% 
+    as_figure(label = 'figure_34_tcga_mixture_model', 
+              ref_name = 'tcga_gmm', 
+              caption = paste('Development of the hormonal subsets of TCGA', 
+                              'testis cancers by Gaussian mixture modeling.'), 
+              w = 180, 
+              h = 120)
+    
+# Figure 35: gene expression, class defining features ------
+  
+  insert_msg('Figure 35: expression of the class-defining features')
+
+  figures$tcga_class_features <- 
+    tcga_class$plots[c( "PRL", "FSHB", "LHB", "CGA", 
+                       "HSD17B1", "CYP19A1", "HSD3B1", 
+                       "HSD3B2", "CYP17A1", "HSD17B3")] %>% 
+    map(~.x + 
+          theme(legend.position = 'none', 
+                axis.text.x = element_text(size = 7))) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 3, 
+              align = 'hv') %>% 
+    as_figure(label = 'figure_35_class_defning_features',
+              ref_name = 'tcga_class_features', 
+              caption = paste('Expression of the sex hormone-related', 
+                              'genes of interest in the hormonal', 
+                              'subsets of the TCGA cohort.'), 
+              w = 180, 
+              h = 260)
+  
+# Figure 36: clinical features of the subsets ------
+  
+  insert_msg('Figure 36: clinical feature of the hormonal subsets')
+  
+  figures$tcga_clinic <- 
+    tcga_bcg$plots[c("histology", "marker_status", "radiotherapy")] %>% 
+    map(~.x + theme(legend.position = 'right')) %>% 
+    c(list(tcga_bcg$plots$age_surgery  +
+             theme(legend.position = 'none')), .) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 2, 
+              align = 'hv', 
+              axis = 'tblr') %>% 
+    as_figure(label = 'figure_38_tcga_subsets_clinic', 
+              ref_name = 'tcga_clinic', 
+              caption = paste('Significant differences in demographic', 
+                              'and clinical features between the hormonal', 
+                              'subsets of the TCGA cohort.'), 
+              w = 180, 
+              h = 140)
+  
+# Figure 37: reactome pathways, heat map -------
+  
+  insert_msg('Figure 37: reactome pathways, heat map')
+  
+  figures$tcga_reactome_hm <- 
+    tcga_biology$heat_map$plot %>% 
+    as_figure(label = 'figure_37_tcga_subsets_reactome_pathways', 
+              ref_name = 'tcga_reactome_hm', 
+              caption = paste('Differences in Reactome pathways', 
+                              'signatures between the hormonal subsets', 
+                              'of the TCGA cohort.'), 
+              w = 180, 
+              h = 180)
+  
+# Figure 38: top Reactome pathways  -----
+  
+  insert_msg('Figure 38: top Reactome pathways')
+  
+  figures$tcga_top_reactome <- 
+    tcga_biology$top_forests %>% 
+    map(~.x + 
+          theme(axis.text.y = element_text(size = 6), 
+                legend.position = 'none', 
+                plot.subtitle = element_blank(), 
+                plot.title.position = 'plot', 
+                plot.title = element_text(hjust = 0.3))) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 2, 
+              align = 'hv', 
+              axis = 'tblr', 
+              labels = LETTERS, 
+              label_size = 10) %>% 
+    as_figure(label = 'figure_38_top_reactome_pathways', 
+              ref_name = 'tcga_top_reactome', 
+              caption = paste('Hallmark Reactome pathways of the', 
+                              'hormonal subsets of the TCGA cohort.'), 
+              w = 180, 
+              h = 280)
+  
+# Figure 39: signatures of stroma and immunogenicity -------
+  
+  insert_msg('Figure 39: scores of stroma and immunogenicity')
+  
+  figures$tcga_imm_scores <- 
+    tcga_xcell$plots[c("immune.score", 
+                       "stroma.score", 
+                       "microenvironment.score")] %>% 
+    c(tcga_quantiseq$plots["uncharacterized.cell"] %>% 
+        map(~.x + labs(title = 'Non-immune cells')), .) %>% 
+    map(~.x + theme(legend.position = 'none')) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 2, 
+              align = 'hv', 
+              labels = LETTERS, 
+              label_size = 10) %>% 
+    as_figure(label = 'figure_39_stroma_signatures', 
+              ref_name = 'tcga_imm_score', 
+              caption = paste('Differences in predicted tumor cell', 
+                              'content and signatures of immunity and stroma', 
+                              'between the hormonal subsets of the TCGA', 
+                              'cohort.'), 
+              w = 180, 
+              h = 140)
+  
+# Figure 40: B and T cell infiltration ------
+  
+  insert_msg('Figure 40: B and T cell infiltration')
+  
+  figures$tcga_lympho <- 
+    list(tcga_quantiseq$plots$B.cell, 
+         tcga_xcell$plots$B.cell, 
+         tcga_quantiseq$plots$T.cell.regulatory..Tregs., 
+         tcga_xcell$plots$T.cell.regulatory..Tregs., 
+         tcga_quantiseq$plots$T.cell.CD8., 
+         tcga_quantiseq$plots$T.cell.CD8., 
+         tcga_xcell$plots$T.cell.CD8..effector.memory, 
+         tcga_xcell$plots$T.cell.CD8..central.memory) %>% 
+    map(~.x + theme(legend.position = 'none')) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 2, 
+              align = 'hv', 
+              axis = 'tblr', 
+              labels = c('A', '', 
+                         'B', '', 
+                         'C', '', 
+                         'D', ''), 
+              label_size = 10) %>% 
+    as_figure(label = 'figure_40_tcga_subset_lymphocytes', 
+              ref_name = 'tcga_lympho',
+              caption = paste('Differences in predicted B and T lymphocyte', 
+                              'infiltration between the hormonal subsets of', 
+                              'the TCGA cohort.'), 
+              w = 180, 
+              h = 280)
+  
+# Figure 41: TCGA subsets, mast cells, endothelial cells and fibroblasts ------
+  
+  insert_msg('Figure 41: mast cells, EC and fibroblasts')
+  
+  figures$tcga_mc_ec_fibro <- 
+    tcga_xcell$plots[c("Mast.cell", 
+                       "Endothelial.cell", 
+                       "Cancer.associated.fibroblast")] %>% 
+    map(~.x + theme(legend.position = 'none')) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 2, 
+              align = 'hv', 
+              axis = 'tblr', 
+              labels = LETTERS, 
+              label_size = 10) %>% 
+    as_figure(label = 'figure_41_tcga_mast_ec_fibroblast', 
+              ref_name = 'tcga_mc_ec_fibro', 
+              caption = paste('Differences in predicted infiltration', 
+                              'of mast cells, endothelial cells', 
+                              'and fibroblasts between the hormonal subsets', 
+                              'of the TCGA cohort.'), 
+              w = 180, 
+              h = 140)
+  
+# Figure 42: TCGA subsets, differential gene expression, gene numbers ----- 
+  
+  insert_msg('Figure 42: differential gene expression, gene numbers')
+
+  figures$tcga_n_dge <- tcga_dplots$gene_n$plot %>% 
+    as_figure(label = 'figure_42_tcga_number_differential_expressed', 
+              ref_name = 'tcga_n_dge', 
+              caption = paste('Percentages of the transcriptome differentially', 
+                              'regulated between the hormonal subsets of the', 
+                              'TCGA cohort.'), 
+              w = 140, 
+              h = 90)
+  
+# Figure 43: TCGA subsets, differential gene expression ------
+  
+  insert_msg('Figure 43: differential gene expression, Volcano')
+  
+  figures$tcga_volcano_dge <- tcga_dplots$volcano %>% 
+    map(~.x + theme(legend.position = 'none')) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 2, 
+              align = 'hv', 
+              axis = 'tblr', 
+              labels = LETTERS, 
+              label_size = 10) %>% 
+    plot_grid(get_legend(tcga_dplots$volcano[[1]] + 
+                           theme(legend.position = 'bottom')), 
+              nrow = 2, 
+              rel_heights = c(0.9, 0.1)) %>% 
+    as_figure(label = 'figure_43_tcga_dge_volcano', 
+              ref_name = 'tcga_volcano_dge', 
+              caption = paste('Significance and regulation of gene expression', 
+                              'between the hormonal subsets of the TCGA cohort.'), 
+              w = 180, 
+              h = 200)
+  
+# Figure 44: TCGA subsets, top regulated genes -------
+  
+  insert_msg('Figure 44: top regulated genes')
+  
+  figures$tcga_top_dge <- tcga_dplots$top_genes %>% 
+    map(~.x + 
+          theme(legend.position = 'none', 
+                axis.text.y = element_text(size = 7), 
+                plot.subtitle = element_blank())) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 2, 
+              align = 'hv', 
+              axis = 'tblr', 
+              labels = LETTERS, 
+              label_size = 10) %>% 
+    as_figure(label = 'figure_44_tcga_top_regulated_genes', 
+              ref_name = 'tcga_top_dge', 
+              caption = paste('The genes stongest differentially', 
+                              'regulated between the hormonal subsets of the', 
+                              'TCGA cohort.'), 
+              w = 180, 
+              h = 230)
+  
+# Figure 45: TCGA subsets, signaling ------
+  
+  insert_msg('Figure 45: TCGA subsets, signaling')
+  
+  figures$tcga_signaling <- 
+    plot_grid(tcga_splots$bubble$plot + 
+                guides(size = 'none') + 
+                theme(legend.position = 'bottom')) %>% 
+    as_figure(label = 'figure_45_tcga_signaling', 
+              ref_name = 'tcga_signaling', 
+              caption = paste('Predicted differential modulation', 
+                              'of signaling pathway activity in', 
+                              'the hormonal subsets of the TCGA cohort.'), 
+              w = 180, 
+              h = 210)
+  
+# Figure 46: TCGA subsets and protein expression -------
+  
+  insert_msg('Figure 46: TCGA subsets and protein expression')
+  
+  figures$tcga_protein_hm <- 
+    plot_grid(tcga_protein$heat_map + 
+                theme(axis.text.y = element_text(size = 6))) %>% 
+    as_figure(label = 'figure_46_tcga_protein_heat_map', 
+              ref_name = 'tcga_protein_hm', 
+              caption = paste0('Differential protein expression in the', 
+                               'hormonal subsets of the TCGA cohort.'), 
+              w = 180, 
+              h = 230)
+  
+# Figure 47: TCGA subsets, top proteins ------
+  
+  insert_msg('Figure 47: TCGA subsets, top proteins')
+  
+  figures$tcga_top_proteins <- 
+    tcga_protein$plots[c("CHEK2|Chk2", "KIT|c-Kit", 
+                         "FN1|Fibronectin", "ERBB2|HER2", 
+                         "XRCC5|Ku80", "MTOR|mTOR")] %>% 
+    map(~.x + theme(legend.position = 'none')) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 2, 
+              align = 'hv', 
+              axis = 'tblr') %>% 
+    as_figure(label = 'figure_47_tcga_top_proteins', 
+              ref_name = 'tcga_top_proteins', 
+              caption = paste('The proteins strongest regulated between', 
+                              'the hormonal subsets of the TCGA cohort.'), 
+              w = 180, 
+              h = 210)
+  
+# Figure 48: TCGA, hormone genes and relapse ------
+  
+  insert_msg('Figure 48: hormone genes and relapse')
+  
+  figures$tcga_gene_survival <- 
+    tcga_relapse$cutpoints$plots[c("PRL", "CGA", 
+                                   "HSD3B1", "HSD3B2", 
+                                   "HSD17B1")] %>% 
+    map(~.x + theme(legend.position = 'bottom')) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 2, 
+              align = 'hv', 
+              axis = 'tblr') %>% 
+    as_figure(label = 'figure_48_tcga_hormone_genes_relapse', 
+              ref_name = 'tcga_gene_survival', 
+              caption = paste('Significant and near significant', 
+                              'effects of sex hormone-related gene expression', 
+                              'on relapse-free survival in the TCGA', 
+                              'testicle cancer cohort.'), 
+              w = 180, 
+              h = 230)
+  
+# Figure 49: TCGA subsets and relapse-free survival -----
+  
+  insert_msg('Figure 49: relapse-free survival in the hormone subsets, TCGA')
+  
+  figures$tcga_subsets_survival <- 
+    plot_grid(tcga_relapse$classes$plot) %>% 
+    as_figure(label = 'figure_49_tcga_subsets_relapse', 
+              ref_name = 'tcga_subsets_survival', 
+              caption = paste('Differences in relapse-free survival', 
+                              'between the hormonal subsets of', 
+                              'the TCGA cohort.'), 
+              w = 140, 
+              h = 95)
+  
+# Figure 50: Elastic Net modeling, coefficients ------
+  
+  insert_msg('Figure 50: Elastic Net coefficients')
+  
+  figures$tcga_elnet_coeffs <- 
+    c(tcga_cox$coef_plots["clinical"], 
+      list(ggdraw()), 
+      tcga_cox$coef_plots[c("genes", "class")]) %>% 
+    map(~.x + theme(legend.position = 'none')) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 2, 
+              align = 'hv', 
+              labels = LETTERS, 
+              label_size = 10) %>% 
+    as_figure(label = 'figure_50_elastic_net_survival_coeffs', 
+              ref_name = 'tcga_elnet_coeffs', 
+              caption = paste('Development of multi-parameter', 
+                              'Elastic Net Cox models of relapse-free', 
+                              'survival in the TCGA cohort.'), 
+              w = 180, 
+              h = 220)
+  
+# Figure 51: performance of the Elastic Net models ------
+  
+  insert_msg('Figure 51: performance of the Elastic Net models')
+  
+  ## C-indexes and integrated Brier scores
+  
+  figures$tcga_elanet_performance <- tcga_cox$stat_plots %>% 
+    map(~.x + theme(legend.position = 'none')) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 2, 
+              align = 'hv') %>% 
+    plot_grid(get_legend(tcga_cox$stat_plots[[1]] + 
+                           theme(legend.position = 'bottom')), 
+              nrow = 2, 
+              rel_heights = c(0.9, 0.1)) %>% 
+    as_figure(label = 'figure_51_elastic_net_survival_performance', 
+              ref_name = 'tcga_elanet_performance', 
+              caption = paste('Performance of the multi-parameter', 
+                              'Elastic Net models at predicting', 
+                              'relapse-free survival in the TCGA cohort.'), 
+              w = 180, 
+              h = 110)
+  
+# Figure 52: calibration of the Elastic Net models ------
+  
+  insert_msg('Figure 52: calibration, Elastic Net models')
+  
+  figures$tcga_elanet_calibration <- 
+    tcga_cox$brier_plots[c("clinical", "genes", "class")] %>% 
+    map(~.x + theme(legend.position = 'none')) %>% 
+    c(list(get_legend(tcga_cox$brier_plots[[1]]))) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 2, 
+              align = 'hv', 
+              axis = 'tblr') %>% 
+    as_figure(label = 'figure_52_elastic_net_calibration', 
+              ref_name = 'tcga_elanet_calibration', 
+              caption = paste('Calibration of the multi-parameter', 
+                              'Elastic Net models of', 
+                              'relapse-free survival in the TCGA cohort.'), 
+              w = 180, 
+              h = 150)
+  
+# Figure 53: Elastic Net tertile scores ------
+  
+  insert_msg('Figure 53: Elastic Net linear predictor score tertiles')
+  
+  figures$tcga_elanet_tertiles <- 
+    tcga_cox$tertiles_plots[c("clinical", "genes", "class")] %>% 
+    map(~.x + theme(legend.position = 'bottom')) %>% 
+    plot_grid(plotlist = ., 
+              ncol = 2, 
+              align = 'hv', 
+              axis = 'tblr') %>%
+    as_figure(label = 'figure_53_elastic_net_tertiles', 
+              ref_name = 'tcga_elanet_tertiles', 
+              caption = paste('Relapse-free survival in tertiles', 
+                              'of linear predictor scores of the', 
+                              'Elastic Net models.'), 
+              w = 180, 
+              h = 170)
   
 # Saving figures in the disc -------
   

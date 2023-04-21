@@ -90,7 +90,7 @@
     pmap(plot_variable, 
          tcga_quantiseq$analysis_tbl, 
          split_factor = 'class', 
-         type = 'violin', 
+         type = 'box', 
          cust_theme = globals$common_theme, 
          y_lab = 'fraction of tumor cells, quanTIseq', 
          x_n_labs = TRUE, 
@@ -143,7 +143,8 @@
                       `#1` = tcga_quantiseq$strata_n$n[1], 
                       `#2` = tcga_quantiseq$strata_n$n[2], 
                       `#3` = tcga_quantiseq$strata_n$n[3], 
-                      `#4` = tcga_quantiseq$strata_n$n[4]), .)
+                      `#4` = tcga_quantiseq$strata_n$n[4], 
+                      `#5` = tcga_quantiseq$strata_n$n[5]), .)
   
 # END -----
   

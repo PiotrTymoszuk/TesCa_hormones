@@ -34,8 +34,8 @@
     list(variables = tcga_exp$lexicon %>% 
            blast(class) %>% 
            map(~.x$gene_symbol), 
-         plot_title = c('Pituitary hormone genes, TCGA', 
-                        'Gonadal hormone synthesis genes, TCGA'), 
+         plot_title = c('Gonadal hormone synthesis genes, TCGA', 
+                        'Pituitary hormone genes, TCGA'), 
          fill = tcga_globals$gene_class_colors) %>% 
     pmap(draw_violin_panel, 
          data = tcga_exp$analysis_tbl, 

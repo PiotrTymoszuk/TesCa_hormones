@@ -90,7 +90,7 @@
     pmap(plot_variable, 
          tcga_xcell$analysis_tbl, 
          split_factor = 'class', 
-         type = 'violin', 
+         type = 'box', 
          cust_theme = globals$common_theme, 
          y_lab = 'fraction of tumor cells, xCell', 
          x_n_labs = TRUE, 
@@ -105,17 +105,17 @@
   
   tcga_xcell$panel_plot <- 
     draw_violin_panel(data = tcga_xcell$norm_table, 
-                    variables = tcga_xcell$significant, 
-                    split_factor = 'class', 
-                    distr_geom = 'violin', 
-                    non_zero = FALSE, 
-                    point_size = 1.5, 
-                    point_wjitter = 0, 
-                    plot_title = 'Immune infiltration, xCell', 
-                    cust_theme = globals$common_theme, 
-                    x_lab = 'Z score, quanTIseq', 
-                    scale = 'width', 
-                    dodge_w = 0.9) + 
+                      variables = tcga_xcell$significant, 
+                      split_factor = 'class', 
+                      distr_geom = 'violin', 
+                      non_zero = FALSE, 
+                      point_size = 1.5, 
+                      point_wjitter = 0, 
+                      plot_title = 'Immune infiltration, xCell', 
+                      cust_theme = globals$common_theme, 
+                      x_lab = 'Z score, quanTIseq', 
+                      scale = 'width', 
+                      dodge_w = 0.9) + 
     scale_fill_manual(values = tcga_globals$clust_colors, 
                       labels = tcga_xcell$strata_labs, 
                       name = '') + 
@@ -143,7 +143,8 @@
                       `#1` = tcga_xcell$strata_n$n[1], 
                       `#2` = tcga_xcell$strata_n$n[2], 
                       `#3` = tcga_xcell$strata_n$n[3], 
-                      `#4` = tcga_xcell$strata_n$n[4]), .)
+                      `#4` = tcga_xcell$strata_n$n[4], 
+                      `#5` = tcga_xcell$strata_n$n[5]), .)
   
 # END -----
   

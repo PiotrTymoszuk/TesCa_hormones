@@ -143,7 +143,15 @@
         tcga$clinical[c('ID', 'relapse', 'rfs_days')], 
         by = 'ID') %>% 
     map(as_tibble)
-
+  
+  set.seed(1234)
+  
+  tcga_cox$null_scores <- tcga_cox$lp_scores %>% 
+    map(~mutate(.x, 
+                lp_score = sample(lp_score, 
+                                  size = nrow(.x), 
+                                  replace = TRUE)))
+  
 # Univariate Cox models -----
   
   insert_msg('Univariate models')
@@ -157,6 +165,22 @@
     map(eval) %>% 
     map2(., tcga_cox$lp_scores, 
          as_coxex)
+  
+  ## Null models
+  
+  tcga_cox$null_models <- tcga_cox$null_scores %>% 
+    map(~call2('coxph', 
+               formula = Surv(rfs_days, relapse) ~ lp_score, 
+               data = .x, 
+               x = TRUE, 
+               y = TRUE)) %>% 
+    map(eval) %>% 
+    map2(., tcga_cox$null_scores, 
+         as_coxex) %>% 
+    set_names(paste0(names(tcga_cox$null_scores), '_null'))
+  
+  tcga_cox$coxph_models <- c(tcga_cox$coxph_models, 
+                             tcga_cox$null_models)
   
 # Model assumptions ----
   
@@ -207,7 +231,10 @@
   tcga_cox$stat_plots <- tcga_cox$resample_stats %>% 
     compress(names_to = 'model') %>% 
     filter(dataset %in% c('training', 'test')) %>% 
-    mutate(dataset = factor(dataset, c('training', 'test'))) %>% 
+    mutate(dataset = factor(dataset, c('training', 'test')), 
+           model_type = ifelse(stri_detect(model, fixed = 'null'), 
+                               'reference', 'model'), 
+           model = stri_replace(model, fixed = '_null', replacement = '')) %>% 
     blast(dataset)
   
   tcga_cox$stat_plots <- 
@@ -216,20 +243,24 @@
     pmap(function(x, y, z) x %>% 
            ggplot(aes(x = c_index, 
                       y = 1 - ibs, 
-                      color = model)) + 
-           geom_hline(yintercept = 0.75, 
-                      linetype = 'dashed') + 
-           geom_vline(xintercept = 0.1, 
-                      linetype = 'dashed') + 
-           geom_point(shape = 16, 
-                      size = 2) + 
+                      color = model, 
+                      shape = model_type)) + 
+           #geom_hline(yintercept = 0.75, 
+            #          linetype = 'dashed') + 
+           #geom_vline(xintercept = 0.1, 
+            #          linetype = 'dashed') + 
+           geom_point(size = 2) + 
            geom_text_repel(aes(label = model), 
-                           size = 2.75) +
+                           size = 2.75, 
+                           alpha = 1) +
            scale_color_manual(values = c(clinical = 'steelblue', 
                                          genes = 'orangered3', 
                                          class = 'firebrick4'), 
                               name = '') +
-           expand_limits(x = 1, y = 1) +
+           scale_shape_manual(values = c(model = 16, 
+                                         reference = 17), 
+                              name = '') + 
+           #expand_limits(x = 1, y = 1) +
            guides(color = 'none') + 
            globals$common_theme + 
            labs(title = y, 
@@ -245,11 +276,22 @@
     map(plot, 
         show_reference = TRUE, 
         cust_theme = globals$common_theme) %>% 
-    map2(., c('Clinical model', 
+    map2(., c('Clinical', 
               'Clinical + genes', 
-              'Clinical + hormonal subsets'), 
+              'Clinical + hormonal subsets', 
+              'Clinical, reference', 
+              'Clinical + genes, reference', 
+              'Clinical + hormonal subsets, reference'), 
          ~.x + 
-           labs(title = .y) + 
+           labs(title = .y, 
+                x = 'Relapse-free survival, days') + 
+           scale_color_manual(values = c(reference = 'gray50', 
+                                         training = 'steelblue', 
+                                         test = 'firebrick'), 
+                              labels = c(reference = 'reference', 
+                                         training = 'data', 
+                                         test = '10-fold CV'), 
+                              name = '') + 
            scale_y_continuous(limits = c(0, 0.25)))
   
 # Model calibration: LP tertiles -----
@@ -276,9 +318,12 @@
   
   tcga_cox$tertiles_plots <- 
     list(x = tcga_cox$calibration_obj, 
-         title = c('Clinical model', 
+         title = c('Clinical', 
                    'Clinical + genes', 
-                   'Clinical + hormonal subsets')) %>% 
+                   'Clinical + hormonal subsets', 
+                   'Clinical, reference', 
+                   'Clinical + genes, reference', 
+                   'Clinical + hormonal subsets, reference')) %>% 
     pmap(plot, 
          palette = c('steelblue', 'gray40', 'firebrick'), 
          cust_theme = globals$common_theme, 
@@ -296,8 +341,11 @@
                     hjust = 0, 
                     vjust = 0, 
                     size = 2.75)) %>% 
-    map2(., tcga_cox$event_lab,
-         ~.x + labs(subtitle = .y))
+    map2(., c(tcga_cox$event_lab, 
+              tcga_cox$event_lab),
+         ~.x + 
+           labs(subtitle = .y) + 
+           theme(plot.tag = element_blank()))
   
 # Elastic Net model coefficients ------
   

@@ -163,10 +163,11 @@
     select(all_of(tcga_protein$cmm_significant)) %>% 
     t %>% 
     as.data.frame %>% 
-    hcluster(k = 2)
+    kcluster(k = 2, clust_fun = 'pam')
   
   tcga_protein$heat_map_order <- tcga_protein$prot_clust$clust_assignment %>% 
-    arrange(clust_id)
+    arrange(clust_id) %>% 
+    set_names(c('variable', 'clust_id'))
 
 # Heat map ------
   
@@ -176,26 +177,26 @@
   
   tcga_protein$heat_map <- 
     draw_class_hm(data = tcga_protein$norm_table[c('ID', 'class', tcga_protein$cmm_significant)], 
-                  variables = tcga_protein$heat_map_order$observation, 
+                  variables = tcga_protein$heat_map_order$variable, 
                   plot_title = 'Hormonal cluster, protein expression, TCGA', 
-                  limits = c(-5, 5), 
-                  oob = scales::squish)
+                  limits = c(-3, 3), 
+                  oob = scales::squish, 
+                  name = 'Z-score')
   
   ## plotting the protein clustering more explicitly
   
   tcga_protein$heat_map$data <- 
     left_join(tcga_protein$heat_map$data %>% 
                 mutate(variable = as.character(variable)), 
-              tcga_protein$heat_map_order %>% 
-                mutate(variable = observation), 
+              tcga_protein$heat_map_order, 
               by = 'variable')
   
   tcga_protein$heat_map <- tcga_protein$heat_map + 
     facet_grid(clust_id ~ class, 
                scales = 'free', 
                space = 'free') + 
-    theme(strip.background = element_blank(), 
-          strip.text = element_blank())
+    theme(strip.background.y = element_blank(), 
+          strip.text.y = element_blank())
   
 # Violin plots for single proteins ------
   
@@ -209,7 +210,7 @@
     future_pmap(plot_variable, 
                 tcga_protein$analysis_tbl, 
                 split_factor = 'class', 
-                type = 'violin', 
+                type = 'box', 
                 cust_theme = globals$common_theme, 
                 y_lab = 'Relative expression, AU', 
                 x_n_labs = TRUE, 
@@ -233,7 +234,8 @@
                       `#1` = tcga_protein$strata_n$n[1], 
                       `#2` = tcga_protein$strata_n$n[2], 
                       `#3` = tcga_protein$strata_n$n[3], 
-                      `#4` = tcga_protein$strata_n$n[4]), .)
+                      `#4` = tcga_protein$strata_n$n[4], 
+                      `#5` = tcga_protein$strata_n$n[5]), .)
   
 # END ------
   

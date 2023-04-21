@@ -72,28 +72,65 @@
   
   insert_msg('Top regulated pathways per subset')
   
+  ## >0.3 fold regulation
+  
   tcga_biology$top_reactome <- tcga_biology$significant_lm %>% 
     map(filter, regulation != 'ns') %>% 
     map(blast, regulation) %>% 
-    map(~map_dfr(.x, top_n, 20, abs(estimate))) %>% 
+    map(~map_dfr(.x, filter, abs(estimate) > 0.3)) %>% 
     map(arrange, estimate)
   
-# Heat maps with the top regulated signatures -----
+# Heat map with the top regulated signatures -----
   
   insert_msg('Heat maps with the top regulated scores')
-
-  tcga_biology$top_heat_maps <- 
-    list(variables = tcga_biology$top_reactome %>% 
-           map(~.x$response), 
-         plot_title = paste0('Top signatures, subset ', 
-                             levels(tcga_biology$analysis_tbl$class)[2:4], 
-                             ', TCGA')) %>% 
-    pmap(draw_class_hm, 
-         data = tcga_biology$analysis_tbl, 
-         limits = c(-1, 1), 
-         oob = scales::squish) %>% 
-    map(~.x + 
-          scale_y_discrete(labels = function(x) tcga_biology$reactome_wrapper(x, 50)))
+  
+  ## common top regulated Reactome pathways
+  
+  tcga_biology$heat_map$variables <- 
+    tcga_biology$top_reactome %>% 
+    map(~.x$response) %>% 
+    reduce(union)
+  
+  ## data 
+  
+  tcga_biology$heat_map$data <- 
+    tcga_biology$analysis_tbl[c('ID', 'class', tcga_biology$heat_map$variables)]
+  
+  ## clusters of signatures
+  
+  tcga_biology$heat_map$cluster <- tcga_biology$heat_map$data %>% 
+    column_to_rownames('ID') %>% 
+    select(-class) %>% 
+    t %>% 
+    as.data.frame %>% 
+    kcluster(k = 3, clust_fun = 'pam', variant = 'faster')
+  
+  tcga_biology$heat_map$order <- 
+    tcga_biology$heat_map$cluster$clust_assignment %>% 
+    arrange(clust_id) %>% 
+    set_names(c('variable', 'clust_id'))
+  
+  ## heat map with the signature clustering
+  
+  tcga_biology$heat_map$plot <- 
+    draw_class_hm(data = tcga_biology$heat_map$data, 
+                  variables = tcga_biology$heat_map$order$variable, 
+                  plot_title = 'Reactome pathways differentiating between subsets, TCGA',
+                  limits = c(-1, 1), 
+                  oob = scales::squish, 
+                  name = expression(Delta * 'ssGSEA')) + 
+    theme(axis.text.y = element_blank(), 
+          axis.ticks.y = element_blank())
+  
+  tcga_biology$heat_map$plot$data <- tcga_biology$heat_map$plot$data %>% 
+    left_join(tcga_biology$heat_map$order, by = 'variable')
+  
+  tcga_biology$heat_map$plot <- tcga_biology$heat_map$plot + 
+    facet_grid(clust_id ~ class, 
+               space = 'free', 
+               scales = 'free') + 
+    theme(strip.background.y = element_blank(), 
+          strip.text.y = element_blank())
   
 # Forest plots with the top regulated signatures -----
   
@@ -102,20 +139,22 @@
   tcga_biology$top_forests <- 
     list(data = tcga_biology$top_reactome, 
          plot_title = paste0('Top signatures, subset ', 
-                             levels(tcga_biology$analysis_tbl$class)[2:4], 
+                             levels(tcga_biology$analysis_tbl$class)[-1], 
                              ', TCGA')) %>% 
     pmap(plot_top, 
          regulation_variable = 'estimate', 
          label_variable = 'response', 
          p_variable = 'p_adjusted', 
          regulation_level = 0, 
+         top_regulated = 10, 
          lower_ci_variable = 'lower_ci', 
          upper_ci_variable = 'upper_ci', 
          plot_subtitle = 'Baseline: subset #1', 
          x_lab = expression(Delta * ' ssGSEA, 95% CI'), 
          cust_theme = globals$common_theme) %>% 
     map(~.x + 
-          scale_y_discrete(labels = function(x) tcga_biology$reactome_wrapper(x, 50)) + 
+          scale_y_discrete(labels = function(x) tcga_biology$reactome_wrapper(x, 30)) + 
+          scale_x_continuous(limits = c(-1.35, 1.35)) + 
           theme(legend.position = 'bottom'))
   
 # END -----

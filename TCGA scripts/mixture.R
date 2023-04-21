@@ -47,7 +47,7 @@
                           HSD3B2 = -0.9, 
                           CYP19A1 = -0.5588, 
                           HSD17B1 = 0))
-
+  
 # Determination of the optimal class number: non-parametric model -----
   
   insert_msg('Class numbers: non-parameteric model')
@@ -78,7 +78,7 @@
     plot_class_bic(data = tcga_mix$np_tuning$stats, 
                    plot_subtitle = 'Non-parametric EM model')
   
-# Tuning the GMM models ------
+# Tuning the cutpoint models ------
   
   insert_msg('Tuning the cutpoint models')
   
@@ -149,10 +149,10 @@
   
   ## plotting the BIC
   
-  tcga_mix$cut_tuning$plots <- 
+  tcga_mix$gmm_tuning$plots <- 
     plot_class_bic(data = tcga_mix$gmm_tuning$stats, 
                    plot_subtitle = 'Gaussian mixture EM model', 
-                   k_sel = 4)
+                   k_sel = 5)
   
 # The final model ------
   
@@ -160,7 +160,7 @@
   
   set.seed(1234)
   
-  tcga_mix$model <- tcga_mix$gmm_tuning$models$class_4
+  tcga_mix$model <- tcga_mix$gmm_tuning$models$class_5
   
   ## posteriors and class assignment
   
@@ -184,6 +184,77 @@
          clust_fun = 'kmeans', 
          dots = NULL) %>% 
     clust_analysis
+  
+# Heat map of the component means ------
+  
+  insert_msg('Hat map of the means')
+  
+  ## fitted means
+  
+  tcga_mix$mean_hm$means <- tcga_mix$model$parameters$mean %>% 
+    set_colnames(levels(tcga_mix$assignment$class)) %>% 
+    as.data.frame %>% 
+    rownames_to_column('gene_symbol') %>% 
+    as_tibble
+  
+  ## variances/SD
+  
+  tcga_mix$mean_hm$variances <- 
+    c(1:length(levels(tcga_mix$assignment$class))) %>% 
+    map(~tcga_mix$model$parameters$variance$sigma[, , .x]) %>% 
+    map(diag) %>% 
+    set_names(levels(tcga_mix$assignment$class)) %>% 
+    map(compress, 
+        names_to = 'gene_symbol', 
+        values_to = 'variance') %>% 
+    compress(names_to = 'class') %>% 
+    mutate(class = factor(class, levels(tcga_mix$assignment$class)), 
+           sd = sqrt(variance))
+
+  ## gene hierarchy
+  
+  tcga_mix$mean_hm$cluster <- tcga_mix$mean_hm$means %>% 
+    column_to_rownames('gene_symbol') %>% 
+    as.data.frame %>% 
+    hcluster(k = 3)
+  
+  tcga_mix$mean_hm$order <- tcga_mix$mean_hm$cluster$clust_assignment %>% 
+    arrange(desc(clust_id)) %>% 
+    set_names(c('gene_symbol', 'clust_id'))
+  
+  ## plotting data
+  
+  tcga_mix$mean_hm$data <-  tcga_mix$mean_hm$means %>% 
+    pivot_longer(cols = levels(tcga_mix$assignment$class), 
+                 names_to = 'class',
+                 values_to = 'fit_mean') %>% 
+    left_join(tcga_mix$mean_hm$variances, 
+              by = c('class', 'gene_symbol')) %>% 
+    mutate(plot_lab = paste(signif(fit_mean, 2), 
+                            signif(sd, 2), 
+                            sep = '\nSD = '))
+  
+  ## heat map
+  
+  tcga_mix$mean_hm$plot <- tcga_mix$mean_hm$data %>% 
+    mutate(gene_symbol = factor(gene_symbol, 
+                                tcga_mix$mean_hm$order$gene_symbol)) %>% 
+    ggplot(aes(x = class, 
+               y = gene_symbol, 
+               fill = fit_mean)) + 
+    geom_tile(color = 'black') + 
+    geom_text(aes(label = plot_lab), 
+              size = 2.1, 
+              color = 'gray20') + 
+    scale_fill_gradient2(low = 'steelblue', 
+                         mid = 'white', 
+                         high = 'firebrick', 
+                         name = 'µ') + 
+    globals$common_theme + 
+    theme(axis.title = element_blank(), 
+          axis.text.y = element_text(face = 'italic')) + 
+    labs(title = 'Component means', 
+         subtitle = 'Gaussian mixture EM model')
 
 # END ------
   
