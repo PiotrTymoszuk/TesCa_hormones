@@ -43,7 +43,7 @@
          non_zero = FALSE, 
          cust_theme = globals$common_theme, 
          scale = 'width', 
-         x_lab = expression('log'[2] * ' gene count'), 
+         x_lab = expression('log'[2] * ' mRNA count'), 
          point_hjitter = 0.1, 
          point_size = 1.5, 
          plot_subtitle = paste('n =', nrow(tcga_exp$analysis_tbl))) %>% 
@@ -101,7 +101,7 @@
            filter(!is.na(histology)), 
          split_factor = 'histology', 
          cust_theme = globals$common_theme, 
-         y_lab = expression('log'[2] * ' gene count'), 
+         y_lab = expression('log'[2] * ' mRNA count'), 
          x_n_labs = TRUE, 
          point_hjitter = 0) %>% 
     map(~.x + 

@@ -17,7 +17,9 @@
   
   cohort$lexicon$tcga <- tcga$lexicon %>% 
     filter(!variable %in% c('ID', 'relapse', 'death', 'tumor_death', 
-                            'dss_days', 'progression', 'pfs_days'))
+                            'dss_days', 'progression', 'pfs_days', 
+                            'progression_factor', 'death_factor', 
+                            'os_days'))
   
   cohort$lexicon <- cohort$lexicon %>% 
     map(arrange, class)

@@ -82,7 +82,7 @@
          split_factor = 'class', 
          type = 'box', 
          cust_theme = globals$common_theme, 
-         y_lab = expression('log'[2] * ' gene count'), 
+         y_lab = expression('log'[2] * ' mRNA count'), 
          x_n_labs = TRUE, 
          point_hjitter = 0) %>% 
     map(~.x + 

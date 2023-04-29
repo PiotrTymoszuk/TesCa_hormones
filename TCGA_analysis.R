@@ -35,17 +35,26 @@
   
   library(soucer)
   library(furrr)
+  library(doParallel)
 
   library(clustTools)
   library(mixtools)
   library(mclust)
+  library(GGally)
+  library(ggforce)
+  library(ggExtra)
 
   library(microViz)
   library(SPIA)
+  library(biggrExtra)
 
   library(survminer)
   library(survival)
   library(coxExtensions)
+  
+  library(caret)
+  library(caretExtra)
+  library(ranger)
   
   insert_head()
   
@@ -53,6 +62,7 @@
   explore <- exda::explore
   set_rownames <- trafo::set_rownames
   map <- purrr::map
+  calibrate <- rms::calibrate
   
   c('./tools/globals.R', 
     './tools/functions.R') %>% 
@@ -75,11 +85,11 @@
   ## hormone class colors
   
   tcga_globals$clust_colors <- 
-    c('#1' = 'darkseagreen4', 
-      '#2' = 'steelblue2', 
-      '#3' = 'coral2', 
-      '#4' = 'coral4', 
-      '#5' = 'gray60')
+    c('SEM1' = 'darkseagreen4', 
+      'SEM2' = 'gray60', 
+      'NS PRL' = 'steelblue2', 
+      'NS E2' = 'coral2', 
+      'NS T' = 'coral4')
   
 # analysis scripts ------
   
@@ -99,9 +109,13 @@
   
   c('./TCGA scripts/background.R', 
     './TCGA scripts/biology.R', 
+    './TCGA scripts/recon.R', 
     './TCGA scripts/quantiseq.R', 
     './TCGA scripts/xcell.R', 
     './TCGA scripts/protein.R', 
+    './TCGA scripts/tmb.R', 
+    './TCGA scripts/mutations.R', 
+    './TCGA scripts/cna_count.R', 
     './TCGA scripts/dge.R', 
     './TCGA scripts/dge_plots.R') %>% 
     source_all(message = TRUE, crash = TRUE)
@@ -122,10 +136,48 @@
   c('./TCGA scripts/signaling_plots.R') %>% 
     source_all(message = TRUE, crash = TRUE)
   
+  ## copy number alterations 
+  
+  if(file.exists('./cache/cna.RData')) {
+    
+    insert_msg('Loading cached CNA testing results')
+    
+    load('./cache/cna.RData')
+    
+  } else {
+    
+    source_all('./TCGA scripts/cna.R', 
+               message = TRUE, 
+               crash = TRUE)
+    
+  }
+  
+  c('./TCGA scripts/cna_plots.R') %>% 
+    source_all(message = TRUE, crash = TRUE)
+  
   ## survival
   
   c('./TCGA scripts/relapse.R', 
     './TCGA scripts/elanet.R') %>% 
+    source_all(message = TRUE, crash = TRUE)
+  
+  ## classifier with the gene expression, infiltration, signature
+  ## and protein explanatory variables
+  
+  if(file.exists('./cache/tcga_rf.RData')) {
+    
+    insert_msg('Loading cached RF modeling results')
+    
+    load('./cache/tcga_rf.RData')
+    
+  } else {
+    
+    source_all('./TCGA scripts/classifier.R', 
+               message = TRUE, crash = TRUE)
+    
+  }
+  
+  c('./TCGA scripts/classifier_plots.R') %>% 
     source_all(message = TRUE, crash = TRUE)
   
 # END -----

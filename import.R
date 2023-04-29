@@ -10,8 +10,14 @@
   library(readxl)
   library(soucer)
   library(lubridate)
+
+  library(AnnotationDbi)
+  library(org.Hs.eg.db)
   
   insert_head()
+  
+  select <- dplyr::select
+  reduce <- purrr::reduce
   
   c('./tools/globals.R') %>% 
     source_all(message = TRUE, crash = TRUE)

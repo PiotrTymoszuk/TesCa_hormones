@@ -128,6 +128,35 @@
                space = 'free') + 
     theme(strip.background = element_blank(), 
           strip.text = element_blank())
+  
+# Similarity -------
+  
+  insert_msg('Similarity of the hormonal subsets')
+  
+  ## dimensionality reduction
+  
+  tcga_quantiseq$similarity$red_obj <- tcga_quantiseq$analysis_tbl %>% 
+    column_to_rownames('ID') %>% 
+    select(-class) %>% 
+    center_data('median') %>% 
+    reduce_data(distance_method = 'cosine', 
+                kdim = 2, 
+                red_fun = 'mds')
+  
+  ## plotting
+  
+  set.seed(1234)
+  
+  tcga_quantiseq$similarity$plots <- 
+    plot_similarity(tcga_quantiseq$similarity$red_obj, 
+                    class_assignment = tcga_quantiseq$analysis_tbl[c('ID', 'class')], 
+                    plot_title = 'Similarity of hormonal subsets, QuanTIseq infiltration', 
+                    plot_subtitle = '2D MDS, cosine distance', 
+                    distance = 'cosine', 
+                    min_max_similarity = TRUE, 
+                    weighting_order = 1, 
+                    net_theme = theme_void() + 
+                      theme(plot.margin = globals$common_margin))
 
 # Result table ------
   
@@ -139,12 +168,12 @@
               by = 'variable') %>% 
     format_tbl(lexicon = tcga_quantiseq$lexicon, 
                rm_complete = TRUE) %>% 
-    full_rbind(tibble(variable = 'Samples, n', 
-                      `#1` = tcga_quantiseq$strata_n$n[1], 
-                      `#2` = tcga_quantiseq$strata_n$n[2], 
-                      `#3` = tcga_quantiseq$strata_n$n[3], 
-                      `#4` = tcga_quantiseq$strata_n$n[4], 
-                      `#5` = tcga_quantiseq$strata_n$n[5]), .)
+    full_rbind(cbind(variable = 'Samples, n', 
+                     tcga_quantiseq$strata_n %>% 
+                       column_to_rownames('class') %>% 
+                       t) %>% 
+                 as.data.frame, .) %>% 
+    as_tibble
   
 # END -----
   

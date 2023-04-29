@@ -198,18 +198,10 @@
   insert_msg('Plotting of the variable importance')
   
   class_rf$importance_plot <- 
-    class_rf$var_importance %>% 
-    ggplot(aes(x = delta_accuracy, 
-               y = reorder(var_label, delta_accuracy))) + 
-    geom_bar(stat = 'identity',
-             color = 'black', 
-             fill = 'steelblue') + 
-    globals$common_theme + 
-    theme(axis.title.y = element_blank()) + 
-    labs(title = 'Variable importance', 
-         subtitle = class_rf$n_numbers, 
-         x = expression(Delta * ' accuracy'))
-  
+    plot_rf_importance(class_rf$var_importance, 
+                       plot_title = 'Variable importance', 
+                       plot_subtitle = class_rf$n_numbers)
+
 # END -------
   
   insert_tail()

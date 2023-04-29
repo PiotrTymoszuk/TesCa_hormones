@@ -1,36 +1,21 @@
-# Comparing ssGSVA scores for the Reactome pathways 
-# between the hormonal subsets
-# Done with one-way ANOVA and lm. ssGSVA score are usually nicele normally 
-# distributed
+# Comparison ssGSEA score of the Recon subsystem gene signatures between
+# the hormonal subsets
 
   insert_head()
   
 # container -----
   
-  tcga_biology <- list()
+  tcga_recon <- list()
   
-# analysis globals ------
+# analysis globals -----
   
   insert_msg('Analysis globals')
-
-  tcga_biology$analysis_tbl <- 
-    left_join(tcga_mix$assignment, 
-              tcga$reactome, 
-              by = 'ID')
   
-  tcga_biology$lexicon <- tcga$reactome_lexicon %>% 
-    filter(variable %in% names(tcga_biology$analysis_tbl))
+  tcga_recon$analysis_tbl <- 
+    inner_join(tcga_mix$assignment, 
+               tcga$recon, by = 'ID')
   
-  ## labeller
-  
-  tcga_biology$reactome_wrapper <- function(x, ...) {
-    
-    x %>% 
-      exchange(dict = tcga_biology$lexicon) %>% 
-      stri_wrap(simplify = FALSE, ...) %>% 
-      map_chr(paste, collapse = '\n')
-    
-  }
+  tcga_recon$lexicon <- tcga$recon_lexicon
   
 # GSVA -----
   
@@ -39,35 +24,35 @@
   ## the tests are done in two flavors: 
   ## with the SEM1 and NS PRL as baselines, respectively
   
-  tcga_biology$test <- list(SEM = tcga_biology$analysis_tbl, 
-                            NSGCT = tcga_biology$analysis_tbl %>% 
-                              mutate(class = new_baseline(class, 
-                                                          'NS PRL'))) %>% 
+  tcga_recon$test <- list(SEM = tcga_recon$analysis_tbl, 
+                          NSGCT = tcga_recon$analysis_tbl %>% 
+                            mutate(class = new_baseline(class, 
+                                                        'NS PRL'))) %>% 
     map(test_anova, 
         split_fct = 'class', 
-        variables = tcga_biology$lexicon$variable, 
+        variables = tcga_recon$lexicon$variable, 
         adj_method = 'BH', 
-        .parallel = TRUE)
-
+        .parallel = FALSE)
+  
 # Significant factors ------
   
   insert_msg('Significant factors')
   
   ## significance in ANOVA
   
-  tcga_biology$significant_anova <- tcga_biology$test[[1]]$anova %>% 
+  tcga_recon$significant_anova <- tcga_recon$test[[1]]$anova %>% 
     filter(p_adjusted < 0.05) %>% 
     .$response
-
+  
   ## significance in linear modeling
   
-  tcga_biology$cleared_lm <- tcga_biology$test %>% 
+  tcga_recon$cleared_lm <- tcga_recon$test %>% 
     map(~.x$lm) %>% 
     map(filter, 
-        response %in% tcga_biology$significant_anova, 
+        response %in% tcga_recon$significant_anova, 
         level != '(Intercept)') %>% 
     map(mutate, 
-        resp_label = exchange(response, dict = tcga_biology$lexicon), 
+        resp_label = exchange(response, dict = tcga_recon$lexicon), 
         regulation = ifelse(p_adjusted >= 0.05, 
                             'ns', 
                             ifelse(estimate > 0, 
@@ -75,39 +60,38 @@
         regulation = factor(regulation, 
                             c('upregulated', 'downregulated', 'ns')))
   
-  tcga_biology$significant_lm <- tcga_biology$cleared_lm %>% 
+  tcga_recon$significant_lm <- tcga_recon$cleared_lm %>% 
     map(filter, regulation != 'ns')
-
+  
 # Heat map with the top regulated signatures -----
   
   insert_msg('Heat map with the top regulated scores')
   
   ## common significantly regulated Reactome pathways
   
-  tcga_biology$heat_map$variables <- 
-    tcga_biology$significant_lm %>% 
+  tcga_recon$heat_map$variables <- 
+    tcga_recon$significant_lm %>% 
     map(~.x$response) %>% 
     map(reduce, union) %>% 
     reduce(union)
   
   ## plotting
   
-  tcga_biology$heat_map$plot <- 
-    draw_clustered_hm(data = tcga_biology$analysis_tbl, 
-                      variables = tcga_biology$heat_map$variables, 
-                      plot_title = paste('Reactome pathways differentiating', 
+  tcga_recon$heat_map$plot <- 
+    draw_clustered_hm(data = tcga_recon$analysis_tbl, 
+                      variables = tcga_recon$heat_map$variables, 
+                      plot_title = paste('Metabolis pathways differentiating', 
                                          'between the hormonal subsets'), 
                       k = 3, 
                       name = expression(Delta * 'ssGSEA'), 
                       limits = c(-1, 1), 
                       oob = scales::squish)
-  
 # Forest plots with the top regulated signatures -----
   
   insert_msg('Forest plots for the top regulated signatures')
   
-  tcga_biology$top_forests <- 
-    list(x = tcga_biology$significant_lm %>% 
+  tcga_recon$top_forests <- 
+    list(x = tcga_recon$significant_lm %>% 
            map(blast, level), 
          y = c('SEM1', 'NS PRL')) %>% 
     pmap(function(x, y)  list(data = x, 
@@ -124,7 +108,7 @@
                 x_lab = expression(Delta * ' ssGSEA, 95% CI'), 
                 cust_theme = globals$common_theme) %>% 
            map(~.x + 
-                 scale_y_discrete(labels = function(x) tcga_biology$reactome_wrapper(x, 30)) + 
+                 scale_y_discrete(labels = function(x) exchange(x, dict = tcga_recon$lexicon)) + 
                  scale_x_continuous(limits = c(-1.35, 1.35)) + 
                  theme(legend.position = 'bottom')))
   
@@ -134,7 +118,7 @@
   
   ## dimensionality reduction
   
-  tcga_biology$similarity$red_obj <- tcga_biology$analysis_tbl %>% 
+  tcga_recon$similarity$red_obj <- tcga_recon$analysis_tbl %>% 
     column_to_rownames('ID') %>% 
     select(-class) %>% 
     reduce_data(distance_method = 'cosine', 
@@ -145,10 +129,10 @@
   
   set.seed(1234)
   
-  tcga_biology$similarity$plots <- 
-    plot_similarity(tcga_biology$similarity$red_obj, 
-                    class_assignment = tcga_biology$analysis_tbl[c('ID', 'class')], 
-                    plot_title = 'Similarity of hormonal subsets, Reactome pathways', 
+  tcga_recon$similarity$plots <- 
+    plot_similarity(tcga_recon$similarity$red_obj, 
+                    class_assignment = tcga_recon$analysis_tbl[c('ID', 'class')], 
+                    plot_title = 'Similarity of hormonal subsets, metabolic pathways', 
                     plot_subtitle = '2D MDS, cosine distance', 
                     distance = 'cosine', 
                     min_max_similarity = TRUE, 
@@ -158,4 +142,4 @@
   
 # END -----
   
-  insert_tail()
+  insert_tail()  

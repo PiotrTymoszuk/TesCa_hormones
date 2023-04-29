@@ -1,0 +1,178 @@
+<mxfile host="Electron" modified="2023-04-26T21:57:48.705Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.1.2 Chrome/106.0.5249.199 Electron/21.4.3 Safari/537.36" etag="qyH__sP45aeu6311NFKD" version="21.1.2" type="device">
+  <diagram name="Page-1" id="SWfgMSVMJWEQduslk7K8">
+    <mxGraphModel dx="2108" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="690" pageHeight="980" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-1" value="SEM1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=8;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="10" y="30" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-2" value="SEM2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=8;fontStyle=1;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="150" y="30" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-3" value="NS PRL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=8;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="291" y="30" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-4" value="NS E2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;fontSize=8;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="430" y="30" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-5" value="NS T" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#ae4132;fontSize=8;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="570" y="30" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-7" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Low expression of&amp;nbsp; most hormone-related genes; moderate &lt;i&gt;LHB&lt;/i&gt;&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="10" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="aY1BhBKGzXf91u3oSOSi-3" target="aY1BhBKGzXf91u3oSOSi-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-14" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Low expression of&amp;nbsp; most hormone-related genes; &lt;i&gt;FSHB&lt;/i&gt;-positive&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="150" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-15" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;High expression of PRL, moderate expression of CGA, GNRH2 and estrogen-synthesis genes&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="291" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-16" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;High expression of CGA and GNRH2 and estrogen-synthesis genes&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="430" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-17" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;High expression&amp;nbsp; of testosterone-synthesis genes&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="570" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-18" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Low expression of&amp;nbsp; most hormone-related genes; moderate &lt;i&gt;LHB&lt;/i&gt;&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="10" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-19" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Low expression of&amp;nbsp; most hormone-related genes; &lt;i&gt;FSHB&lt;/i&gt;-positive&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="150" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-20" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;High expression of PRL, moderate expression of CGA, GNRH2 and estrogen-synthesis genes&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="291" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-21" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;High expression of CGA and GNRH2 and estrogen-synthesis genes&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="430" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-22" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Low expression of&amp;nbsp; most hormone-related genes; moderate &lt;i&gt;LHB&lt;/i&gt;&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="10" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-23" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Low expression of&amp;nbsp; most hormone-related genes; &lt;i&gt;FSHB&lt;/i&gt;-positive&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="150" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-24" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;High expression of PRL, moderate expression of CGA, GNRH2 and estrogen-synthesis genes&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="291" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-25" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;High expression of CGA and GNRH2 and estrogen-synthesis genes&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="430" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-26" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Early age onset&lt;/li&gt;&lt;li&gt;Predominantly NSGCT&lt;/li&gt;&lt;li&gt;Predominantly S0 - S1 marker stages&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="571" y="130" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-27" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Middle-late age onset&lt;/li&gt;&lt;li&gt;Predominantly seminoma&lt;/li&gt;&lt;li&gt;Predominantly S0 - S1 marker stage&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="11" y="130" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-28" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Late age onset&lt;/li&gt;&lt;li&gt;Predominantly seminoma&lt;/li&gt;&lt;li&gt;S0 - S3 marker stage&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="151" y="130" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-29" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Early age onser&lt;/li&gt;&lt;li&gt;NSGCT&lt;/li&gt;&lt;li&gt;S0 - S2 marker stage&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="292" y="130" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-30" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Early age onser&lt;/li&gt;&lt;li&gt;NSGCT&lt;/li&gt;&lt;li&gt;S1 - S3 marker stage&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="431" y="130" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-31" value="Sex hormones" style="rounded=0;whiteSpace=wrap;html=1;horizontal=0;fontSize=8;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="-30" y="60" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-42" value="Clinics" style="rounded=0;whiteSpace=wrap;html=1;horizontal=0;fontSize=8;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="-30" y="130" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-43" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Endothellial cell pathways&lt;/li&gt;&lt;li&gt;Glucocorticoid&amp;nbsp; and pregnolone synthesis&lt;/li&gt;&lt;li&gt;FLT3 signaling&lt;/li&gt;&lt;li&gt;Inflammasome&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="570" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-44" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;PD1 and IFN signaling&lt;/li&gt;&lt;li&gt;MAPK signaling&amp;nbsp;&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="10" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-45" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Vitamin B1 metabolism&lt;/li&gt;&lt;li&gt;IFN signaling&lt;/li&gt;&lt;li&gt;Peptide hormone synthesis&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="150" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-46" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Endothelial cell processes&lt;/li&gt;&lt;li&gt;VEGF, WNT and NOTCH signaling&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="291" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-47" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Cholesterol uptake and turnover&lt;/li&gt;&lt;li&gt;Steroid synthesis&lt;/li&gt;&lt;li&gt;Estrogen biosynthesis&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="430" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-48" value="Biology" style="rounded=0;whiteSpace=wrap;html=1;horizontal=0;fontSize=8;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="-31" y="200" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-49" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Steroid metabolism&lt;/li&gt;&lt;li&gt;Nucleotide salvage&lt;/li&gt;&lt;li&gt;Pyruvate metabolism&lt;/li&gt;&lt;li&gt;Pentose phosphate cycle&lt;/li&gt;&lt;li&gt;Vitamin B6 metabolism&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;fontStyle=0" parent="1" vertex="1">
+          <mxGeometry x="571" y="270" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-50" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Purine metabolism&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;fontStyle=0" parent="1" vertex="1">
+          <mxGeometry x="11" y="270" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-51" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Vitamin B1 metabolism&lt;/li&gt;&lt;li&gt;Purine metabolism&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;fontStyle=0" parent="1" vertex="1">
+          <mxGeometry x="151" y="270" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-52" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Steroid metabolism&lt;/li&gt;&lt;li&gt;D-Ala metabolism&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;fontStyle=0" parent="1" vertex="1">
+          <mxGeometry x="292" y="270" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-53" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Steroid metabolism&lt;/li&gt;&lt;li&gt;Folate metabolism&lt;/li&gt;&lt;li&gt;Glutathione metabolism&lt;/li&gt;&lt;li&gt;CoA&amp;nbsp; metabolism&lt;/li&gt;&lt;li&gt;Nucleotide matabolism&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;fontStyle=0" parent="1" vertex="1">
+          <mxGeometry x="431" y="270" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-54" value="Metabolism" style="rounded=0;whiteSpace=wrap;html=1;horizontal=0;fontSize=8;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=0" parent="1" vertex="1">
+          <mxGeometry x="-30" y="270" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-56" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Mast cells&lt;/li&gt;&lt;li&gt;Treg&lt;/li&gt;&lt;li&gt;CD8+, CD8+ central memory, CD8+ effector memory&lt;/li&gt;&lt;li&gt;B cells&lt;/li&gt;&lt;li&gt;Immunogenic&lt;/li&gt;&lt;li&gt;Low stroma&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="11" y="340" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-60" value="TME" style="rounded=0;whiteSpace=wrap;html=1;horizontal=0;fontSize=8;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="-30" y="340" width="30" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-62" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Mast cells&lt;/li&gt;&lt;li&gt;Treg&lt;/li&gt;&lt;li&gt;CD8+, CD8+ central memory, CD8+ effector memory&lt;/li&gt;&lt;li&gt;B cells&lt;/li&gt;&lt;li&gt;Immunogenic&lt;/li&gt;&lt;li&gt;Low stroma&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="151" y="340" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-63" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Endothelial cells&lt;/li&gt;&lt;li&gt;Cancer-associated fibroblasts&lt;/li&gt;&lt;li&gt;Non-Immunogenic&lt;/li&gt;&lt;li&gt;High stroma stroma&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="291" y="340" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-65" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Endothelial cells&lt;/li&gt;&lt;li&gt;Cancer-associated fibroblasts&lt;/li&gt;&lt;li&gt;Non-Immunogenic&lt;/li&gt;&lt;li&gt;High stroma stroma&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="431" y="340" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-66" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Endothelial cells&lt;/li&gt;&lt;li&gt;Cancer-associated fibroblasts&lt;/li&gt;&lt;li&gt;Non-Immunogenic&lt;/li&gt;&lt;li&gt;High stroma stroma&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="571" y="340" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-67" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;NK/T cell -mediated cytotoxicity&lt;/li&gt;&lt;li&gt;Chemokine signaling&lt;/li&gt;&lt;li&gt;Innflammatory pathways&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="11" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-68" value="Signaling" style="rounded=0;whiteSpace=wrap;html=1;horizontal=0;fontSize=8;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="-30" y="440" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-69" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;NK/T cell -mediated cytotoxicity&lt;/li&gt;&lt;li&gt;Chemokine signaling&lt;/li&gt;&lt;li&gt;Innflammatory pathways&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="150" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-70" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Focal adhesion&lt;/li&gt;&lt;li&gt;ECM receptor interaction&lt;/li&gt;&lt;li&gt;Oncogenic signaling&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="291" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-71" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Focal adhesion&lt;/li&gt;&lt;li&gt;ECM receptor interaction&lt;/li&gt;&lt;li&gt;Oncogenic signaling&lt;/li&gt;&lt;li&gt;Adipokine and neuroactive signaling&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="431" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-72" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Focal adhesion&lt;/li&gt;&lt;li&gt;ECM receptor interaction&lt;/li&gt;&lt;li&gt;Oncogenic signaling&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="571" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-73" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Excellent&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="11" y="510" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-74" value="RFS" style="rounded=0;whiteSpace=wrap;html=1;horizontal=0;fontSize=8;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="-30" y="510" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-75" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Good&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="150" y="510" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-76" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Moderate&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="291" y="510" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-77" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Poor&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="431" y="510" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aY1BhBKGzXf91u3oSOSi-78" value="&lt;ul style=&quot;font-size: 8px;&quot;&gt;&lt;li&gt;Excellent&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=-25;" parent="1" vertex="1">
+          <mxGeometry x="571" y="510" width="120" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

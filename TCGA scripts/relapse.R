@@ -96,7 +96,7 @@
     map2(., 
          paste('Cutpoint = ', 
                signif(tcga_relapse$cutpoints$cut_obj$cutpoint$cutpoint, 3), 
-               'gene copies'), 
+               'mRNA copies'), 
          ~.x + 
            labs(subtitle = .y) + 
            globals$common_theme + 
@@ -106,14 +106,24 @@
   
   insert_msg('Survival in the subsets')
   
+  ## subset pairs
+  
+  tcga_relapse$classes$comparisons <- 
+    levels(tcga_relapse$analysis_tbl$class) %>% 
+    combn(2, simplify = FALSE)
+  
+  tcga_relapse$classes$comparisons <- tcga_relapse$classes$comparisons %>% 
+    set_names(map_chr(tcga_relapse$classes$comparisons, 
+                      paste, collapse = '_'))
+  
+  tcga_relapse$classes$comparisons <- 
+    c(list(global = levels(tcga_relapse$analysis_tbl$class)), 
+      tcga_relapse$classes$comparisons)
+    
   ## comparisons with the subset #1 with the longest survival
   
   tcga_relapse$classes$survfit_obj <- 
-    list(global = c('#1', '#2', '#3', '#4', '#5'), 
-         s2_vs_s1 = c('#2', '#1'), 
-         s3_vs_s1 = c('#1', '#3'), 
-         s4_vs_s1 = c('#1', '#4'), 
-         s5_vs_s1 = c('#1', '#5')) %>% 
+    tcga_relapse$classes$comparisons %>% 
     map(~filter(tcga_relapse$analysis_tbl, class %in% .x)) %>% 
     map(survminer::surv_fit, formula = Surv(rfs_days, relapse) ~ class)
 
@@ -121,18 +131,17 @@
     map(surv_pvalue, method = 'S1') %>% 
     compress(names_to = 'comparison') %>% 
     adjust_fdr(variable = 'pval', 'BH') %>% 
-    mutate(comparison = car::recode(comparison, 
-                                    "'global' = 'global'; 
-                                    's2_vs_s1' = '#2 vs #1'; 
-                                    's3_vs_s1' = '#3 vs #1'; 
-                                    's4_vs_s1' = '#4 vs #1'; 
-                                    's5_vs_s1' = '#5 vs #1'"))
+    mutate(comparison = stri_replace(comparison, 
+                                     fixed = '_', replacement = ' vs '))
   
   ## Kaplan-Meier plots
   
+  tcga_relapse$classes$pval_lab <- tcga_relapse$classes$test %>% 
+    filter(comparison == 'global' | pval < 0.1) 
+  
   tcga_relapse$classes$pval_lab <- 
-    map2_chr(tcga_relapse$classes$test$comparison, 
-             tcga_relapse$classes$test$significance, 
+    map2(tcga_relapse$classes$pval_lab$comparison, 
+         tcga_relapse$classes$pval_lab$significance, 
              paste, sep = ': ') %>% 
     paste(collapse = '\n')
   
@@ -157,6 +166,58 @@
     globals$common_theme + 
     labs(subtitle = tcga_relapse$event_n)
   
+# Result tables -------
+  
+  insert_msg('Result tables')
+  
+  ## Q25% and median survival times
+  
+  tcga_relapse$result_tbl$quantiles <- tcga_relapse$cutpoints$survfit_obj %>% 
+    map(quantile, probs = c(0.25, 0.5)) %>% 
+    map(~.x$quantile) %>% 
+    map(set_colnames, c('quant25', 'median')) %>% 
+    map(as.data.frame) %>% 
+    map(rownames_to_column, 'strata') %>% 
+    compress(names_to = 'gene_symbol') %>% 
+    mutate(strata = stri_extract(strata, regex = 'high|low'), 
+           strata = factor(strata, c('low', 'high')))
+  
+  ## cutoffs
+  
+  tcga_relapse$result_tbl$cutoffs <- 
+    tcga_relapse$cutpoints$cut_obj$cutpoint %>% 
+    as.data.frame %>% 
+    rownames_to_column('gene_symbol')
+  
+  ## n numbers
+  
+  tcga_relapse$result_tbl$strata_n <- 
+    tcga_relapse$cutpoints$strata_tbl[tcga_relapse$lexicon$gene_symbol] %>% 
+    map(table) %>% 
+    map(~tibble(strata = factor(names(.x), c('low', 'high')), 
+                n = as.numeric(.x))) %>% 
+    compress(names_to = 'gene_symbol')
+  
+  ## testing results
+  
+  tcga_relapse$result_tbl$test <- tcga_relapse$cutpoints$test %>% 
+    transmute(gene_symbol = variable, 
+              significance = significance)
+  
+  ## the entire result table
+  
+  tcga_relapse$result_tbl <- 
+    full_join(tcga_relapse$result_tbl$cutoffs, 
+              tcga_relapse$result_tbl$strata_n, 
+              multiple = 'all', 
+              by = 'gene_symbol') %>% 
+    left_join(tcga_relapse$result_tbl$quantiles, 
+              by = c('gene_symbol', 'strata')) %>% 
+    left_join(tcga_relapse$result_tbl$test, 
+              by = 'gene_symbol') %>% 
+    as_tibble
+    
 # END -----
   
   insert_tail()
+  

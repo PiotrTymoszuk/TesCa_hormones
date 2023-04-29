@@ -99,6 +99,15 @@
          x = expression('Effect size, ' * eta^2), 
          y = expression('-log'[10] * ' pFDR'), 
          subtitle = paste('n =', nrow(tcga_protein$analysis_tbl)))
+  
+# significant proteins in the Kruskal-Wallis test ------
+  
+  insert_msg('Significant proteins in the Kruskal-Wallis test')
+  
+  tcga_protein$significant_kruskal <- tcga_protein$test %>% 
+    filter(p_adjusted < 0.05, 
+           estimate > 0.14) %>% 
+    .$variable
 
 # parallel backend -----
   
@@ -112,9 +121,9 @@
   
   ## Mann-Whitney U test with r effect size metric
   
-  tcga_protein$post_hoc <- list('#2' = c('#1', '#2'), 
-                                '#3' = c('#1', '#3'), 
-                                '#4' = c('#1', '#4')) %>% 
+  tcga_protein$post_hoc$SEM <- levels(tcga_protein$analysis_tbl$class)[-1] %>% 
+    set_names(levels(tcga_protein$analysis_tbl$class)[-1]) %>% 
+    map(~c(.x, levels(tcga_protein$analysis_tbl$class)[1])) %>% 
     future_map(~compare_variables(tcga_protein$analysis_tbl %>% 
                                     filter(class %in% .x), 
                                   variables = tcga_protein$lexicon$variable, 
@@ -127,47 +136,41 @@
                                   adj_method = 'BH'), 
                .options = furrr_options(seed = TRUE))
   
-# Significant proteins ------
+  tcga_protein$post_hoc$NSGCT <- levels(tcga_protein$analysis_tbl$class)[-3] %>% 
+    set_names(levels(tcga_protein$analysis_tbl$class)[-3]) %>% 
+    map(~c(.x, levels(tcga_protein$analysis_tbl$class)[3])) %>% 
+    future_map(~compare_variables(tcga_protein$analysis_tbl %>% 
+                                    filter(class %in% .x), 
+                                  variables = tcga_protein$lexicon$variable, 
+                                  split_factor = 'class', 
+                                  what = 'eff_size', 
+                                  types = 'wilcoxon_r', 
+                                  exact = FALSE, 
+                                  ci = FALSE, 
+                                  pub_styled = FALSE, 
+                                  adj_method = 'BH'), 
+               .options = furrr_options(seed = TRUE))
   
-  insert_msg('Significant proteins')
+# Significant proteins in the post-hoc test ------
   
-  ## significance and large effect size of regulation
-  
-  tcga_protein$significant_kruskal <- tcga_protein$test %>% 
-    filter(p_adjusted < 0.05, 
-           estimate > 0.14) %>% 
-    .$variable
-  
+  insert_msg('Significant proteins, post-hoc test')
+
   ## significant post-hoc results
-  ## stong regulation
+  ## strong regulation (r > 0.3)
   
   tcga_protein$signficant_posthoc <- tcga_protein$post_hoc %>% 
-    map(filter, 
-        variable %in% tcga_protein$significant_kruskal, 
-        p_adjusted < 0.05, 
-        estimate > 0.3) %>% 
-    map(~.x$variable)
-  
-  ## proteins differentiating between the clusters
+    map(~map(.x, 
+             filter, 
+             p_adjusted < 0.05, 
+             estimate > 0.3) %>% 
+          map(~.x$variable)) 
+
+  ## proteins differentiating between the subsets
   
   tcga_protein$cmm_significant <- 
     tcga_protein$signficant_posthoc %>% 
+    unlist(recursive = FALSE) %>% 
     reduce(union)
-  
-# Protein plotting order: hierarchical clustering ------
-  
-  insert_msg('Protein clusters')
-  
-  tcga_protein$prot_clust <- tcga_protein$norm_table %>% 
-    column_to_rownames('ID') %>% 
-    select(all_of(tcga_protein$cmm_significant)) %>% 
-    t %>% 
-    as.data.frame %>% 
-    kcluster(k = 2, clust_fun = 'pam')
-  
-  tcga_protein$heat_map_order <- tcga_protein$prot_clust$clust_assignment %>% 
-    arrange(clust_id) %>% 
-    set_names(c('variable', 'clust_id'))
 
 # Heat map ------
   
@@ -176,28 +179,22 @@
   ## of the proteins differentially expressed between the subsets
   
   tcga_protein$heat_map <- 
-    draw_class_hm(data = tcga_protein$norm_table[c('ID', 'class', tcga_protein$cmm_significant)], 
-                  variables = tcga_protein$heat_map_order$variable, 
-                  plot_title = 'Hormonal cluster, protein expression, TCGA', 
-                  limits = c(-3, 3), 
-                  oob = scales::squish, 
-                  name = 'Z-score')
+    draw_clustered_hm(data = tcga_protein$norm_table[c('ID', 'class', tcga_protein$cmm_significant)], 
+                      variables = tcga_protein$cmm_significant, 
+                      k = 2, 
+                      plot_title = 'Hormonal cluster, protein expression, TCGA', 
+                      limits = c(-3, 3), 
+                      oob = scales::squish, 
+                      name = 'Z-score', return_clust = FALSE)
   
-  ## plotting the protein clustering more explicitly
+# Identification of the most characteristic proteins for the subsets -------
   
-  tcga_protein$heat_map$data <- 
-    left_join(tcga_protein$heat_map$data %>% 
-                mutate(variable = as.character(variable)), 
-              tcga_protein$heat_map_order, 
-              by = 'variable')
+  insert_msg('Subset hallmark proteins')
   
-  tcga_protein$heat_map <- tcga_protein$heat_map + 
-    facet_grid(clust_id ~ class, 
-               scales = 'free', 
-               space = 'free') + 
-    theme(strip.background.y = element_blank(), 
-          strip.text.y = element_blank())
-  
+  tcga_protein$hallmark_proteins <- tcga_protein$post_hoc %>% 
+    map(~map(.x, top_n, n = 5, estimate)) %>%
+    map(~map(.x, ~.x$variable))
+
 # Violin plots for single proteins ------
   
   insert_msg('Plots for single proteins')
@@ -220,6 +217,35 @@
           scale_fill_manual(values = tcga_globals$clust_colors)) %>% 
     set_names(tcga_protein$test$variable)
   
+# Similarity -------
+  
+  insert_msg('Similarity of the hormonal subsets')
+  
+  ## dimensionality reduction
+  
+  tcga_protein$similarity$red_obj <- tcga_protein$analysis_tbl %>% 
+    column_to_rownames('ID') %>% 
+    select(-class) %>% 
+    center_data('median') %>% 
+    reduce_data(distance_method = 'cosine', 
+                kdim = 2, 
+                red_fun = 'mds')
+  
+  ## plotting
+  
+  set.seed(1234)
+  
+  tcga_protein$similarity$plots <- 
+    plot_similarity(tcga_protein$similarity$red_obj, 
+                    class_assignment = tcga_protein$analysis_tbl[c('ID', 'class')], 
+                    plot_title = 'Similarity of hormonal subsets, protein expression', 
+                    plot_subtitle = '2D MDS, cosine distance', 
+                    distance = 'cosine', 
+                    min_max_similarity = TRUE, 
+                    weighting_order = 1, 
+                    net_theme = theme_void() + 
+                      theme(plot.margin = globals$common_margin))
+  
 # Result table ------
   
   insert_msg('Result table')
@@ -230,12 +256,12 @@
               by = 'variable') %>% 
     format_tbl(lexicon = tcga_protein$lexicon, 
                rm_complete = TRUE) %>% 
-    full_rbind(tibble(variable = 'Samples, n', 
-                      `#1` = tcga_protein$strata_n$n[1], 
-                      `#2` = tcga_protein$strata_n$n[2], 
-                      `#3` = tcga_protein$strata_n$n[3], 
-                      `#4` = tcga_protein$strata_n$n[4], 
-                      `#5` = tcga_protein$strata_n$n[5]), .)
+    full_rbind(cbind(variable = 'Samples, n', 
+                     tcga_protein$strata_n %>% 
+                       column_to_rownames('class') %>% 
+                       t) %>% 
+                 as.data.frame, .) %>% 
+    as_tibble
   
 # END ------
   

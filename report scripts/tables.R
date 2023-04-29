@@ -321,7 +321,7 @@
   
 # Table 16: TCGA, subset assignment ------
   
-  insert_msg('Table 16: TCga subset assignment')
+  insert_msg('Table 16: TCGA subset assignment')
   
   tables$tcga_assignment <- 
     left_join(tcga_mix$posterior %>% 
@@ -331,7 +331,7 @@
               by = 'ID') %>% 
     map_dfc(function(x) if(is.numeric(x)) signif(x, 2) else x) %>% 
     set_names(c('Patient ID', 
-                levels(tcga_mix$assignment$class), 
+                colnames(tcga_mix$posterior), 
                 'Hormonal subset')) %>% 
     as_tibble %>% 
     mdtable(label = 'table_16_tcga_subset_assignment', 
@@ -366,29 +366,55 @@
                             'as percentages and counts within the', 
                             'complete observation set.'))
   
-# Table 18: TCGA, GSVA -----
+# Table 18: TCGA, Reactome -----
   
-  insert_msg('Table 18: TCGA, GSVA')
+  insert_msg('Table 18: TCGA, reactome')
   
-  tables$tcga_gsva <- tcga_biology$significant_lm %>% 
-    map_dfr(filter, regulation != 'ns') %>% 
-    transmute( Comparison = paste(level, 'vs #1'), 
+  tables$tcga_reactome <- tcga_biology$significant_lm %>% 
+    map(filter, regulation != 'ns') %>% 
+    map2_dfr(., c('SEM1', 'NS PRL'), 
+             ~mutate(.x, level = paste(level, .y, sep = ' vs '))) %>% 
+    arrange(level, estimate) %>% 
+    transmute( Comparison = level, 
                Pathway = resp_label, 
                `Fold-regulation` = signif(estimate, 2), 
                `Lower CI` = signif(lower_ci, 2), 
                `Upper CI` = signif(upper_ci, 2), 
                pFDR = signif(p_adjusted)) %>% 
     mdtable(label = 'table_18_tcga_gsva_reactome', 
-            ref_name = 'tcga_gsva', 
+            ref_name = 'tcga_reactome', 
             caption = paste('Significant differences in ssGSEA scores', 
                             'of the Reactome pathways between the homonal', 
                             'subsets of the TCGA cohort.', 
                             'The table is available in a supplementary Excel', 
                             'file.'))
   
-# Table 19: immunity ------
+# Table 19: TCGA,  Recon subsystems ------
   
-  insert_msg('Table 19: TCGA, immunity')
+  insert_msg('Table 19: Recon subsystems, TCGA')
+  
+  tables$tcga_recon <- tcga_recon$significant_lm %>% 
+    map(filter, regulation != 'ns') %>% 
+    map2_dfr(., c('SEM1', 'NS PRL'), 
+             ~mutate(.x, level = paste(level, .y, sep = ' vs '))) %>% 
+    arrange(level, estimate) %>% 
+    transmute( Comparison = level, 
+               Pathway = resp_label, 
+               `Fold-regulation` = signif(estimate, 2), 
+               `Lower CI` = signif(lower_ci, 2), 
+               `Upper CI` = signif(upper_ci, 2), 
+               pFDR = signif(p_adjusted)) %>% 
+    mdtable(label = 'table_18_tcga_gsva_recon', 
+            ref_name = 'tcga_recon', 
+            caption = paste('Significant differences in ssGSEA scores', 
+                            'of the Reactome metabolic subsystems between', 
+                            'the homonal subsets of the TCGA cohort.', 
+                            'The table is available in a supplementary Excel', 
+                            'file.'))
+  
+# Table 20: TCGA immunity ------
+  
+  insert_msg('Table 20: TCGA, immunity')
   
   tables$tcga_infiltration <- 
     list(`QuanTIseq` = tcga_quantiseq$result_tbl, 
@@ -401,7 +427,7 @@
                 levels(tcga_quantiseq$analysis_tbl$class), 
                 'Significance', 
                 'Effect size')) %>% 
-    mdtable(label = 'table_19_tcga_infiltration', 
+    mdtable(label = 'table_20_tcga_infiltration', 
             ref_name = 'tcga_infiltration', 
             caption = paste('Significant differences in TME composition', 
                             'and immunity signatures estimated by the QuanTIseq', 
@@ -411,38 +437,44 @@
                             'medians with interqurtile ranges (IQR)', 
                             'and ranges.'))
   
-# Table 20: differential gene expression ------
+# Table 21: differential gene expression ------
   
-  insert_msg('Table 20: TCGA, differential gene expression')
+  insert_msg('Table 21: TCGA, differential gene expression')
   
   tables$tcga_dge <- tcga_dge$significant_lm %>% 
-    map_dfr(transmute, 
-            `Comparison` = paste(level, 'vs #1'), 
-            `Gene symbol` = gene_symbol, 
-            `Fold-regulation` = signif(estimate, 2), 
-            `Lower CI` = signif(lower_ci, 2), 
-            `Upper CI` = signif(upper_ci, 2), 
-            pFDR = signif(p_adjusted)) %>% 
-    mdtable(label = 'table_20_tcga_differential_gene_expression', 
+    map2_dfr(., c('SEM1', 'NS PRL'), 
+             ~mutate(.x, level = paste(level, .y, sep = ' vs '))) %>% 
+    arrange(level, estimate) %>% 
+    transmute(`Comparison` = paste(level, 'vs #1'), 
+              `Gene symbol` = gene_symbol, 
+              `Entrez ID` = entrez_id, 
+              `log2 fold-regulation` = signif(estimate, 2), 
+              `Lower CI` = signif(lower_ci, 2), 
+              `Upper CI` = signif(upper_ci, 2), 
+              pFDR = signif(p_adjusted)) %>% 
+    mdtable(label = 'table_21_tcga_differential_gene_expression', 
             ref_name = 'tcga_dge', 
             caption = paste('Genes differentially expressed between', 
                             'the hormonal subsets of the TCGA cohort.', 
                             'The table is available as a supplementary', 
                             'Excel file.'))
   
-# Table 21: signaling -------
+# Table 22: signaling -------
   
-  insert_msg('Table 21: signaling')
+  insert_msg('Table 22: signaling')
   
-  tables$tcga_signaling <- tcga_spia$test %>% 
-    map(filter, pGFdr < 0.05) %>% 
-    compress(names_to = 'level') %>% 
-    transmute(`Comparison` = paste(level, 'vs #1'), 
+  tables$tcga_signaling <- 
+    map2_dfr(tcga_spia$test, 
+             tcga_splots$plot_titles, 
+             ~mutate(.x, level = .y)) %>% 
+    filter(pGFdr < 0.05, 
+           tA != 0) %>% 
+    transmute(`Comparison` = level, 
               `KEGG Pathway` = Name, 
               `KEGG ID` = ID, 
               `Fold-regulation` = signif(tA, 3), 
               pFDR = signif(pGFdr)) %>% 
-    mdtable(label = 'table_21_tcga_signaling', 
+    mdtable(label = 'table_22_tcga_signaling', 
             ref_name = 'tcga_signaling', 
             caption = paste('Differential activation of KEGG-listed',
                             'signaling pathways between the homonal subsets', 
@@ -450,9 +482,9 @@
                             'algorithm. The table is available as',
                             'a supplementary Excell table.'))
   
-# Table 22: differential protein expression ------
+# Table 23: differential protein expression ------
   
-  insert_msg('Table 22: differential protein expression')
+  insert_msg('Table 23: differential protein expression')
   
   tables$tcga_protein <- tcga_protein$result_tbl %>% 
     filter(!stri_detect(significance, regex = '^ns') | is.na(significance)) %>% 
@@ -460,7 +492,7 @@
                 levels(tcga_protein$analysis_tbl$class), 
                 'Significance', 
                 'Effect size')) %>% 
-    mdtable(label = 'table_22_tcga_differential_protein_expression', 
+    mdtable(label = 'table_23_tcga_differential_protein_expression', 
             ref_name = 'tcga_protein', 
             caption = paste('Differential protein expression', 
                             'between the hormonal subsets of the TCGA cohort.', 
@@ -469,6 +501,82 @@
                             'and ranges.', 
                             'The table is available as a supplementary', 
                             'Excel file'))
+  
+# Table 24: top mutations ------
+  
+  insert_msg('Table 24: top mutations')
+  
+  tables$tcga_mut <- tcga_mut$result_tbl %>% 
+    relocate(entrez_id) %>% 
+    relocate(variable) %>% 
+    set_names(c('Gene symbol', 
+                'Entrez ID', 
+                levels(tcga_mut$analysis_tbl$class), 
+                'Significance', 
+                'Effect size')) %>% 
+    mdtable(label = 'table_24_tcga_substets_somatic_mutations', 
+            ref_name = 'tcga_mut', 
+            caption = paste('Frequency of the most common mutations', 
+                            '(at least 3% of the TCGA dataset) in the', 
+                            'hormonal subsets of testicle cancer.', 
+                            'The frequencies are presented as percentages', 
+                            'of complete observations.'))
+  
+# Table 25: top copy number alterations ------
+  
+  insert_msg('Table 25: copy number alterations')
+  
+  tables$tcga_cna <- tcga_cplots$result_tbl %>% 
+    mutate(percent_subset = signif(percent_subset, 2)) %>% 
+    select(cna_type, 
+           gene_symbol,
+           entrez_id, 
+           class, 
+           n, 
+           n_subset, 
+           percent_subset, 
+           significance, 
+           eff_size) %>% 
+    set_names(c('Type of alteration', 
+                'Gene symbol', 
+                'Entrez ID', 
+                'Hormonal subset', 
+                'N samples with alteration', 
+                'N samples in the subset', 
+                'Percentage of the alteration', 
+                'Significance', 
+                'effect size')) %>% 
+    mdtable(label = 'table_25_tcga_copy_number_alterations', 
+            ref_name = 'tcga_cna', 
+            caption = paste('Frequencies of gene amplifications and deletions', 
+                            'in the hormonal subsets of the TCGA collective.', 
+                            'The table is available in a supplementary Excel', 
+                            'file.'))
+  
+# Table 26: univariable survival analysis results -----
+  
+  insert_msg('Table 26: univariable survival analysis')
+  
+  tables$tcga_relapse <- 
+    tcga_relapse$result_tbl %>% 
+    map_dfc(function(x) if(is.numeric(x)) signif(x, 3) else x) %>% 
+    relocate(significance, .before = strata) %>% 
+    set_names(c('Gene symbol', 
+                'Cutoff, mRNA copies', 
+                'Log-rank statistic',
+                'Significance', 
+                'Expression strata', 
+                'N samples', 
+                'First tertile survival, days', 
+                'Median survival, days')) %>% 
+    mdtable(label = 'table_26_tcga_relapse', 
+            ref_name = 'tcga_relapse', 
+            caption = paste('Differences in relapse-free survival between', 
+                            'high and low expressors of the sex hormone-related', 
+                            'genes of interest. ', 
+                            'The patients were stratified by gene expression', 
+                            'cutoffs associated with the largest differences', 
+                            'in survival measured by the log-rank statistic.'))
 
 # Saving tables on the disc -------
   

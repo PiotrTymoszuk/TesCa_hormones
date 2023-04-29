@@ -266,18 +266,11 @@
   insert_msg('Plotting of the variable importance')
   
   histo_class$importance_plot <- 
-    histo_class$var_importance %>% 
-    ggplot(aes(x = delta_accuracy, 
-               y = reorder(var_label, delta_accuracy))) + 
-    geom_bar(stat = 'identity',
-             color = 'black', 
-             fill = 'steelblue') + 
-    globals$common_theme + 
-    theme(axis.title.y = element_blank()) + 
-    labs(title = 'Variable importance', 
-         subtitle = histo_class$n_numbers, 
-         x = expression(Delta * ' accuracy'))
-  
+    plot_rf_importance(histo_class$var_importance, 
+                       bar_fill = 'steelblue', 
+                       plot_title = 'Variable importance', 
+                       plot_subtitle = histo_class$n_numbers)
+
 # END -------
   
   insert_tail()

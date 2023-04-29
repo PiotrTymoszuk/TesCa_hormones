@@ -28,9 +28,11 @@
     map(filter, 
         !is.na(entrez_id), 
         !duplicated(entrez_id)) %>% 
+    map(blast, level) %>% 
+    unlist(recursive = FALSE) %>% 
     map(~set_names(.x$estimate, 
                    .x$entrez_id))
-  
+
 # Testing -----
   
   insert_msg('Testing')

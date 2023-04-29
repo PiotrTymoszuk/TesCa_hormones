@@ -53,7 +53,7 @@
   ## log-rank test
   
   class_surv$test <- class_surv$survfit_obj %>% 
-    surv_pvalue %>% 
+    surv_pvalue(method = 'S1') %>% 
     adjust_fdr('pval', 'none')
   
 # Kaplan-Meier plot ------

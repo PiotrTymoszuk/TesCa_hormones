@@ -232,12 +232,15 @@
   
   insert_msg('Genes of interest')
   
-  tcga$genes <- c('PRL', 'CGA', 'FSHB', 'LHB', ## pituitary hormones
+  tcga$genes <- c('GNRH1', 'GNRH2', 'PRL', 'CGA', 'FSHB', 'LHB', ## pituitary hormones
                   'CYP11A1', 'CYP17A1', 'HSD17B3', 'HSD3B1', 'HSD3B2',  ## T
-                  'CYP19A1', 'HSD17B1') ## E2
+                  'CYP19A1', 'HSD17B1', ## E2
+                  'SHBG') ## E2 and T
   
   tcga$gene_lexicon <- 
-    c('PRL' = 'pituitary', 
+    c('GNRH1' = 'pituitary', 
+      'GNRH2' = 'pituitary', 
+      'PRL' = 'pituitary', 
       'CGA' = 'pituitary', 
       'FSHB' = 'pituitary', 
       'LHB' = 'pituitary',
@@ -247,7 +250,8 @@
       'HSD3B1' = 'testicle', 
       'HSD3B2' = 'testicle', 
       'CYP19A1' = 'testicle', 
-      'HSD17B1' = 'testicle') %>% 
+      'HSD17B1' = 'testicle', 
+      'SHBG' = 'testicle') %>% 
     compress(names_to = 'gene_symbol', 
              values_to = 'class') %>% 
     mutate(class = factor(class, c('testicle', 'pituitary')))
@@ -317,6 +321,177 @@
                              regex = '^TCGA-\\w{2}-\\w{4}')) %>% 
     relocate(ID) %>% 
     as_tibble
+  
+# somatic mutation data -------
+  
+  insert_msg('Somatic mutation data')
+  
+  if(file.exists('./data/TCGA/somut.RData')) {
+    
+    insert_msg('Loading cached somatic mutation data')
+    
+    load('./data/TCGA/somut.RData')
+    
+  } else {
+    
+    source_all('./import scripts/TCGA_mutect.R')
+    
+  }
+  
+  tcga[c('mutect_tmb', 
+         'mutect_frequency',
+         'mutect')] <- somut[c("mutect_tmb", 
+                               "mutect_frequency", 
+                               "mutect")]
+  
+  tcga[c('mutect_tmb', 
+         'mutect')] <- tcga[c('mutect_tmb', 
+                              'mutect')] %>% 
+    map(mutate, 
+        ID = stri_extract(sample_id, regex = '^TCGA-\\w{2}-\\w{4}')) %>% 
+    map(relocate, ID)
+  
+  tcga$mutect_lexicon <- 
+    tibble(gene_symbol = unique(names(tcga$mutect))) %>% 
+    filter(!gene_symbol %in% c('sample_id', 'ID')) %>% 
+    mutate(entrez_id = mapIds(org.Hs.eg.db, 
+                              keys = gene_symbol, 
+                              column = 'ENTREZID', 
+                              keytype = 'ALIAS'))
+  
+  rm(somut)
+  
+# Copy number alterations by GISTIC ------
+  
+  insert_msg('Copy number alterations')
+  
+  ## only genes with unequivocal symbol assignment are included
+  
+  tcga$gistic <- read_tsv('./data/TCGA/TCGA-TGCT.gistic.tsv.gz') %>% 
+    mutate(ensembl_id = stri_replace(`Gene Symbol`, 
+                                      regex = '\\..*',
+                                      replacement = ''), 
+           gene_symbol = mapIds(org.Hs.eg.db, 
+                                keys = ensembl_id, 
+                                column = 'SYMBOL', 
+                                keytype = 'ENSEMBL')) %>% 
+    filter(!ensembl_id %in% c('ENSG00000261832', 
+                              'ENSG00000280987', 
+                              'ENSG00000261130', 
+                              'ENSG00000258724', 
+                              'ENSG00000279195', 
+                              'ENSG00000258790', 
+                              'ENSG00000275740', 
+                              'ENSG00000255330', 
+                              'ENSG00000273167', 
+                              'ENSG00000269226', 
+                              'ENSG00000255508', 
+                              'ENSG00000272916', 
+                              'ENSG00000270011'))
+  
+  ## manual correction of ambiguous gene identifiers
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000228696', 'gene_symbol'] <- 
+    'ARL17B'
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000169627', 'gene_symbol'] <- 
+    'BOLA2B'
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000226023', 'gene_symbol'] <- 
+    'CT47A6'
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000176797', 'gene_symbol'] <- 
+    'DEFB103A'
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000186599', 'gene_symbol'] <- 
+    'DEFB105B'
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000198129', 'gene_symbol'] <- 
+    'DEFB107B'
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000177257', 'gene_symbol'] <- 
+    'DEFB4B'
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000256966', 'gene_symbol'] <- 
+    'H3BUX3'
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000184206', 'gene_symbol'] <- 
+    'GOLGA6L10'
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000237541', 'gene_symbol'] <- 
+    'HLA-DQA2'
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000249624', 'gene_symbol'] <- 
+    'H7C3V1'
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000178934', 'gene_symbol'] <- 
+    'LGALS7B'
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000221995', 'gene_symbol'] <- 
+    'TIAF7'
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000111215', 'gene_symbol'] <- 
+    'PRR4'
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000258653', 'gene_symbol'] <- 
+    'G3V3Y1'
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000205572', 'gene_symbol'] <- 
+    'SERF1B'
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000205571', 'gene_symbol'] <- 
+    'SMN2'
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000274512', 'gene_symbol'] <- 
+    'TBC1D3L'
+  
+  tcga$gistic[tcga$gistic$ensembl_id == 'ENSG00000236125', 'gene_symbol'] <- 
+    'USP17L4'
+  
+  tcga$gistic <- tcga$gistic %>% 
+    filter(!is.na(gene_symbol)) %>% 
+    select(-`Gene Symbol`, -ensembl_id) %>% 
+    column_to_rownames('gene_symbol') %>% 
+    t %>% 
+    as.data.frame %>% 
+    rownames_to_column('sample_id') %>% 
+    mutate(ID = stri_extract(sample_id, regex = '^TCGA-\\w{2}-\\w{4}')) %>% 
+    as_tibble
+  
+  ## filtering out non-primary tumor samples
+  
+  tcga$gistic <- tcga$gistic %>% 
+    filter(stri_detect(sample_id, regex = '01A$'))
+  
+  tcga$gistic_lexicon <- tibble(gene_symbol = names(tcga$gistic)) %>% 
+    filter(!gene_symbol %in% c('sample_id', 'ID')) %>% 
+    mutate(entrez_id = mapIds(x = org.Hs.eg.db, 
+                              keys = gene_symbol, 
+                              column = 'ENTREZID', 
+                              keytype = 'SYMBOL'))
+  
+# Recon metabolism subsystem signature scores ------
+  
+  insert_msg('Recon signature scores')
+  
+  if(file.exists('./data/TCGA/metabolism.RData')) {
+    
+    insert_msg('Loading cached metabolis signature data')
+    
+    load('./data/TCGA/metabolism.RData')
+    
+  } else {
+    
+    source_all('./import scripts/TCGA_Recon.R', 
+               crash = TRUE, message = TRUE)
+    
+  }
+  
+  tcga[c('recon_lexicon', 
+         'recon')] <- metabolism[c('recon_lexicon', 
+                                   'recon')]
+  
+  rm(metabolism)
     
 # END -------
   

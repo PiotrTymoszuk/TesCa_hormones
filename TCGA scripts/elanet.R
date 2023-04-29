@@ -376,7 +376,9 @@
                                     dict = tcga$lexicon), 
                            ifelse(variable == 'class', 
                                   'Hormonal subset', 
-                                  variable)), 
+                                  ifelse(variable %in% names(tcga$expression), 
+                                         paste0('<em>', variable, '</em>'), 
+                                         variable))), 
         ax_label = ifelse(is.na(level), 
                           var_label, 
                           paste(var_label, level, sep = ': ')))
@@ -414,7 +416,8 @@
                                 limits = c(-6.5, 1.4)) + 
            scale_x_continuous(limits = c(-6.5, 1.4)) + 
            globals$common_theme + 
-           theme(axis.title.y = element_blank()) + 
+           theme(axis.title.y = element_blank(), 
+                 axis.text.y = element_markdown()) + 
            labs(title = y, 
                 subtitle = z, 
                 x = expression('log HR'[ElasticNet])))

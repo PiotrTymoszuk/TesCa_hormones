@@ -76,7 +76,8 @@
   
   tcga_mix$np_tuning$plots <- 
     plot_class_bic(data = tcga_mix$np_tuning$stats, 
-                   plot_subtitle = 'Non-parametric EM model')
+                   plot_subtitle = 'Non-parametric EM model', 
+                   k_sel = 5)
   
 # Tuning the cutpoint models ------
   
@@ -166,18 +167,24 @@
   
   tcga_mix$posterior <- tcga_mix$model$z %>% 
     set_rownames(rownames(tcga_mix$analysis_tbl)) %>% 
-    set_colnames(paste0('#', 1:ncol(tcga_mix$model$z)))
+    set_colnames(c('SEM1', 'NS PRL', 'SEM2', 'NS E2', 'NS T'))
   
   tcga_mix$assignment <- tcga_mix$posterior %>% 
-    nodal_vote
+    nodal_vote %>% 
+    mutate(class = factor(class, 
+                          c('SEM1', 
+                            'SEM2', 
+                            'NS PRL', 
+                            'NS E2', 
+                            'NS T')))
   
   ## clustering object
   
   tcga_mix$clust_obj <- 
     list(data = quo(tcga_mix$analysis_tbl),
          dist_mtx = calculate_dist(tcga_mix$analysis_tbl, 
-                                   'cosine'), 
-         dist_method = 'cosine', 
+                                   'euclidean'), 
+         dist_method = 'euclidean', 
          clust_obj = NULL, 
          clust_assignment = set_names(tcga_mix$assignment, 
                                       c('observation', 'clust_id')), 
@@ -192,7 +199,7 @@
   ## fitted means
   
   tcga_mix$mean_hm$means <- tcga_mix$model$parameters$mean %>% 
-    set_colnames(levels(tcga_mix$assignment$class)) %>% 
+    set_colnames(c('SEM1', 'NS PRL', 'SEM2', 'NS E2', 'NS T')) %>% 
     as.data.frame %>% 
     rownames_to_column('gene_symbol') %>% 
     as_tibble
@@ -203,7 +210,7 @@
     c(1:length(levels(tcga_mix$assignment$class))) %>% 
     map(~tcga_mix$model$parameters$variance$sigma[, , .x]) %>% 
     map(diag) %>% 
-    set_names(levels(tcga_mix$assignment$class)) %>% 
+    set_names(c('SEM1', 'NS PRL', 'SEM2', 'NS E2', 'NS T')) %>% 
     map(compress, 
         names_to = 'gene_symbol', 
         values_to = 'variance') %>% 
@@ -227,12 +234,13 @@
   tcga_mix$mean_hm$data <-  tcga_mix$mean_hm$means %>% 
     pivot_longer(cols = levels(tcga_mix$assignment$class), 
                  names_to = 'class',
-                 values_to = 'fit_mean') %>% 
+                 values_to = 'mean') %>% 
     left_join(tcga_mix$mean_hm$variances, 
               by = c('class', 'gene_symbol')) %>% 
-    mutate(plot_lab = paste(signif(fit_mean, 2), 
+    mutate(plot_lab = paste(signif(mean, 2), 
                             signif(sd, 2), 
-                            sep = '\nSD = '))
+                            sep = '\nSD = '), 
+           class = factor(class, levels = levels(tcga_mix$assignment$class)))
   
   ## heat map
   
@@ -241,7 +249,7 @@
                                 tcga_mix$mean_hm$order$gene_symbol)) %>% 
     ggplot(aes(x = class, 
                y = gene_symbol, 
-               fill = fit_mean)) + 
+               fill = mean)) + 
     geom_tile(color = 'black') + 
     geom_text(aes(label = plot_lab), 
               size = 2.1, 
@@ -255,6 +263,44 @@
           axis.text.y = element_text(face = 'italic')) + 
     labs(title = 'Component means', 
          subtitle = 'Gaussian mixture EM model')
+
+# Scatter plot of the expression pairs ------  
+  
+  insert_msg('Variable pair scatterplot')
+  
+  tcga_mix$pair_plot$data <- tcga_mix$analysis_tbl %>% 
+    rownames_to_column('ID') %>% 
+    left_join(tcga_mix$assignment,
+              by = 'ID') %>% 
+    as_tibble
+  
+  ## with GGally
+  
+  tcga_mix$pair_plot$ggally_plot <- tcga_mix$pair_plot$data %>% 
+    ggpairs(aes(color = class, 
+                alpha = 0.4, 
+                size = 1), 
+            columns = 2:12, 
+            upper = list(continuous = 'cor')) + 
+    scale_color_manual(values = tcga_globals$clust_colors) + 
+    scale_fill_manual(values = tcga_globals$clust_colors) + 
+    globals$common_theme + 
+    theme(strip.text = element_text(face = 'italic')) + 
+    labs(title = 'Expression of the hormonal subset-defining genes', 
+         x = 'Expression Z score', 
+         y = 'Expression Z score')
+  
+  ## particular pairs, custom function
+  
+  tcga_mix$pair_plot$gene_pairs <-  tcga_mix$lexicon$gene_symbol %>% 
+    combn(m = 2, simplify = FALSE)
+  
+  tcga_mix$pair_plot$gene_pairs <- tcga_mix$pair_plot$gene_pairs %>% 
+    set_names(map_chr(tcga_mix$pair_plot$gene_pairs, paste, collapse = '_'))
+  
+  tcga_mix$pair_plot$scatters <- tcga_mix$pair_plot$data %>% 
+    plot_gmm_pairs(variable_pairs = tcga_mix$pair_plot$gene_pairs, 
+                   fit_data = tcga_mix$mean_hm$data)
 
 # END ------
   
