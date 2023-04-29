@@ -1,6 +1,6 @@
 ---
-title: "Histology and pre-surgery sex hormone levels in testicular cancer"
-subtitle: "Short analysis report"
+title: "Histology, pre-surgery sex hormone levels and sex hormone-related gene expression in testicular cancer"
+subtitle: "Analysis report"
 author: "Piotr Tymoszuk for the Department of Urology"
 date: "`r format(Sys.time(), '%Y-%m-%d')`"
 
@@ -58,31 +58,46 @@ set_flextable_defaults(font.family = "Helvetica",
 
 # Analysis summary
 
-* The analysis goals were to (1) characterize differences between seminoma and non-seminomatous germ cell tumors (NSGCT), (2) explore subsets of patients with abnormalities of sex hormone homeostasis and (3) to study the prognostic relevance of sex hormones for prediction of relapse-free survival. In these analyses, demographic, clinical and pathological data from  `r nrow(tesca$data)` testicle cancer patients with < 50% missing study variable record were utilized.
+* The analysis goals were to (1) characterize differences between seminoma and non-seminomatous germ cell tumors (NSGCT), (2) explore subsets of patients with abnormalities of sex hormone homeostasis, (3) study the prognostic relevance of sex hormones for prediction of relapse-free survival  as well as (4) to investigate implications of varying sex hormone-related gene expression in the testicle cancer tissue for clinics, tumor biology, immunology, signaling and relapse risk. To pursue the analysis goals 1 - 3, demographic, clinical and pathological data from  `r nrow(tesca$data)` testicle cancer patients of a local Innsbruck registry with $\leq$ 50% missing study variable record were utilized. The goal 4 was addressed by analyses in the testicle cancer subset of the pan-cancer TCGA cohort with n = `r nrow(tcga$clinical)` tumor specimens with the accompanying demographic, clinical, survival and molecular biology data.
 
-* The analysis toolset included, apart from classical statistical hypothesis tests, multi-parameter modeling with the Random Forest algorithm, principal component and correspondence analysis, latent class analysis as well as univariable Cox modeling and multi-parameter Elastic Net Cox regression.
+* The analysis toolset included, apart from classical statistical hypothesis tests, multi-parameter modeling with the Random Forest algorithm, principal component and correspondence analysis, latent class analysis and classification by Gaussian mixture modeling as well as univariable Cox modeling, Kaplan-Meier analysis with Peto-Peto test and multi-parameter Elastic Net Cox regression.
 
-* As identified by comparison of demographic, clinical and pathological data, and by Random Forest modeling, the key differences between seminoma and NSGCT were levels of the malignancy marker AFP, frequency of retroperitoneal lymphadenectomy, as well as blood concentrations of pituitary sex hormones FSH (follicle stimulating hormone) an LH (luteinizing hormone), age at diagnosis, blood levels of estradiol, frequency of lymphovascular invasion and blood concentrations of human chorionic gonadotropin (HCG). In more details, NSGCT patients were significantly younger and more frequently subjected to retroperitoneal lymphadenectomy and chemotherapy, had dramatically elevated AFP and HCG levels, and their cancers exhibited lymphovascular invasion at higher rates than seminoma patients. Concerning the sex hormone homeostasis, NSGCT cancer patients had higher gonad hormone levels (testosterone [T] and E2) with a concomitant suppression of the pituitary hormone production (FSH and LH). There were no differences in relapse-free survival between the histological cancer types.
+* As identified by comparison of demographic, clinical and pathological data, and by Random Forest modeling, the key differences between seminoma and NSGCT in the local Innsbruck cohort were levels of the malignancy marker AFP, frequency of retroperitoneal lymphadenectomy, as well as blood concentrations of pituitary sex hormones FSH (follicle stimulating hormone) an LH (luteinizing hormone), age at diagnosis, blood levels of estradiol (E2) and testosterone (T), frequency of lymphovascular invasion and blood concentrations of human chorionic gonadotropin (HCG). In more details, NSGCT patients were significantly younger and more frequently subjected to retroperitoneal lymphadenectomy and chemotherapy, had dramatically elevated AFP and HCG levels, and their cancers exhibited lymphovascular invasion at higher rates than seminoma patients. Concerning the sex hormone homeostasis, NSGCT cancer patients had higher gonad hormone levels (T and E2) with a concomitant suppression of the pituitary hormone production (FSH and LH). There were no differences in relapse-free survival between the histological cancer types.
 
-* By principal component and correspondence analysis, two trends in pre-surgery hormonal homeostasis could be observed: a co-regulation of T and E2 as well as a co-regulation of LH and FSH. The gonad hormones and pituitary hormones interacted in an antagonistic way. The remaining hormone of interest, prolactin (PRL), was largely independent from gonad hormones and other pituitary hormones.
+* By principal component and correspondence analysis, two trends in pre-surgery hormonal homeostasis in the Innsbruck cohort patients could be observed: a co-regulation of T and E2 as well as a co-regulation of LH and FSH. The gonad hormones and pituitary hormones interacted in an antagonistic way. The remaining hormone of interest, prolactin (PRL), was largely independent from gonad hormones and other pituitary hormones.
 
-* Using latent class analysis with clinical strata of pre-surgery blood concentrations of the investigated sex hormones (T, E2, FSH, LH and PRL), three classes, termed further 'hormonal subsets' could be identified. The largest 'neutral' hormonal subset displayed no substantial abnormalities in sex hormone levels. The 'testicle' hormonal subset was characterized by elevated T and E2 accompanied by a significant suppression of the pituitary sex hormones. Finally, the 'pituitary' subset had abnormally increased FSH and LH and normal or decreased levels of the gonad hormones T and E2.
+* Using latent class analysis with clinically relevant strata of pre-surgery blood concentrations of the investigated sex hormones (T, E2, FSH, LH and PRL), three classes, termed further 'hormonal subsets' could be identified in the Innsbruck collective. The largest 'neutral' hormonal subset displayed no substantial abnormalities in sex hormone levels. The 'testicle' hormonal subset was characterized by elevated T and E2 accompanied by a significant suppression of the pituitary sex hormones. Finally, the 'pituitary' subset had abnormally increased FSH and LH and normal or decreased levels of the gonad hormones T and E2.
 
-* The key differences between the hormonal subset concerned blood concentrations of the cancer markers HCG and lactate dehydrogenase (LDH), age at cancer diagnosis, tumor histology and size, rates of lymphovascular invasion, as well as frequencies of testosterone replacement therapy and chemotherapy. In more details, the testicle subset encompassed the youngest patients with the largest tumors, most frequent chemotherapy, and the most frequent lymphovascular invasion and NSGCT histology. Testicle subset patients had also the highest levels of HCG and AFP as compared with the neutral and pituitary subsets. In turn, the pituitary subset had the highest rates of testosterone replacement therapy. No differences in relapse-free survival between the hormonal subsets were observed.
+* The key differences between the hormonal subset of the Innsbruck cohort concerned blood concentrations of the cancer markers HCG and lactate dehydrogenase (LDH), age at cancer diagnosis, tumor histology and size, rates of lymphovascular invasion, as well as frequencies of testosterone replacement therapy and chemotherapy. In more details, the testicle subset encompassed the youngest patients with the largest tumors, the highest frequencies of lymphovascular invasion, NSGCT histology and chemotherapy. Testicle subset patients had also the highest levels of HCG and AFP as compared with the neutral and pituitary subsets. In turn, the pituitary subset had the highest rates of testosterone replacement therapy. No differences in relapse-free survival between the hormonal subsets were observed.
 
-* Neither pre-surgery sex hormone levels nor the assignment to the hormonal subset had an effect of relapse risk in univariable survival analysis. However, total T concentration and FSH concentrations within the reference ranges were associated with decreased relapse risk in multi-parameter survival modeling with the Elastic Net Cox algorithm. 
+* In the Innsbruck cohort, neither pre-surgery sex hormone levels nor the assignment to the hormonal subset had an effect of relapse risk in univariable survival analysis. However, total T concentration and FSH concentrations within the reference ranges were associated with a marginally decreased relapse risk in multi-parameter survival modeling with the Elastic Net Cox algorithm. 
+
+* In the TCGA cohort, expression of pituitary hormone genes (_GNRH1_, _GNRH2_, _PRL_, _CGA_, _LHB_ and _FSBH_) in the malignant tissue was noticeable in a fraction of testicular cancers. Transcript coding for enzymes involved in progesterone and testosterone production (_CYP11A1_, _CYP17A1_, _HSD17B3_, _HSD3B1_, _HSD3B2_) as well as mRNA for enzymes of the testosterone/estrone - estradiol conversion (_CYP19A1_/aromatase and _HSD17B1_), and steroid sex hormone transport and modulation (_SHBG_) were clearly detectable in majority of testicle cancers. Among the pituitary sex hormone genes, expression of _PRL_, _CGA_ and _GNRH1_ was clearly increased in NSGCT, whereas _LHB_ was significantly upregulated in seminoma. _FSHB_ expression was virtually restricted to a small fraction of seminoma cancers. Concerning the gonadal hormone synthesis genes, _CYP17A1_ was the sole transcript weakly upregulated in seminoma. The remaining genes of testosterone and estradiol synthesis and _SHBG_ were moderately-to-strongly upregulated in NSGCT.
+
+* By Gaussian mixture modeling of the TCGA cancers with the sex hormone-related genes as explanatory factors, five hormonal subsets of testicle tumors were identified and named after their characteristic histology and hormonal features. The subset SEM1 was characterized by a moderately increased _LHB_ expression and low levels of the remaining transcripts of interest and encompassed almost exclusively seminoma. The SEM2 subset included _FSHB_-positive seminoma cancers. The largest NS PRL subset consisted of NSGCT tumors hallmarked by high expression of _PRL_ and moderately increased levels of the steroid hormone synthesis genes. The key features of the smallest NS E2 subset were NSGCT histology and strongly increased expression of the _HSD17B1_ and _CYP19A1_ genes involved in estradiol synthesis. The remaining NS T subset was characterized by the highest expression of the progesterone/testosterone synthesis pathway genes _HSD3B2_, _CYP17A1_, _HSD17B3_ and included both seminoma and weakly maker-positive NSGCT.
+
+* The hormonal subsets of the TCGA collective differed profoundly in biological processes gauged by gene set variation analysis (GSVA) with the Reactome pathways gene signature, expression of metabolism-related genes as investigated by GSVA with signatures of Recon model metabolic subsystems, composition of their tumor microenvironments predicted by the QuanTIseq and xCell deconvolution, their transcriptomes, activity of signaling pathways and expression of cancer-relevant proteins. 
+
+* In the TCGA collective, high expression of the pituitary hormone _GNRH2_ and _PRL_ genes, _HSD3B1_ involved in testosterone synthesis, the _HSD17B1_ gene implicated in estradiol formation or _SHBG_ taking part in transport of gonadal hormones were associated with significantly poorer relapse-free survival in an univariable analysis. Accordingly, the subset NS E2 cancers characterized by high expression of estradiol synthesis genes demonstrated a significantly higher relapse risk as compared with the hormonal subset SEM1. In multi-parameter modeling with the Elastic Net algorithm, inclusion of _HSD17B1_, _HSD3B2_, _PRL_, _LHB_, _SHBG_, _GNRH2_, _CYP19A1_, _HSD17B3_, _CYP17A1_ and _GNRH1_ in the survival model along with the serum cancer marker status, age, histology and tumor stage could substantially improve prediction of the relapse risk.
 
 <hr style = "border-top: 5px solid #417a8b" />
 
 # Analysis goals and strategy
 
-This analysis performed with a local registry of testicle cancer (n = `r nrow(tesca$data)` participants with $\leq$ 50% missing data) pursued three goals:
+This analysis pursued four goals:
 
-* To characterize differences in demographic, clinical and pathological variables between two major cancer histological types: seminoma and non-seminomatous germ cell tumors (NSGCT). The features differentiating between those two histology classes were entangled with 'canonical' hypothesis testing for single variables using $\chi^2$ and Mann-Whitney tests. Furthermore, to account for a sum effect of weak explanatory factors and high level interactions between explanatory variables [@Strobl2009; @Breiman2001], a multi-parameter conditional Random Forest classifier [@Hothorn2022; @Hothorn2006; @Strobl2007] was established to discriminate between seminoma and NSGCT.
+1. To characterize differences in demographic, clinical and pathological variables between two major cancer histological types: seminoma and non-seminomatous germ cell tumors (NSGCT). The features differentiating between those two histology classes were entangled with 'canonical' hypothesis testing for single variables using $\chi^2$ and Mann-Whitney tests. Furthermore, to account for a sum effect of weak explanatory factors and high level interactions between explanatory variables [@Strobl2009; @Breiman2001], a multi-parameter conditional Random Forest classifier [@Hothorn2022; @Hothorn2006; @Strobl2007] was established to discriminate between seminoma and NSGCT.
 
-* To characterize testis cancer patients with abnormalities of homeostasis of sex hormones: testosterone (T), estradiol (E2), follicle stimulating hormone (FSH), luteinizing hormone (LH) and prolactin (PRL) prior to tumor surgery and cancer therapy. This task was accomplished with principal component analysis (PCA) [@Croux2007; @Todorov2013] and multi-dimensional correspondence analysis (MCA) [@Ripley2022] employed to dissect patterns of co-regulated hormones. Latent class analysis (LCA) [@Bandeen-roche1997; @Linzer2011] used was subsequently used to define the most relevant subsets of testis cancer patients differing in sex hormone regulation.
+2. To characterize testis cancer patients with abnormalities of homeostasis of sex hormones: testosterone (T), estradiol (E2), follicle stimulating hormone (FSH), luteinizing hormone (LH) and prolactin (PRL) prior to tumor surgery and cancer therapy. This task was accomplished with principal component analysis (PCA) [@Croux2007; @Todorov2013] and multi-dimensional correspondence analysis (MCA) [@Ripley2022] employed to dissect patterns of co-regulated hormones. Latent class analysis (LCA) [@Bandeen-roche1997; @Linzer2011] used was subsequently used to define the most relevant subsets of testis cancer patients differing in sex hormone regulation.
 
-* To investigate effects of pre-surgery sex hormone on relapse-free survival in testis cancer. This final step of analysis was done with univariable Cox regression [@Therneau2000] and multi-parameter modeling with the Elastic Net Cox algorithm [@Friedman2010; @Zou2005; @Simon2011].
+3. To investigate effects of pre-surgery sex hormone on relapse-free survival in testis cancer. This step of analysis was done with univariable Cox regression [@Therneau2000] and multi-parameter modeling with the Elastic Net Cox algorithm [@Friedman2010; @Zou2005; @Simon2011].
+
+4. To explore effects of cancer expression of genes related to pituitary (_GNRH1_, _GNRH2_, _PRL_, _CGA_, _LHB_ and _FSB_) and gonadal sex hormones (_CYP11A1_, _CYP17A1_, _HSD17B3_, _HSD3B1_, _HSD3B2_, _CYP19A1_, _HSD17B1_ and _SHBG_) on clinical characteristic of the testicle tumors, the underlying tumor biology, metabolism and immunity, differential gene expression, signaling and, finally, to investigate the possible prognostic value at prediction of relapse-free survival.
+
+This goals 1 - 3 were addressed with a local registry of testicle cancer including n = 
+`r nrow(tesca$data)` participants with $\leq$ 50% missing data. 
+The goal 4 analyses were performed with a testicle cancer subset of the TCGA pan-cancer project [@Liu2018] including n = 
+`r nrow(tcga$clinical)` cancer samples with demographic, clinical, survival as well as gene and protein expression data.
 
 The analysis inclusion process, the analysis goals and the analysis approaches are summarized in __Figure \@ref(fig:fig-inclusion-scheme)__.
 
@@ -100,7 +115,7 @@ figures$inclusion$plot
 
 <hr style = "border-top: 5px solid #417a8b" />
 
-# Explorative data analysis
+# Explorative data analysis of the Innsbruck cohort
 
 ## Study variables, data missingness and variability
 
@@ -205,7 +220,7 @@ flextable::flextable(tables$miss_inf) %>%
 Normality of distribution of numeric study variables was investigated by Shapiro-Wilk test (__Table \@ref(tab:tab-best-transformation)__) and visual analysis of quantile-quantile plots (not shown). 
 As presented in __Figure \@ref(fig:fig-normality)__, the great majority of numeric parameters displayed highly non-normal distribution which could be improved by the logarithm or square root transformations. 
 For this reason, variables like age, BMI or sex hormone concentrations were square root-transformed prior to analysis steps with strong normality assumptions like survival modeling.
-However, neither the logarithmic nor the square root transformation could improve normality of percentages of teratoma, embryonic, chorion, yolk sac and seminoma histology or normality of AFP and HCG concentrations. 
+However, neither the logarithmic nor the square root transformation could improve normality of percentages of teratoma, embryonic, chorion, yolk sac and seminoma histology or normality of AFP, HCG and LDH concentrations. 
 Hence, those variables were stratified prior to modeling tasks with clinically relevant cutoff values (e.g. cutoff 75% for histology percentages) as outlined in __Table \@ref(tab:tab-study-vars)__.
 
 <hr style = "border-top: 1px solid DarkGray" />
@@ -237,7 +252,7 @@ flextable::flextable(tables$best_transf) %>%
 
 <hr style = "border-top: 5px solid #417a8b" />
 
-# Characteristic of the study cohort {#cohort}
+# Characteristic of the Innsbruck study cohort {#cohort}
 
 The study cohort consisted of 
 `r nrow(tesca$data)` testis cancer patients with the median age at surgery of 
@@ -264,7 +279,7 @@ Rates of chemotherapy and radiotherapy were
 `r signif(table(tesca$data$chemotherapy)[2]/sum(table(tesca$data$chemotherapy)), 2) * 100`% and 
 `r signif(table(tesca$data$radiotherapy)[2]/sum(table(tesca$data$radiotherapy)), 2) * 100`%, respectively. 
 Testosterone replacement was therapy was administered to 
-`r signif(table(tesca$data$testosterone_replacement)[2]/sum(table(tesca$data$testosterone_replacement)), 2) * 100` of 
+`r signif(table(tesca$data$testosterone_replacement)[2]/sum(table(tesca$data$testosterone_replacement)), 2) * 100`% of 
 study participants (__Table \@ref(tab:tab-cohort-demo-cancer)__). 
 
 Concerning sex hormone levels prior to the cancer surgery, lower than normal total testosterone concentrations ($\leq$ 3.5 ng/mL) were observed in 
@@ -314,15 +329,15 @@ flextable::flextable(tables$cohort_hormones) %>%
 
 <hr style = "border-top: 5px solid #417a8b" />
 
-# Seminoma and non-seminomatous germ cell tumors
+# Features differing between seminoma and non-seminomatous germ cell tumors in the Innsbruck cohort
 
 In the next task of the analysis, we sought to characterize differences between seminoma and NSGCT. 
 
-To this end, we first compared a wide range of demographic, clinical, endocrinologic and therapy-related features of between the histology types with a series of canonical statistical tests. 
+To this end, we first compared a wide range of demographic, clinical, endocrinologic and therapy-related features between the histology types with a series of canonical statistical tests. 
 Since multiple study variables were found strongly non-normally distributed, statistical significance for numeric parameters was determined by the non-parametric Mann-Whitney test with r effect size metric. 
 Differences in distribution of categorical variables between the histology types were explored by $\chi^2$ test with Cramer V effect size statistic (__Tables \@ref(tab:tab-histology-demo-cancer)__ and __\@ref(tab:tab-histology-hormones)__). 
 Subsequently, to account for the summary effect of multiple explanatory factors and their interactions, we developed a multi-parameter conditional Random Forest classifier [@Hothorn2022; @Strobl2009; @Hothorn2006; @Strobl2007; @Breiman2001] to discriminate between seminoma and NSGCT. 
-Finally, we compared relapse-free survival between the histology types with log-rank test.
+Finally, we compared relapse-free survival between the histology types with Peto-Peto test.
 
 ## Differences in demographic, pathologic cand endocrinologic features
 
@@ -332,8 +347,7 @@ Out of `r length(histo_globals$variables)` variables investigated by means of un
 NSGCT-bearing individuals were characterized by a significantly lower onset age, higher stage, Lugano class and IGCCCG risk strata as well as more frequent lymphovascular invasion as compared with seminoma patients. 
 Effect sizes of these differences was however weak (stage, risk, lymphovascular invasion) to moderate (age) (__Figure \@ref(fig:fig-histology-cancer)__). 
 NSGCT patients had also significantly higher serum concentrations of the key cancer markers AFP (strong difference) and HCG (moderate difference). 
-Absolute serum activity of LDH was weakly but significantly higher in NSGCT than in seminoma. 
-Yet the frequency of patients with LDH activity above the normal range was comparable between the histology strata (__Figure \@ref(fig:fig-histology-markers)__). 
+Absolute serum activity of LDH and frequency of LDH activity above the reference range were weakly but significantly higher in NSGCT than in seminoma (__Figure \@ref(fig:fig-histology-markers)__). 
 The NSGCT subset was also treated more often with retroperitoneal lymphadenectomy and chemotherapy and less frequently with radiotherapy as compared with seminoma patients. 
 The effect sizes of those differences were low-to-moderate (__Figure \@ref(fig:fig-histology-therapy)__).
 
@@ -458,10 +472,16 @@ flextable::flextable(tables$histology_hormones) %>%
 
 <hr style = "border-top: 5px solid DarkGray" />
 
-## Multi-parameter signature of histology types
+## Multi-parameter signature of seminoma and NSGCT
 
-In the multi-parameter Random Forest model discriminating between the histology types (seminoma: n = `r table(histo_class$analysis_tbl$histology)[1]`, NSGCT: n = `r table(histo_class$analysis_tbl$histology)[2]`), abnormally high AFP concentrations, retroperitoneal lymphadenectomy, age at surgery, total AFP and FSH blood concentrations, FSH and E2 blood concentration strata, tumor size, chemotherapy and HCG were the most important features differentiating between NSGCT and seminoma. 
-The model was able to differentiate NSGCT from seminoma with excellent sensitivity (data: `r histo_class$stats$Se[1] %>% signif(2)`, cross-validation: `r histo_class$stats$Se[2] %>% signif(2)`), moderate-to-good specificity (data: `r histo_class$stats$Sp[1] %>% signif(2)`, cross-validation: `r histo_class$stats$Sp[2] %>% signif(2)`) and overall good accuracy measured by Cohen's $\kappa$ and Brier Score (__Figure \@ref(fig:fig-histology-class)__).
+In the multi-parameter Random Forest model discriminating between the histology types (seminoma: n = 
+`r table(histo_class$analysis_tbl$histology)[1]`, NSGCT: n = 
+`r table(histo_class$analysis_tbl$histology)[2]`), abnormally high AFP concentrations, retroperitoneal lymphadenectomy, age at surgery, total AFP and FSH blood concentrations, FSH and E2 blood concentration strata, tumor size, chemotherapy and HCG were the most important features differentiating between NSGCT and seminoma. 
+The model was able to differentiate NSGCT from seminoma with excellent sensitivity (data: 
+`r histo_class$stats$Se[1] %>% signif(2)`, cross-validation: 
+`r histo_class$stats$Se[2] %>% signif(2)`), moderate-to-good specificity (data: 
+`r histo_class$stats$Sp[1] %>% signif(2)`, cross-validation: 
+`r histo_class$stats$Sp[2] %>% signif(2)`) and overall good accuracy measured by Cohen's $\kappa$ and Brier Score (__Figure \@ref(fig:fig-histology-class)__).
 
 <hr style = "border-top: 1px solid DarkGray" />
 
@@ -476,7 +496,7 @@ figures$histology_classifier$plot
 <br>
 Multi-parameter model employing demographic, clinical, pathological, therapy and hormone explanatory variables for discrimination between seminoma and NSGCT histology cancers was developed with the conditional Random Forest algorithm and corroborated by 10-fold cross-validation (CV).
 <br>
-(A) Permutation importance of explanatory variables expressed as difference in accuracy ($\Delta$ accuracy) between the original model and the model with a particular variable randomly re-shuffled. Accuracy differences are displayed in a bar plot. Numbers of samples in the histology types are shown in the plot caption.
+(A) Permutation importance of explanatory variables expressed as difference in accuracy ($\Delta$ accuracy) between the original model and a model with the particular variable randomly re-shuffled. Accuracy differences are displayed in a bar plot. Numbers of samples in the histology types are shown in the plot caption.
 <br>
 (B) Discriminant performance of the Random Forest model in the original data set and 10-fold CV was assessed by receiver-operating characteristic (ROC). Calibration of the model was investigated by assessment of squared errors for particular observations. Fit statistics: $R^2$, Cohen's $\kappa$, area under the ROC curve (AUC), sensitivity (Se), specificity (Sp) and Brier Score (BS) are presented in the plot captions and in the plots.
 <br>
@@ -487,7 +507,7 @@ AFP: alpha fetoprotein; RLA: retroperitoneal lymphadenectomy; FSH: follicle stim
 
 ## Relapse in seminoma and non-seminomatous germ cell tumors (NSGCT)
 
-As investigated by log-rank score, there were no significant differences in relapse-free survival between seminoma and NSGCT patients (__Figure \@ref(fig:fig-histology-survival)__). 
+As investigated by Peto-Peto test, there were no significant differences in relapse-free survival between seminoma and NSGCT patients (__Figure \@ref(fig:fig-histology-survival)__). 
 
 <hr style = "border-top: 1px solid DarkGray" />
 
@@ -500,7 +520,7 @@ figures$histology_survival$plot
 <p class = "legend">
 <b>Figure \@ref(fig:fig-histology-survival). Relapse-free survival in patients with seminoma and non-seminomatous germ cell tumors (NSGCT).</b>
 <br>
-Differences in relapse-free survival between seminoma and NSGCT histology cancers were assessed by log-rank test. Fractions of surviving individuals are presented in a Kaplan-Meier plot. Numbers of observations and relapses are displayed in the plot caption. The test p value is shown in the the plot.
+Differences in relapse-free survival between seminoma and NSGCT histology cancers were assessed by Peto-Peto test. Fractions of surviving individuals are presented in a Kaplan-Meier plot. Numbers of observations and relapses are displayed in the plot caption. The test p value is shown in the the plot.
 </p>
 
 <hr style = "border-top: 5px solid DarkGray" />
@@ -509,7 +529,7 @@ Differences in relapse-free survival between seminoma and NSGCT histology cancer
 
 Collectively, the key features of NSGCT were elevated AFP levels, need for retroperitoneal lymphadenectomy and chemotherapy, young age at surgery, as well as distorted sex hormone homeostasis with elevated gonad hormones and suppression of the pituitary axis. 
 NSGCT were also potentially more aggressive as inferred from higher staging and risk classification and more frequent lymphovascular invasion. 
-In line with the specificity of AFP for yolk sac, embryonic and teratoma cancers [@Milose2012], AFP above its normal range was virtually restricted to NSGCT in the analyzed cohort. 
+In line with the specificity of AFP for yolk sac, embryonic and teratoma cancers [@Milose2012], AFP levels above the normal range were virtually restricted to NSGCT in the analyzed cohort. 
 HCG and LDH were of lesser importance for discrimination between the histology types. 
 Interestingly, the slightly elevated LDH activity observed in NSGCT patients may be another hallmark of a more aggressive disease.
 Still, despite the likely more aggressive character of NSGCT, we could not observe differences in relapse-free survival in the investigated collective, which may be primarily attributed to the generally low number of relapses as well as differences in therapy of seminoma and NSGCT, with the later entity frequently requiring a more aggressive surgery and adjuvant chemotherapy. 
@@ -528,21 +548,22 @@ figures$histology_summary$plot
 
 <hr style = "border-top: 5px solid #417a8b" />
 
-# Pre-surgery blood levels of sex hormones
+# Pre-surgery blood levels of sex hormones in the Innsbruck cohort
 
 In the next analysis task, homeostasis of sex hormones prior to the cancer surgery was characterized. 
-Of note, as described before in [the characteristic of the cohort](#cohort) for single sex hormones of interest, T, E2, FSH, LH and PRL, abnormal hormone levels were observed in a substantial fraction of the participants (__Table \@ref(tab:tab-cohort-hormones)__). 
-Since positive and negative feedbacks between hormones are key to their homeostasis, we explored co-regulated sex hormones by means of principal component analysis (PCA) and an overlap between clinically relevant strata of sex hormones by multi-dimensional correspondence analysis (MCA). 
+Of note, as described before in [the characteristic of the cohort](#cohort) abnormal levels of T, E2, FSH, LH or PRL were observed in a substantial fraction of the participants (__Table \@ref(tab:tab-cohort-hormones)__). 
+Since positive and negative feedbacks between hormones are key to their homeostasis, we explored co-regulation of sex hormones levels by means of principal component analysis (PCA). 
+The overlap between clinically relevant strata of sex hormones was explored by multi-dimensional correspondence analysis (MCA). 
 Groups of testis cancer patients displaying common patterns of hormone homeostasis or pathology were subsequently defined by maximum likelihood estimate-driven latent class analysis (LCA) [@Bandeen-roche1997; @Linzer2011]. 
-Finally, we characterized differences between these groups, termed further 'hormonal subsets' by univariable statistical hypothesis testing, multi-parameter conditional Random Forest modeling [@Hothorn2022; @Hothorn2006; @Strobl2007] and assessed differences in relapse-free survival between the hormonal subsets by log-rank test.
+Finally, we characterized differences between these groups, termed further 'hormonal subsets' by univariable statistical hypothesis testing, multi-parameter conditional Random Forest modeling [@Hothorn2022; @Hothorn2006; @Strobl2007] and assessed differences in relapse-free survival between the hormonal subsets by Peto-Peto test.
 
 ## Components of pre-surgery sex hormone levels in testicle cancer
 
 As revealed by PCA with normalized and median-centered pre-surgery levels of T, E2, FSH, LH and PRL, the first first two principal component were responsible for `r var(pca$pca_obj)$perc_var[1:2] %>% sum %>% signif(2)`% of the total hormone dataset variance. 
 The key factors associated with the first component were the tightly co-regulated T and E2. 
 The hormones with the largest loadings (weights) for the second principal component were the highly correlated FSH and LH (__Figure \@ref(fig:fig-hormone-components)A__). 
-The third, minor component associated with `r var(pca$pca_obj)$perc_var[3] %>% signif(2)` was determined by PRL and E2 (not shown). 
-The PCA indicates two major patterns of pre-treatment sex hormone homeostasis in testicle cancer: the gonad/testicle hormones T and E2 regulated in an opposite manner to the pituitary sex hormones FSH and LH. 
+The third, minor component associated with `r var(pca$pca_obj)$perc_var[3] %>% signif(2)`% of total variance was determined primarily by PRL and E2 (not shown). 
+The PCA results revealed two major patterns of pre-treatment sex hormone homeostasis in testicle cancer: the gonad/testicle hormones T and E2 regulated in an opposite manner to the pituitary sex hormones FSH and LH. 
 Additionally, PRL may be regarded as a standalone player of the hormonal homeostasis, with some degree of co-regulation with E2.
 
 This interpretation was further corroborated by MCA performed with clinically relevant strata of blood hormone levels prior to the cancer surgery. 
@@ -565,7 +586,7 @@ figures$hormone_components$plot
 <p class = "legend">
 <b>Figure \@ref(fig:fig-hormone-components). Component analysis of pre-surgery sex hormone levels.</b>
 <br>
-Blood concentrations of sex hormones (T: testosterone, E2: estradiol, FSH: follicle stimulating hormone, LH: luteinizing hormone; PRL: prolactin) as numeric variables and as clinical strata were subjected to 4-dimensional principal component analysis (PCA, A) and multidimensional correspondence analysis (MCA, B), respectively. Loadings (PCA) and column factors (MCA) for the first two dimensions are presented in the plots. Numbers of observations are indicated in the plot captions.
+Blood concentrations of sex hormones (T: testosterone, E2: estradiol, FSH: follicle stimulating hormone, LH: luteinizing hormone; PRL: prolactin) as numeric variables and as clinical strata were subjected to 4-dimensional principal component analysis (PCA, A) and multidimensional correspondence analysis (MCA, B), respectively. Loadings (PCA) and column factors (MCA) for the first two dimensions are presented in scatter plots plots. Numbers of observations are indicated in the plot captions.
 </p>
 
 <hr style = "border-top: 5px solid DarkGray" />
@@ -573,14 +594,14 @@ Blood concentrations of sex hormones (T: testosterone, E2: estradiol, FSH: folli
 ## Definition of the hormonal subsets of testicle cancer
 
 Encouraged by the PCA and MCA results, we set off to define subsets of testis cancer patients characterized by the three patterns of hormonal homeostasis/pathology described above. 
-An initial attempt to define a stable clustering structure based on normalized and median centered hormone concentrations treated as numeric variables failed, most likely due to the extreme range of hormone concentrations (__Table \@ref(tab:tab-cohort-hormones)__) which in turn may have resulted in a highly non-elliptic cluster shape poorly captured by most clustering algorithms. 
+An initial attempt to define a stable clustering structure based on normalized and median-centered hormone concentrations treated as numeric variables failed, most likely due to the extreme range of hormone concentrations (__Table \@ref(tab:tab-cohort-hormones)__) which in turn may have resulted in a highly non-elliptic cluster shape poorly captured by most clustering algorithms. 
 LCA is a Bayesian modeling approach aiming at definition of exclusive non-apparent (i.e. latent) classes based on multiple overlapping categorical explanatory factors [@Bandeen-roche1997; @Linzer2011]. 
 In the current setting, we employed LCA modeling with clinically relevant strata of blood concentrations of sex hormones before the surgery serving as explanatory variables. 
 The LCA solution with pre-specified number of three latent classes was found to be optimal in terms of Bayesian Information Criterion describing the model's goodness-of-fit  (__Figure \@ref(fig:fig-lca-tuning)__ and __Table \@ref(tab:tab-lca-posterior)__). 
 Interestingly, presence of three cancer patient subsets was suggested by the PCA and MCA results as well. 
 
 Among the three hormonal subsets, the 'neutral' subset including 
-`r signif(table(lca$assingment$class)[1]/sum(table(lca$assingment$class)), 2) * 100`% of the cohort patients, exhibited largely normal levels of T, E2, FSH, LH and PRL. 
+`r signif(table(lca$assingment$class)[1]/sum(table(lca$assingment$class)), 2) * 100`% of patients, exhibited largely normal levels of T, E2, FSH, LH and PRL. 
 In the 'testicle' subset encompassing 
 `r signif(table(lca$assingment$class)[2]/sum(table(lca$assingment$class)), 2) * 100`% of the collective, roughly 70% of individuals had E2 levels above the normal range and one-third displayed supra-physiological concentrations of testosterone. 
 This hyperactivity of testicular hormones was accompanied by a widespread suppression of the pituitary axis manifested by concentrations of FSH and LH below the reference range in nearly all testicle subset patients. 
@@ -651,7 +672,8 @@ Normalized pre-surgery blood concentrations of sex hormones (Z-scores; T: testos
 
 ## Differences in demographic, clinical and pathological cancer features between the hormonal subsets
 
-Out of `r length(class_bcg$variables)` demographic, clinical, pathological and therapy-related variables, 
+Out of 
+`r length(class_bcg$variables)` demographic, clinical, pathological and therapy-related variables, 
 `r length(class_bcg$significant)` were found to differ significantly between the hormonal subset in univariable statistical hypothesis testing (__Table \@ref(tab:tab-classes)__). 
 
 The age of surgery was the lowest in the testicle subset and peaked in the pituitary subset. 
@@ -787,7 +809,7 @@ It has to be noted that the Random Forest model displayed only a moderate discri
 `r class_rf$stats$kappa[2] %>% signif(2)`). 
 In particular, whereas the neutral and testicle subsets could be identified with high accuracy, the Random Forest model erroneously assigned a large fraction of pituitary subset patients to the neutral subset (__Figure \@ref(fig:fig-classes-random-forest)B__).
 This lacking accuracy for discrimination of the pituitary subset results likely from overall similarity of those two groups in terms of demographic, clinical and pathological explanatory variables. 
-In fact, high age at surgery and body mass index, small tumor size, the highest frequency of seminoma and the relatively most frequent testosterone replacement therapy were found to be the most specific hallmarks of the pituitary subsets. 
+In fact, high age at surgery and body mass index, small tumor size, the highest frequency of seminoma and the relatively most frequent testosterone replacement therapy were found to be the most specific hallmarks of the pituitary subset. 
 However effect size for differences of those factors between the subsets was only weak-to-moderate (__Table \@ref(tab:tab-classes)__), which may explain the poor performance of the Random Forest model in the pituitary subset.
 
 <hr style = "border-top: 1px solid DarkGray" />
@@ -815,7 +837,7 @@ HCG: human chorionic gonadotropin; NSGCT: non-seminomatous germ cell tumors; T r
 
 ## Survival in the hormonal subsets
 
-As investigated by log-rank test, there were no significant differences in relapse-free survival between the hormonal subsets (__Figure \@ref(fig:fig-classes-survival)__). 
+As investigated by Peto-Peto test, there were no significant differences in relapse-free survival between the hormonal subsets (__Figure \@ref(fig:fig-classes-survival)__). 
 
 <hr style = "border-top: 1px solid DarkGray" />
 
@@ -828,7 +850,7 @@ figures$classes_survival$plot
 <p class = "legend">
 <b>Figure \@ref(fig:fig-classes-survival). Relapse-free survival in the hormonal subsets of testis cancer.</b>
 <br>
-Differences in relapse-free survival in the hormonal subsets were assessed by log-rank test. Fractions of surviving patients are displayed in a Kaplan-Meier plot. The test p value is presented in the plot. Numbers of observations and relapses are shown in the plot caption.
+Differences in relapse-free survival in the hormonal subsets were assessed by Peto-Peto test. Fractions of surviving patients are displayed in a Kaplan-Meier plot. The test p value is presented in the plot. Numbers of observations and relapses are shown in the plot caption.
 </p>
 
 <hr style = "border-top: 5px solid DarkGray" />
@@ -930,12 +952,11 @@ These two hormonal systems interacted in an antagonistic way, i.e, high activity
 Additionally, PRL was found to be regulated in a manner which was largely independent from the gonadal or pituitary sex hormone axis and weakly influenced by pre-surgery levels of E2.
 MCA and LCA revealed three hormonal subsets of testicle cancer: the neutral subset characterized by healthy-like sex hormone homeostasis, the testicle subset hallmarked by elevated T and E2 with the concomitant profound suppression of the pituitary axis, and the pituitary subset with dramatically increased release of FSH and LH paralleled by low-to-normal levels of the gonadal hormones. 
 The prime non-endocrine factors differentiating between these hormonal subsets were the serum cancer markers HCG and AFP, age at tumor onset, seminoma/NSGCT histology, tumor size, staging and lymphovascular invasion. 
-It has to be noted that whereas there were several non-endocrine features highly specific for the testicle subset, the discrimination between the neutral subset proved to be challenging. 
+It has to be noted that whereas there were several non-endocrine features highly specific for the testicle subset, the discrimination between the neutral and pituitary subset proved to be challenging. 
 Overall, the pattern of antagonistic regulation of the pituitary and gonadal hormones and the hormonal subsets of testicle cancer likely reflect a physiological negative feedback. 
 Yet, the clinical relevance for diagnostic and therapy of testicle caner is less clear. 
 Of interest, it remains open, if and which cancer cells produce the sex hormones of interest. 
-This question may be addressed by re-analysis of published whole-transcriptome testis cancer datasets  (e.g [GSE1818](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE1818), [GSE12630](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE12630), [GSE31614](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE31614),  
-[GSE31617](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE31617) or [TCGA](https://portal.gdc.cancer.gov/exploration?filters=%7B%22content%22%3A%5B%7B%22content%22%3A%7B%22field%22%3A%22cases.primary_site%22%2C%22value%22%3A%5B%22testis%22%5D%7D%2C%22op%22%3A%22in%22%7D%2C%7B%22content%22%3A%7B%22field%22%3A%22cases.diagnoses.tissue_or_organ_of_origin%22%2C%22value%22%3A%5B%22descended%20testis%22%2C%22testis%2C%20nos%22%2C%22undescended%20testis%22%5D%7D%2C%22op%22%3A%22in%22%7D%5D%2C%22op%22%3A%22and%22%7D)) for components of gonadal steroid hormone production machinery and expression of _FSHB_, _LHB_ and _PRL_ genes.
+This question was addressed in the next part of the analysis done with the testis cancer subset of the TCGA pan cancer project [@Liu2018]. 
 
 <hr style = "border-top: 1px solid DarkGray" />
 
@@ -951,10 +972,10 @@ figures$classes_summary$plot
 
 <hr style = "border-top: 5px solid #417a8b" />
 
-# Prognostic significance of pre-surgery sex hormone levels
+# Prognostic significance of pre-surgery sex hormone levels in the Innsbruck cohort
 
-In the final analysis task, we focused on prognostic relevance of pre-surgery sex hormone levels for relapse-free survival. 
-In general, treatment response in testicle cancer is extremely high which translates to an excellent survival and low relapse rates, which were evident in the study cohort as well (relapse rate: `r signif(table(tesca$data$relapse_factor)[2]/sum(table(tesca$data$relapse_factor)), 2) * 100`%, __Table \@ref(tab:tab-cohort-demo-cancer)__). 
+In the final task of the Innsbruck collective analysis, we focused on prognostic relevance of pre-surgery sex hormone levels for relapse-free survival. 
+In general, treatment response in testicular cancer is extremely high which translates to an excellent survival and low relapse rates, which were evident in the study cohort as well (relapse rate: `r signif(table(tesca$data$relapse_factor)[2]/sum(table(tesca$data$relapse_factor)), 2) * 100`%, __Table \@ref(tab:tab-cohort-demo-cancer)__). 
 Such percentage of remissions posed an obvious obstacle to an effective survival analysis, especially in multi-parameter setting.
 
 In univariable Cox regression with clinically relevant hormone concentration strata and hormone concentrations treated as quantitative variables, no significant association of pre-surgery sex hormone levels with relapse-free survival was discerned (__Figure \@ref(fig:fig-uni-cox)__). 
@@ -1009,25 +1030,1086 @@ Association of demographic, clinical, pathological, therapy-related and endocrin
 <br>
 (A) Coefficients of the Elastic Net model expressed as hazard ratios (HR). Point sizes code for absolute values of log(HR). Point colors code for log(HR) values.
 <br>
-(B) Performance of the model measured by Harrell's concordance index (C), model calibration assessed by Brier Score (Integrated Brier Scores [IBS] presented in the plot caption) and survival in tertiles of the Elastic Net model's linear predictor score visualized in a Kaplan-Meier plot (significance assessed by log-rank test).
+(B) Performance of the model measured by Harrell's concordance index (C), model calibration assessed by Brier Score (Integrated Brier Scores [IBS] presented in the plot caption) and survival in tertiles of the Elastic Net model's linear predictor score visualized in a Kaplan-Meier plot (significance assessed by Peto-Peto test).
+</p>
+
+<hr style = "border-top: 5px solid #417a8b" />
+
+# Implications of expression of sex hormone-related genes in the TCGA testicular cancer cohort
+
+## Characteristic of the TCGA testicular cancer cohort
+
+The testicular cancer subset of the TCGA pan-cancer project [@Liu2018] included a total of n = 
+`r nrow(tcga$clinical)` patients with median age of `r tcga$clinical$age_surgery %>% median(na.rm = TRUE) %>% signif(2)` years. 
+The majority of samples were stage I tumors (
+`r (table(tcga$clinical$pt_stage)[1]/sum(table(tcga$clinical$pt_stage)) * 100) %>% signif(2)`%). 
+In only 
+`r (table(tcga$clinical$pm_stage)[2]/sum(table(tcga$clinical$pm_stage)) * 100) %>% signif(2)`% of the cohort, distant metastases were present at diagnosis. 
+Lymph node involvement was observed in 
+`r (100 - table(tcga$clinical$pn_stage)[1]/sum(table(tcga$clinical$pn_stage)) * 100) %>% signif(2)`% of patients. 
+Concerning the cancer histology, 
+`r (table(tcga$clinical$histology)[2]/sum(table(tcga$clinical$histology)) * 100) %>% signif(2)`% of samples were classified as NSGCT. 
+Almost two-thirds of the TCGA cohort patients were positive for at least one serum cancer marker (LDH, AFP or HCG). 
+One-fourth of the patients experienced a cancer relapse during the follow-up (__Table \@ref(tab:tab-tcga-cohort)__).
+
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-tcga-cohort, tab.cap = 'Demographic and cancer-related characteristic of the TCGA cohort. Numeric variables are presented as medians with interqurtile ranges (IQR) and ranges. Categorical variables are presented as percentages and counts within the complete observation set.'}
+
+flextable::flextable(tables$tcga_cohort) %>% 
+  width(1, width = 5, unit = 'cm') %>% 
+  width(2, width = 6.5, unit = 'cm') %>% 
+  footnote(1, 1, 
+           value = as_paragraph('IGCCCG: International Germ Cell Cancer Collaborative Group; AFP: alpha fetoprotein; HCG: human chorionic gonadotropin; LDH: lactate dehydrogenase'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
+  theme_vanilla
+
+```
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+## Expression of sex hormone-related genes in the TCGA cohort cancers
+
+In this part of the analysis, genes coding for the key gonadotropin-releasing hormones (_GNRH1_, _GNRH2_), pituitary gonadotropins (_PRL_, _CGA_, _LHB_ and _FSH_) as well as gene involved in gonadal testosterone (_CYP11A1_, _CYP17A1_, _HSD17B3_, _HSD3B1_, _HSD3B2_) and estradiol synthesis (_CYP19A1_, _HSD17B1_) and the gene coding for the steroid hormone transport protein (_SHBG_) were investigated (__Table \@ref(tab:tab-tcga-genes)__).
+
+As presented in __Figure \@ref(fig:fig-tcga-expression)__, expression of the genes of pituitary hormones was generally low, yet clearly detectable in a fraction of cancer samples. 
+The lowest mRNA copy numbers were observed for _FSHB_. 
+By contrast, _GNRH1_ was expressed at almost constant levels in all samples. 
+Transcripts of the investigated steroid hormone-related genes were detected in almost all cancers and at considerably varying levels.
+
+Expression of _GNRH1_ was weakly upregulated in NSGCT, levels of _LHB_ and _CGA_ were far higher in NSGCT than in seminoma samples. 
+Expression of _FSHB_ was basically restricted to a small fraction of seminoma cancers and _LHB_ was strongly upregulated in seminoma as compared with NSGCT specimens. 
+There were no significant differences in levels of _GNRH2_ between the tumor histology types. 
+Except for the _CYP17A1_ transcript which was present at moderately higher level in seminoma and _HSD17B3_ expressed at comparable levels in both histological types, the steroid hormone-related genes were upregulated in NSGCT (__Figure \@ref(fig:fig-tcga-histology)__, __Table \@ref(tab:tab-tcga-histology)__).
+
+To investigate patterns of co-regulation of expression of the hormone-related genes in the cancer tissue, principal component analysis (PCA) was employed [@Croux2007; @Todorov2013]. 
+In such analysis, the first three principal components were associated with approximately 75% of the hormone transcript variance (__Figure \@ref(fig:fig-tcga-pca)__). 
+By visual inspection of a plot of gene loadings for the first two principal components, three essential co-expression patterns can be discerned: a common regulation of _PRL_ and _SHBG_, co-regulation of the steroid hormone synthesis genes and the common pituitary hormone subunit _CGA_, as well as a co-regulation of _LHB_ and _FSHB_ (__Figure \@ref(fig:fig-tcga-pca)B__).
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-tcga-genes, tab.cap = 'Hormone-related genes of interest investigated in the TCGA cohort.'}
+
+flextable::flextable(tables$tcga_genes) %>% 
+  width(1:3, width = 4, unit = 'cm') %>% 
+  italic(j = 2, part = 'body') %>% 
+  merge_v(1) %>% 
+  theme_vanilla
+
+```
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-expression, fig.width = figur::convert(figures$tcga_expression, to = 'in')$w, fig.height = figur::convert(figures$tcga_expression, to = 'in')$h, fig.cap = 'Expression of sex hormone-related genes in the TCGA testicle cancer cohort.'}
+
+figures$tcga_expression$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-expression). Expression of sex hormone-related genes in the TCGA testicle cancer cohort.</b>
+<br>
+Expression of pituitary sex hormone genes and gonadal sex hormone-related genes was presented as log~2~-transformed transcript counts in violin plots with single cancer samples depicted as points and medians with interquartile ranges depicted as red diamonds with whiskers. Numbers of complete observations are indicated in the plot captions.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-histology, fig.width = figur::convert(figures$tcga_histology, to = 'in')$w, fig.height = figur::convert(figures$tcga_histology, to = 'in')$h, fig.cap = 'Expression of sex hormone-related genes in seminoma and NSGCT samples from the TCGA cohort.'}
+
+figures$tcga_histology$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-histology). Expression of sex hormone-related genes in seminoma and NSGCT samples from the TCGA cohort.</b>
+<br>
+Expression of sex hormone-related genes was presented as log~2~-transformed transcript counts. Differences in gene expression between the histology types were assessed by Mann-Whitney test with r effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Expression values are presented in violin plots with single samples depicted as points and red diamonds with whiskers representing medians with interquartile ranges. Effect sizes and p values are shown in the plot captions. Numbers of complete observations are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-tcga-histology, tab.cap = 'Differences in expression of the hormone-related genes of interest between seminoma and NSGCT in the TCGA cohort. log~2~-transformed transcript counts are presented as medians with interqurtile ranges (IQR) and ranges.'}
+
+flextable::flextable(tables$tcga_histology) %>% 
+  width(1, width = 3, unit = 'cm') %>% 
+  width(2:3, width = 4, unit = 'cm') %>% 
+  width(4:5, width = 3, unit = 'cm') %>% 
+  footnote(1, 4:5, 
+           value = as_paragraph('Mann-Whitney test with r effect size statistic. P values corrected for multiple testing with the false disocvery rate method.'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
+  theme_vanilla
+  
+
+```
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-pca, fig.width = figur::convert(figures$tcga_pca, to = 'in')$w, fig.height = figur::convert(figures$tcga_pca, to = 'in')$h, fig.cap = 'Principal component analysis of the sex hormone-related gene dataset in the TCGA cohort.'}
+
+figures$tcga_pca$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-pca). Principal component analysis of the sex hormone-related gene dataset in the TCGA cohort.</b>
+<br>
+Trends in co-expression of the sex hormone-related genes in the testicle cancer tissue were investigated by `r ncol(tcga_pca$pca_obj$tcga$component_tbl) - 1` dimensional principal component analysis (PCA). Expression values represented genuinely by transcript counts were log~2~-transformed, normalized and median-centered prior to the PCA. Numbers of complete observations are displayed in the plot captions.
+<br>
+(A) Percentages of the total hormone dataset associated with particular principal components depicted in a scree plot. Note: first three components 'explain' approximately 80% of the total variance.
+<br>
+(B) Loadings of the sex hormone-related genes for the first two major principal components. Percentages of the total dataset variance associated with the principal components are displayed in the plot axis.
+</p>
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+## Hormonal subsets of the TCGA testicle cancers based on expression of the sex hormone-related genes in the malignant tissue
+
+As described above, expression of of the genes of interest varied substantially between the TCGA cancer samples and displayed clear co-regulation patterns. 
+We hence attempted to define hormonal subsets of the TCGA cohort based on the cancer tissue expression of the sex hormone-related genes. 
+As in case of the Innsbruck cohort, none of hierarchical clustering, KMEANS and PAM clustering algorithms with a range of distance measures could yield a reproducible and informative clustering structure, most likely due to an extreme variability of some expression values (e.g. _CGA_ with a 
+`r range(2^tcga$expression$CGA - 1) %>% signif(2) %>% paste(collapse = ' - ')` mRNA copy number range). 
+As outlined before, such wide range of expression values contributed to an elongated or irregular subset shapes which are poorly captured by most clustering procedures. 
+Instead, we resorted to the so called Gaussian mixture modeling [@Fraley2022; @Fraley2011], a Bayesian modeling approach closely related to the latent class analysis employed before for definition of the hormonal subsets of the Innsbruck cohort. 
+In brief, each of the explanatory variables, in our case the sex-related hormone expression values, is decomposed into k Gaussian distributions. 
+Each of those distributions provides probabilities of assignment to the particular hormonal subset. 
+As shown in __Figure \@ref(fig:fig-tcga-gmm)A__, a model with k = 5 Gaussian distributions fitted and hence with 5 hormonal subsets proved to be the most stable solution as demonstrated by the minimal value of Bayesian information criterion (BIC). 
+The assignment scheme of cancer samples to these hormonal subsets is presented in __Table \@ref(tab:tab-tcga-assignment)__. 
+By a visual inspection of a heat map of the means and standard deviations of the fitted Gaussian distribution functions, key characteristics of the best performing `r tcga_mix$model$G` class model could be discerned. 
+The first subset, seminoma 1 (__SEM1__, 
+`r signif(table(tcga_mix$assignment$class)[1]/sum(table(tcga_mix$assignment$class)) * 100, 2)`% of samples) was characterized by moderately upregulated _LHB_ and _CYP17A1_. 
+The second, seminoma 2 hormonal subset (__SEM2__, 
+`r signif(table(tcga_mix$assignment$class)[2]/sum(table(tcga_mix$assignment$class)) * 100, 2)`% of samples) displayed the peak _FSHB_ expression, and moderately elevated _LHB_ and _CYP17A1_. 
+The key features of the third subset named NSGCT prolactin (__NS PRL__, 
+`r signif(table(tcga_mix$assignment$class)[3]/sum(table(tcga_mix$assignment$class)) * 100, 2)`% of samples) were the highest levels of _PRL_ and _SHBG_ accompanied by the lowest expression of _LHB_. 
+The fourth hormonal subset, NSGCT estradiol (__NS E2__, 
+`r signif(table(tcga_mix$assignment$class)[4]/sum(table(tcga_mix$assignment$class)) * 100, 2)`% of samples) was hallmarked of the maximal expression of the estrogen synthesis enzymes _CYP19A1_ (aromatase) and _HSD17B1_ (hydroxysteroid 17β-dehydrogenase 1), peak levels of the steroid hormone biosynthesis gene _HSD3B1_, the gonadotropin-releasing hormone _GNRH2_ and the highest expression fo gonadotropin hormone genes _LHB_ and _CGA_. 
+The remaining subset, NSGCT testosterone (__NS T__, 
+`r signif(table(tcga_mix$assignment$class)[5]/sum(table(tcga_mix$assignment$class)) * 100, 2)`% of samples) demonstrated the highest mRNA levels for enzymes of the progesterone biosynthesis and the subsequent testosterone formation: _HSD3B2_ (3β-hydroxysteroid dehydrogenase/delta(5)-delta(4)isomerase), _HSD17B3_ (17β-hydroxysteroid dehydrogenase 3) and _CYP17A1_ (steroid 17α-monooxygenase) (__Figure \@ref(fig:fig-tcga-gmm)__). 
+These features of the newly defined hormonal subsets were corroborated by a direct comparison of transcript levels of the sex hormone-related genes between the subsets. 
+In this analysis, expression of all subset-defining genes except of _GNRH1_ differed significantly between the hormonal subsets. 
+The effect size of those differences was moderate (_GNRH2_) or strong (the remaining genes) (__Figure \@ref(fig:fig-tcga-class-features)__).
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-gmm, fig.width = figur::convert(figures$tcga_gmm, to = 'in')$w, fig.height = figur::convert(figures$tcga_gmm, to = 'in')$h, fig.cap = 'Development of the hormonal subsets of TCGA testis cancers by Gaussian mixture modeling.'}
+
+figures$tcga_gmm$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-gmm). Development of the hormonal subsets of TCGA testis cancers by Gaussian mixture modeling.</b>
+<br>
+Hormonal subsets of TCGA cancers (n = `r nrow(tcga_mix$analysis_tbl)`) were defined by Gaussian mixture modeling with log~2~-transformed, normalized and median-centered expression values of the sex hormone-related genes as explanatory factors. Goodness of fit was assessed by Bayesian information criterion (BIC).
+<br>
+(A) BIC values of the models with differing subset number. Note the minimum of BIC reached for the model with `r tcga_mix$model$G` hormonal subsets indicative of the optimal model fit.
+<br>
+(B) Mean normalized gene expression values and standard deviations for particular sex hormone-related genes and hormonal subsets predicted by the best performing `r tcga_mix$model$G`-subset mixture model.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-tcga-assignment, tab.cap = 'Assignment of the TCGA cancer samples to the hormonal subsets by Gaussian mixture modeling. Posterior probabilities for the subset assignemnt and the final hormonal subset classification are presented. The table is available in a supplementary Excel file.'}
+
+tables$tcga_assignment[1, 1] %>% 
+  mutate(`Patient ID` = '') %>% 
+  set_names(' ') %>% 
+  flextable %>% 
+  width(1, width = 10, unit = 'cm')
+
+```
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-class-features, fig.width = figur::convert(figures$tcga_class_features, to = 'in')$w, fig.height = figur::convert(figures$tcga_class_features, to = 'in')$h, fig.cap = 'Expression of the sex hormone-related genes of interest in the hormonal subsets of the TCGA cohort.'}
+
+figures$tcga_class_features$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-class-features). Expression of the sex hormone-related genes of interest in the hormonal subsets of the TCGA cohort.</b>
+<br>
+The hormonal subsets of the TCGA testicle cancers were defined by Gaussian mixture modeling. Differences in log~2~-transformed expression of the hormonal subset defining genes in the malignant tissue between the hormonal subsets were investigated by Kruskal-Wallis test with $\eta^2$ effect size statistic. P values were corrected for multiple testing with the false discovery method. Median expression values with interquartile ranges (IQR) are presented in box plots, 150% IQR ranges are depicted as whiskers and single samples are represented by points. Effect sizes and p values are indicated in the plot captions. Numbers of samples in the hormonal subsets are displayed in the X axes.
+</p>
+
+<hr style = "border-top: 5px solid #417a8b" />
+
+## Clinical characteristic of the hormonal subsets of the TCGA cohort
+
+Concerning the demographic and clinical factors, the newly defined hormonal subsets of testicular cancer differed in patient's age, tumor histology, serum marker stage as well as frequency of radiation therapy and relapse (__Table \@ref(tab:tab-tcga-class-clinic)__). 
+In more details, the age at diagnosis was substantially higher in SEM1 and SEM2 patients than in the remaining subsets. 
+Interestingly, while the SEM1 and SEM2 subsets comprised virtually of seminoma cancers, the NS PRL and NS E2 subsets included almost exclusively NSGCT. 
+Nearly three-fourths of NS T tumors were classified as NSGCT. 
+The majority of SEM1/SEM2 patients were negative for all routinely determined serum cancer markers (LDH, AFP and HCG). 
+However, remarkably more SEM2 patients were found positive for all three cancer markers as compared with the SEM1 subset. 
+By contrast more than half of each NS PRL, NE E2 and NS T subset patients were found positive for at least one cancer marker. 
+Radiation therapy was administered basically only to SEM1 and SEM2 patients. 
+Of note, the lowest relapse rates were found in the SEM1 and NS T subsets. 
+The frequencies of relapses were way higher in the SEM2 and NS PRL subsets and peaked in the smallest estrogenic NS E2 subset (__Figure \@ref(fig:fig-tcga-clinic)__).
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-tcga-class-clinic, tab.cap = 'Demographic and clinical characteristic of the hormonal subsets of the TCGA cohort cancers. Numeric variables are presented as medians with interqurtile ranges (IQR) and ranges. Categorical variables are presented as percentages and counts within the complete observation set.'}
+
+flextable::flextable(tables$tcga_class_clinic) %>% 
+  width(1, width = 3.5, unit = 'cm') %>% 
+  width(2:6, width = 3.7, unit = 'cm') %>% 
+  width(7:8, width = 2.5, unit = 'cm') %>% 
+  footnote(1, 1, 
+           value = as_paragraph('IGCCCG: International Germ Cell Cancer Collaborative Group; LDH: lactate dehydrogenase; AFP: alpha fetoprotein; HCG: human chorionic gonadotropin.'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
+  footnote(1, 7:8, 
+           value = as_paragraph('Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic. Numeric variables: Kruskal - Wallis test with \u03B7\u00B2 effect size statistic. P values corrected for multiple testing with the false discovery rate method.'), 
+           part = 'header', 
+           ref_symbols = 'b') %>% 
+  theme_vanilla
+
+```
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-clinic, fig.width = figur::convert(figures$tcga_clinic, to = 'in')$w, fig.height = figur::convert(figures$tcga_clinic, to = 'in')$h, fig.cap = 'Significant differences in demographic and clinical features between the hormonal subsets of the TCGA cohort.'}
+
+figures$tcga_clinic$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-clinic). Significant differences in demographic and clinical features between the hormonal subsets of the TCGA cohort.</b>
+<br>
+Differences in numeric variables between the hormonal subsets were investigated by Kruskal-Wallis test with $\eta^2$ effect size statistic. Differences in distribution of categorical variables between the hormonal subsets were assessed by $\chi^2$ test with Cramer V effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Numeric variables are presented in violin plots with single observations visualized as points and medians with interquartile ranges represented by red diamonds and whiskers. Frequencies of categorical variables are shown in stack plots. Effect sizes and p values are displayed in the plot captions. Numbers of observations in the subsets are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+## Differences in signatures of biological processes and metabolism between the hormonal subsets
+
+To get an insight of differences in biology and metabolism between the hormonal subsets of the TCGA testicular cancers, scores of gene signatures of [Reactome pathways](https://reactome.org/) and of [Recon metabolic subsystems](http://bigg.ucsd.edu/) [@King2016; @Gavai2015] were compared between the subsets in gene set variance analysis (GSVA) [@Hanzelmann2013]. 
+
+Among `r nrow(tcga_biology$lexicon)` Reactome pathway gene signatures, 
+`r signif(length(tcga_biology$significant_anova)/nrow(tcga_biology$lexicon) * 100, 2)`% were found to differ between the hormonal subsets suggestive of highly diverging transcriptome and biological background (__Table \@ref(tab:tab-tcga-reactome)__). 
+The key Reactome signatures upregulated in the SEM1 subset included immunosuppressive PD-1 signaling, growth factor MAPK signaling and pro-inflammatory IFN signaling. 
+Of note, IFN signaling was predicted to be even stronger in the SEM2 subset and paralleled by high scores of pro-inflammatory IL22 and IL18 signaling, vitamin B1 metabolism, neurological/Ca^2+^ signal transduction and peptide hormone signaling. 
+The NS PRL subset was found to be enriched in signatures of endothelial processes (VEGF signaling, class B receptor scavenging, clot formation), as well as modulation of MET, WNT and NOTCH signaling. 
+As expected, the NS E2 subset was characterized by signatures of estrogen, mineralocorticoid and peptide hormone synthesis and in addition by gene signatures of cholesterol turnover. 
+Finally, signatures of inflammatory processes (IL1, IL18), complement activation and FLT3 signaling, progesterone and glococorticoid synthesis were found upregulated in the NS T subset as compared with the major SEM1 and NS PRL subsets (__Figures \@ref(fig:fig-tcga-top-reactome-sem)__ and __\@ref(fig:fig-tcga-top-reactome-nsgct)__).
+
+Out of `r nrow(tcga_recon$lexicon)` metabolic Recon subsystem signatures analyzed, 
+`r signif(length(tcga_recon$significant_anova)/nrow(tcga_recon$lexicon) * 100, 2)`% differed significantly between the hormonal subsets as investigated by one-way ANOVA (__Table \@ref(tab:tab-tcga-recon)__). 
+The most characteristic metabolic features of the SEM1 subset were purine metabolism along with stilbene, coumarine and lignin synthesis and metabolite transport. 
+The SEM2 subset was hallmarked by the peak scores of vitamin B1 metabolism. 
+As compared with the SEM1 group, significantly higher scores of signatures of steroid synthesis, D-alanine metabolism and turnover of extracellular matrix molecules were detected in  the NS PRL subset. 
+The NS E2 subset was characterized by high scores of signatures of steroid metabolism, nucleotide salvage, folate and aminoacid turnover and CoA synthesis. 
+The NS T cancers were found to be enriched in signatures of vitamin B1, B6 and C metabolism, heme synthesis, pentose phosphate pathway, nucleotide salvage and pyruvate metabolism (__Figures \@ref(fig:fig-tcga-top-recon-sem)__ and __\@ref(fig:fig-tcga-top-recon-nsgct)__).
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-tcga-reactome, tab.cap = 'Significant differences in ssGSEA scores of the Reactome pathways between the homonal subsets of the TCGA cohort. The table is available in a supplementary Excel file.'}
+
+tables$tcga_reactome[1, 1] %>% 
+  mutate(Comparison = '') %>% 
+  set_names(' ') %>% 
+  flextable %>% 
+  width(1, width = 10, unit = 'cm')
+
+```
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-top-reactome-sem, fig.width = figur::convert(figures$tcga_top_reactome_sem, to = 'in')$w, fig.height = figur::convert(figures$tcga_top_reactome_sem, to = 'in')$h, fig.cap = 'Top regulated Reactome pathways in the hormonal subsets of the TCGA cohort as compared with the SEM1 subset.'}
+
+figures$tcga_top_reactome_sem$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-top-reactome-sem). Top regulated Reactome pathways in the hormonal subsets of the TCGA cohort as compared with the SEM1 subset.</b>
+<br>
+Differences in single sample gene set enrichment scores (ssGSEA) of the Reactome pathway gene signatures between the hormonal subsets were assessed by one-way ANOVA and linear modeling corrected for multiple testing with the false discovery rate method. The scores in the SEM1 subset served as the baseline in modeling. Regulation estimates with 95% confidence intervals (CI) for the top 20 up- and downregulated signatures in the given subset as compared with the SEM1 subset are presented in Forest plots.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-top-reactome-nsgct, fig.width = figur::convert(figures$tcga_top_reactome_nsgct, to = 'in')$w, fig.height = figur::convert(figures$tcga_top_reactome_nsgct, to = 'in')$h, fig.cap = 'Top regulated Reactome pathways in the hormonal subsets of the TCGA cohort as compared with the NS PRL subset.'}
+
+figures$tcga_top_reactome_nsgct$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-top-reactome-nsgct). Top regulated Reactome pathways in the hormonal subsets of the TCGA cohort as compared with the NS PRL subset.</b>
+<br>
+Differences in single sample gene set enrichment scores (ssGSEA) of the Reactome pathway gene signatures between the hormonal subsets were assessed by one-way ANOVA and linear modeling corrected for multiple testing with the false discovery rate method. The scores in the NS PRL subset served as the baseline in modeling. Regulation estimates with 95% confidence intervals (CI) for the top 20 up- and downregulated signatures in the given subset as compared with the NS PRL subset are presented in Forest plots.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-tcga-recon, tab.cap = 'Significant differences in ssGSEA scores of the Reactome metabolic subsystems between the homonal subsets of the TCGA cohort. The table is available in a supplementary Excel file.'}
+
+tables$tcga_recon[1, 1] %>% 
+  mutate(Comparison = '') %>% 
+  set_names(' ') %>% 
+  flextable %>% 
+  width(1, width = 10, unit = 'cm')
+
+```
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-top-recon-sem, fig.width = figur::convert(figures$tcga_top_recon_sem, to = 'in')$w, fig.height = figur::convert(figures$tcga_top_recon_sem, to = 'in')$h, fig.cap = 'Top regulated signatures of Recon metabolic subsystems in the hormonal subsets of the TCGA cohort as compared with the SEM1 subset.'}
+
+figures$tcga_top_recon_sem$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-top-recon-sem). Top regulated signatures of Recon metabolic subsystems in the hormonal subsets of the TCGA cohort as compared with the SEM1 subset.</b>
+<br>
+Differences in single sample gene set enrichment scores (ssGSEA) of the Recon metabolic subsystem gene signatures between the hormonal subsets were assessed by one-way ANOVA and linear modeling corrected for multiple testing with the false discovery rate method. The scores in the SEM1 subset served as the baseline in modeling. Regulation estimates with 95% confidence intervals (CI) for the top 20 up- and downregulated signatures in the given subset as compared with the SEM1 subset are presented in Forest plots.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-top-recon-nsgct, fig.width = figur::convert(figures$tcga_top_recon_nsgct, to = 'in')$w, fig.height = figur::convert(figures$tcga_top_recon_nsgct, to = 'in')$h, fig.cap = 'Top regulated signatures of Recon metabolic subsystems in the hormonal subsets of the TCGA cohort as compared with the NS PRL subset.'}
+
+figures$tcga_top_recon_nsgct$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-top-recon-nsgct). Top regulated signatures of Recon metabolic subsystems in the hormonal subsets of the TCGA cohort as compared with the NS PRL subset.</b>
+<br>
+Differences in single sample gene set enrichment scores (ssGSEA) of the Recon metabolic subsystem gene signatures between the hormonal subsets were assessed by one-way ANOVA and linear modeling corrected for multiple testing with the false discovery rate method. The scores in the NS PRL subset served as the baseline in modeling. Regulation estimates with 95% confidence intervals (CI) for the top 20 up- and downregulated signatures in the given subset as compared with the NS PRL subset are presented in Forest plots.
+</p>
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+## Tumor microenvironment composition in the hormonal subsets
+
+In order to investigated differences in composition of tumor microenvironment between the hormonal subsets of the TCGA cohort, fractions of non-malignant cells in the cancer samples were estimated based on transcriptome data by the QuanTIseq [@Finotello2019] and xCell [@Aran2017] deconvolution algorithms. 
+Out of `r nrow(tcga_quantiseq$lexicon)` cell populations quantified by the QuanTIseq software, 
+`r signif(length(tcga_quantiseq$significant)/nrow(tcga_quantiseq$lexicon) * 100, 2)`% were found to differ significantly between the hormonal subsets. 
+Among `r nrow(tcga_xcell$lexicon)` cell population and signatures of immune and stroma reaction determined by the xCell algorithm, 
+`r signif(length(tcga_xcell$significant)/nrow(tcga_xcell$lexicon) * 100, 2)`% were present at significantly different levels in the hormonal subsets (__Table \@ref(tab:tab-tcga-infiltration)__). 
+Collectively, this suggests that the varying expression of the sex-hormone genes goes hand in hand with large differences in the tumor microenvironment composition.
+
+As predicted by the QuanTIseq algorithm, the SEM1 and SEM2 tumors were characterized by substantially lower contentment of non-immune cells such as malignant cells, endothelium and fibroblasts. 
+Conspicuously, these subsets had also way higher immune and microenvironment scores computed by the xCell software as compare with the NS PRL, NS E2 and NS T subsets. 
+By contrast, the xCell stroma score values peaked in the NS PRL subset and were the lowest in the SEM1 and SEM2 subsets (__Figure \@ref(fig:fig-tcga-imm-score)__). 
+Strong differences in B and T lymphocyte infiltration were observed. 
+In particular, B cell, regulatory T cells (Treg) and CD8^+^ T cells levels predicted by either of the algorithms were significantly higher in the SEM1 and SEM2 subsets than in the remaining hormonal classes. 
+Furthermore, fractions of effector memory and central memory cytotoxic T lymphocytes computed by the xCell software were significantly higher in the SEM1 and SEM2 as compared with the NS PRL, NS E2 and NS T subsets (__Figure \@ref(fig:fig-tcga-lympho)__). 
+Interestingly, the same trend, i.e. peak amounts in the SEM1 and SEM2 subsets was observed for the xCell-predicted levels of tumor-infiltrating mast cells as well. 
+By contrast, amounts of endothelial cells and cancer-associated fibroblasts were the highest in the NS PRL subsets and the lowest in the SEM1 and SEM2 hormonal classes (__Figure \@ref(fig:fig-tcga-mc-ec-fibro)__). 
+
+In sum, while the SEM1 and SEM2 subsets dominated by seminoma cancers are characterized by high immunogenicity and, accordingly, B and CD8^+^ T cell infiltration, the NS PRL, NS E2 and NS T subsets are presumably immune quiescent. 
+Instead, the NS E2, NST and, in particular, the NS PRL subsets were predicted to be abundantly infiltrated by endothelial cells and fibroblasts.
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-tcga-infiltration, tab.cap = 'Significant differences in TME composition and immunity signatures estimated by the QuanTIseq and xCell algorithms between the hormonal subsets of the TCGA cohort. Numeric variables are presented as medians with interqurtile ranges (IQR) and ranges.'}
+
+flextable::flextable(tables$tcga_infiltration) %>% 
+  width(1, width = 2.7, unit = 'cm') %>% 
+  width(2, width = 3, unit = 'cm') %>% 
+  width(3:7, width = 3, unit = 'cm') %>% 
+  width(8:9, width = 2.5, unit = 'cm') %>% 
+  footnote(1, 8:9, 
+           value = as_paragraph('Kruskal-Wallis test with \u03B7\u00B2 effect size statistic. P values corrected for multiple testing with the false discovery rate method.'), 
+           part = 'header', 
+           ref_symbols = 'a') %>%
+  theme_vanilla
+
+```
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-imm-score, fig.width = figur::convert(figures$tcga_imm_scores, to = 'in')$w, fig.height = figur::convert(figures$tcga_imm_scores, to = 'in')$h, fig.cap = 'Differences in predicted tumor cell content and signatures of immunity and stroma between the hormonal subsets of the TCGA cohort.'}
+
+figures$tcga_imm_scores$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-imm-score). Differences in predicted tumor cell content and signatures of immunity and stroma between the hormonal subsets of the TCGA cohort.</b>
+<br>
+Fractions of non-immune cells were estimated based on transcriptome data by the QuanTIseq algorithm. Immune, stroma and microenvironment scores were computed with the xCell algorithm. Statistical significance for differences between the hormonal subsets was determined by Kruskal-Wallis test with $\eta^2$ effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Median values with interquartile ranges (IQR) are presented as boxes, whiskers span over 150% IQR, single samples are depicted as points. Effect sizes and p values are displayed in the plot captions. Numbers of observations in the hormonal subsets are indicated in the X axes. 
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-lympho, fig.width = figur::convert(figures$tcga_lympho, to = 'in')$w, fig.height = figur::convert(figures$tcga_lympho, to = 'in')$h, fig.cap = 'Differences in predicted B and T lymphocyte infiltration between the hormonal subsets of the TCGA cohort.'}
+
+figures$tcga_lympho$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-lympho). Differences in predicted B and T lymphocyte infiltration between the hormonal subsets of the TCGA cohort.</b>
+<br>
+Fractions of B and T cells in the total cancer sample cellularity were computed with the QuanTIseq and xCell algorithms based on transcriptome data. Statistical significance for differences between the hormonal subsets was determined by Kruskal-Wallis test with $\eta^2$ effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Median values with interquartile ranges (IQR) are presented as boxes, whiskers span over 150% IQR, single samples are depicted as points. Effect sizes and p values are displayed in the plot captions. Numbers of observations in the hormonal subsets are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-mc-ec-fibro, fig.width = figur::convert(figures$tcga_mc_ec_fibro, to = 'in')$w, fig.height = figur::convert(figures$tcga_mc_ec_fibro, to = 'in')$h, fig.cap = 'Differences in predicted infiltration of mast cells, endothelial cells and fibroblasts between the hormonal subsets of the TCGA cohort.'}
+
+figures$tcga_mc_ec_fibro$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-mc-ec-fibro). Differences in predicted infiltration of mast cells, endothelial cells and fibroblasts between the hormonal subsets of the TCGA cohort.</b>
+<br>
+Fractions of mast cells, endothelial cells and cancer-associated fibroblasts were computed by the xCell algorithm based on transcriptome data. Statistical significance for differences between the hormonal subsets was determined by Kruskal-Wallis test with $\eta^2$ effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Median values with interquartile ranges (IQR) are presented as boxes, whiskers span over 150% IQR, single samples are depicted as points. Effect sizes and p values are displayed in the plot captions. Numbers of observations in the hormonal subsets are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+## Differences in transcriptome between the hormonal subsets
+
+Subsequently, we explored differences between transcriptomes of the hormonal subsets. 
+Technically, differentially regulated genes were identified by one-way ANOVA and linear modeling adjusted for multiple testing with the false discovery rate. 
+The differentially up- and downregulated genes were defined by a significance (pFDR < 0.05) and a cutoff of > 1.5 fold-regulation as compared with the SEM1 or NS PRL subset (__Table \@ref(tab:tab-tcga-dge)__). 
+As shown in __Figure \@ref(fig:fig-tcga-n-dge)__, the largest differences in transcriptome were discerned for the SEM1 and NS PRL subsets. 
+In turn, less than 10% of detected genes were found to be differentially regulated in the SEM2 - SEM1 or NS E2 - NS PRL comparisons indicative of close relatedness of those subset pairs. 
+
+The genes strongest upregulated in the SEM2 subset as compared with the SEM1 hormonal class included a broad palette of testis- and cancer-specific antigens (_GAGE_ and _TSPY_ family), the cancer marker HCG (_CGB_, _CGB5_, _CGB8_), the gene of RNA-binding protein DAZL and a TGF-$\beta$ family member (_GDF7_). 
+The top upregulated genes in the NS PRL and NS E2 subsets as compared with the SEM1 subset included the cancer marker _AFP_, genes of apolipoproteins, genes of extracellular matrix and serum proteins (_VTN_, _FGB_, _TTR_, _GPC3_, _GPC4_), the endothelial marker _CA4_, transcription factor genes (_FOXJ1_, _SOX2_). 
+Furthermore, the NS E2 subset was characterized by a strong upregulation of the HCG cancer marker genes (_CGB_ family). 
+In NS T subset cancers, strongly elevated levels of the glutathione transferase gene _GSTA1_, the steroidogenic and testicular markers markers (_PROK1_, _FATE1_ and _INSL3_), and a gene involved in WNT (_WISP2/CCN5_), NOTCH (_DLK1_) and calcium signaling (_CALB2_), the gene of the vascular enzyme _ACE2_, and, interestingly, a defensin-coding gene (_DEFB119_) and inhibin A (_INHA_), whose expression was basically restricted to this subset (__Figures \@ref(fig:fig-tcga-volcano-dge-sem1)__ and __\@ref(fig:fig-tcga-top-dge-sem1)__).
+
+The top genes upregulated in the SEM1 subset as compared with the putatively closely related NS PRL cancers encompassed RNA-binding protein genes (_NANOS3_), testis-specific transcription factors (_PRAME_, _RNF17_, _DMRT1_), genes of testis-specific antigens (_MAGEC1_, _MAGEC2_, _XAGE1D_) and inflammasome (_NLRP9_). 
+The top upregulated genes in the NS E2 subset as compared with the related NS PRL hormonal subset included multiple cancer (_CGB_ family, _AFP_) and testis antigens with postulated immunosuppressive functions (_PSG_ family), a testis-specific growth factor gene (_INSL4_) and the hormone leptin (_LEP_). 
+Finally, in the comparison with the NS PRL subset, NS T cancers were hallmarked by upregulation of defensin-coding genes (_DEFB119_, _DEFB123_), steroidogenic markers (_STAR_, _PROK1_) and testis antigens (_XAGE1D_, _MAGEC2_, _FATE1_, _TSPYL6_) and a gene of a retinoid signaling-suppressor (_PRAME_) (__Figures \@ref(fig:fig-tcga-volcano-dge-nsprl)__ and __\@ref(fig:fig-tcga-top-dge-nsprl)__).
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-tcga-dge, tab.cap = 'Genes differentially expressed between the hormonal subsets of the TCGA cohort. The table is available as a supplementary Excel file.'}
+
+tables$tcga_dge[1, 1] %>% 
+  mutate(Comparison = '') %>% 
+  set_names(' ') %>% 
+  flextable
+
+```
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-n-dge, fig.width = figur::convert(figures$tcga_n_dge, to = 'in')$w, fig.height = figur::convert(figures$tcga_n_dge, to = 'in')$h, fig.cap = 'Percentages of the transcriptome differentially regulated between the hormonal subsets of the TCGA cohort.'}
+
+figures$tcga_n_dge$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-n-dge). Percentages of the transcriptome differentially regulated between the hormonal subsets of the TCGA cohort.</b>
+<br>
+Genes differentially expressed between the hormonal subsets were identified by one-way ANOVA and linear modeling corrected for multiple testing with the false discovery rate (FDR) method. Differentially regulated genes were identified by a significance (pFDR < 0.05) and a > 1.5 fold-regulation cutoff. Percentages of genes significantly up- and downregulated in the hormonal subsets as compared with the SEM1 (A) or NS PRL subset (B) are presented in bar plots. Total numbers of investigated genes are displayed in the plot captions.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-volcano-dge-sem1, fig.width = figur::convert(figures$tcga_volcano_dge_sem1, to = 'in')$w, fig.height = figur::convert(figures$tcga_volcano_dge_sem1, to = 'in')$h, fig.cap = 'Significance and regulation of gene expression between the hormonal subsets and the SEM1 subset in the TCGA cohort.'}
+
+figures$tcga_volcano_dge_sem1$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-volcano-dge-sem1). Significance and regulation of gene expression between the hormonal subsets and the SEM1 subset in the TCGA cohort.</b>
+<br>
+Genes differentially expressed between the hormonal subsets were identified by one-way ANOVA and linear modeling corrected for multiple testing with the false discovery rate (FDR) method. Differentially regulated genes were identified by a significance (pFDR < 0.05) and a > 1.5 fold-regulation cutoff. Fold-regulation of gene expression as compared with the SEM1 subset and FDR-adjusted regulation significance are presented in Volcano plots. Single samples are depicted as points, the regulation and significance cutoffs are represented by dashed lines. Differentially up- and downregulated genes are color coded and their numbers are displayed in the plot captions. Top most significantly regulated genes are labeled with their symbols.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-top-dge-sem1, fig.width = figur::convert(figures$tcga_top_dge_sem1, to = 'in')$w, fig.height = figur::convert(figures$tcga_top_dge_sem1, to = 'in')$h, fig.cap = 'The genes strongest differentially regulated between the hormonal subsets and the SEM1 subset of the TCGA cohort.'}
+
+figures$tcga_top_dge_sem1$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-top-dge-sem1). The genes strongest differentially regulated between the hormonal subsets and the SEM1 subset of the TCGA cohort.</b>
+<br>
+Genes differentially expressed between the hormonal subsets were identified by one-way ANOVA and linear modeling corrected for multiple testing with the false discovery rate (FDR) method. Differentially regulated genes were identified by a significance (pFDR < 0.05) and a > 1.5 fold-regulation cutoff. Regulation estimates with their 95% confidence intervals (CI) for the top 20 most strongly up- and downregulated genes are presented in Forest plots.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-volcano-dge-nsprl, fig.width = figur::convert(figures$tcga_volcano_dge_nsprl, to = 'in')$w, fig.height = figur::convert(figures$tcga_volcano_dge_nsprl, to = 'in')$h, fig.cap = 'Significance and regulation of gene expression between the hormonal subsets and the NS PRL subset in the TCGA cohort.'}
+
+figures$tcga_volcano_dge_nsprl$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-volcano-dge-nsprl). Significance and regulation of gene expression between the hormonal subsets and the NS PRL subset in the TCGA cohort.</b>
+<br>
+Genes differentially expressed between the hormonal subsets were identified by one-way ANOVA and linear modeling corrected for multiple testing with the false discovery rate (FDR) method. Differentially regulated genes were identified by a significance (pFDR < 0.05) and a > 1.5 fold-regulation cutoff. Fold-regulation of gene expression as compared with the NS PRL subset and FDR-adjusted regulation significance are presented in Volcano plots. Single samples are depicted as points, the regulation and significance cutoffs are represented by dashed lines. Differentially up- and downregulated genes are color coded and their numbers are displayed in the plot captions. Top most significantly regulated genes are labeled with their symbols.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-top-dge-nsprl, fig.width = figur::convert(figures$tcga_top_dge_nsprl, to = 'in')$w, fig.height = figur::convert(figures$tcga_top_dge_nsprl, to = 'in')$h, fig.cap = 'The genes strongest differentially regulated between the hormonal subsets and the NS PRL subset of the TCGA cohort.'}
+
+figures$tcga_top_dge_nsprl$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-top-dge-nsprl). The genes strongest differentially regulated between the hormonal subsets and the NS PRL subset of the TCGA cohort.</b>
+<br>
+Genes differentially expressed between the hormonal subsets were identified by one-way ANOVA and linear modeling corrected for multiple testing with the false discovery rate (FDR) method. Differentially regulated genes were identified by a significance (pFDR < 0.05) and a > 1.5 fold-regulation cutoff. Regulation estimates with their 95% confidence intervals (CI) for the top 20 most strongly up- and downregulated genes are presented in Forest plots.
+</p>
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+## Signaling and expression of cancer-relevant proteins in the hormonal subsets
+
+Based on differential gene expression, we next delved into differences in signaling activity between the hormonal subsets of the TCGA cohort samples. 
+To this end, the SPIA algorithm was employed [@Tarca2009]. 
+This procedure proved the most sensitive at detection of differences between the largest subsets, i.e. SEM1 and NS PRL (__Table \@ref(tab:tab-tcga-signaling)__). 
+In particular, SEM PRL  cancers were predicted to strongly activate among others focal adhesion and oncogenic pathways, tight junction, calcium and extracellular matrix (ECM) signaling. 
+In SEM1 tumors, in turn, pathways of leukocyte-mediated cytotoxicity, leukocyte migration, antigen presentation, chemokine and TGF-$\beta$ signaling as well as inflammatory pathways such as NF-$\kappa$B, Staphylococcus aureus, measles, pertussis were estimated to be activated as compared with the NS PRL subset.
+The pathways differentiating between the NS E2 and NS PRL subset were upregulated cytokine and adipocytokine signaling (__Figures \@ref(fig:fig-tcga-signaling-sem1)__ and __\@ref(fig:fig-tcga-signaling-nsprl)__). 
+Of note, the key differences between the SEM1/SEM2 versus NS PRL/E2/T subsets concerned inflammatory signaling activated in the SEM1/2 subsets as opposed to oncogenic and stroma pathways preferentially triggered in the NS PRL/E2/T hormonal classes. 
+This fits well with the results of Reactome pathway GSVA and analysis of the tumor microenvironment composition with QuanTIseq and xCell algorithms, which concordantly point towards a higher immunogenicity of SEM1/SEM tumors and a stroma expansion in NS PRL/E2/T tumors.
+
+Out of `r nrow(tcga_protein$lexicon)` proteins measured with a protein reverse phase assay in the TCGA cohort specimens, 
+`r signif(length(tcga_protein$significant_kruskal)/nrow(tcga_protein$lexicon) *100, 2)`% were found to differ significantly between the hormonal subsets (__Table \@ref(tab:tab-tcga-protein)__). 
+Most of the significantly regulated proteins were found to discriminate between the SEM1/SEM2 and NS PRL/E2/T tumors. 
+For instance, CHEK2 and XRCC5 involved in he DNA damage response, and KIT growth factor receptor were strongly upregulated in the first two, predominantly seminoma subsets. 
+The ECM protein fibronectin (FN1) and EGFR family receptor ERBB2 were expressed at significantly higher levels in the later, predominantly NSGCT hormonal subsets (__Figure \@ref(fig:fig-tcga-proteins-sem-ns)__). 
+Yet, some significantly regulated proteins allowed for distinction between single subsets. 
+Levels of XBP1 and IRS1 were the lowest, while levels of CHEK1, SRSF1 and MTOR were the highest in the SEM2 subset. 
+The NS PRL subset was hallmarked by the highest expression of IRS1, YBX1 and the lowest expression of PRDX1. 
+NS E2 cancers were in turn characterized by the lowest expression of the tumor suppressor PTEN (__Figure \@ref(fig:fig-tcga-proteins-sem1-sem2)__).
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-tcga-signaling, tab.cap = 'Differential activation of KEGG-listed signaling pathways between the homonal subsets of the TCGA cohort predicted by the SPIA algorithm. The table is available as a supplementary Excell table.'}
+
+tables$tcga_signaling[1, 1] %>% 
+  mutate(Comparison = '') %>% 
+  set_names(' ') %>% 
+  flextable %>% 
+  width(1, width = 10, unit = 'cm')
+
+```
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-signaling-sem1, fig.width = figur::convert(figures$tcga_signaling_sem1, to = 'in')$w, fig.height = figur::convert(figures$tcga_signaling_sem1, to = 'in')$h, fig.cap = 'Predicted differential modulation of signaling pathway activity in the hormonal subsets of the TCGA cohort compared with the SEM1 subset.'}
+
+figures$tcga_signaling_sem1$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-signaling-sem1). Predicted differential modulation of signaling pathway activity in the hormonal subsets of the TCGA cohort compared with the SEM1 subset.</b>
+<br>
+Modulation of KEGG-listed signaling pathways in the hormonal subsets as compared with the SEM1 subset was predicted by the SPIA algorithm based on expression regulation estimates of the differentially expressed genes. P values were corrected for multiple testing with the false discovery rate method. Predicted fold-regulation values (tA parameter in the SPIA output) of signaling pathways are presented in a bubble plot. Point color codes for significance and regulation sign. Fold-regulation estimates for the significantly activated and inhibited pathways are highlighted in bold.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-signaling-nsprl, fig.width = figur::convert(figures$tcga_signaling_nsprl, to = 'in')$w, fig.height = figur::convert(figures$tcga_signaling_nsprl, to = 'in')$h, fig.cap = 'Predicted differential modulation of signaling pathway activity in the hormonal subsets of the TCGA cohort compared with the NS PRL subset.'}
+
+figures$tcga_signaling_nsprl$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-signaling-nsprl). Predicted differential modulation of signaling pathway activity in the hormonal subsets of the TCGA cohort compared with the NS PRL subset.</b>
+<br>
+Modulation of KEGG-listed signaling pathways in the hormonal subsets as compared with the NS PRL subset was predicted by the SPIA algorithm based on expression regulation estimates of the differentially expressed genes. P values were corrected for multiple testing with the false discovery rate method. Predicted fold-regulation values (tA parameter in the SPIA output) of signaling pathways are presented in a bubble plot. Point color codes for significance and regulation sign. Fold-regulation estimates for the significantly activated and inhibited pathways are highlighted in bold.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-tcga-protein, tab.cap = 'Differential protein expression between the hormonal subsets of the TCGA cohort. Numeric variables are presented as medians with interqurtile ranges (IQR) and ranges. The table is available as a supplementary Excel file'}
+
+tables$tcga_protein[1, 1] %>% 
+  mutate(Variable = '') %>% 
+  set_names(' ') %>% 
+  flextable %>% 
+  width(1, width = 10, unit = 'cm')
+
+```
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-proteins-sem-ns, fig.width = figur::convert(figures$tcga_proteins_sem_ns, to = 'in')$w, fig.height = figur::convert(figures$tcga_proteins_sem_ns, to = 'in')$h, fig.cap = 'Proteins differentiating the SEM1/SEM2 from the NS PRL/E2/T hormonal subsets.'}
+
+figures$tcga_proteins_sem_ns$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-proteins-sem-ns). Proteins differentiating the SEM1/SEM2 from the NS PRL/E2/T hormonal subsets.</b>
+<br>
+Expression of cancer-relevant proteins was quantified by a reverse-phase array. Differences in protein levels between the hormonal subsets were assessed by Kruskal-Wallis test with $\eta^2$ effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Median expression values with interquartile ranges (IQR) are visualized as boxes, whiskers span over 150% IQR. Single observations are depicted as points. Effect sizes and p values are displayed in the plot captions. Numbers of samples in the hormonal subsets are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-proteins-sem1-sem2, fig.width = figur::convert(figures$tcga_protein_subsets, to = 'in')$w, fig.height = figur::convert(figures$tcga_protein_subsets, to = 'in')$h, fig.cap = 'The proteins differentiating between the hormonal subsets.'}
+
+figures$tcga_protein_subsets$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-proteins-sem1-sem2). The proteins differentiating between the hormonal subsets.</b>
+<br>
+Expression of cancer-relevant proteins was quantified by a reverse-phase array. Differences in protein levels between the hormonal subsets were assessed by Kruskal-Wallis test with $\eta^2$ effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Median expression values with interquartile ranges (IQR) are visualized as boxes, whiskers span over 150% IQR. Single observations are depicted as points. Effect sizes and p values are displayed in the plot captions. Numbers of samples in the hormonal subsets are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+## Genetic landscape of the hormonal subsets of the TCGA cohort
+
+Somatic mutations affecting protein-coding genes were determined for the TCGA cohort cancer samples with the Mutect algorithm [@Benjamin2019]. 
+Copy number alterations, i. e. amplifications or deletion of particular genes, were quantified with the GISTIC software [@Mermel2011]. 
+
+There were no significant differences in total numbers of somatic mutations or copy number variants between the hormonal subsets (__Figure \@ref(fig:fig-tcga-genetic-counts)__). 
+Frequencies of the most common genetic alterations (mutations: $\geq$ 3% of samples, copy number alterations: $\geq$ 3% of samples) were compared between the hormonal subsets by false discovery rate-corrected $\chi^2$ test (__Table \@ref(tab:tab-tcga-mut)__ and __\@ref(tab:tab-tcga-cna)__). 
+Somatic mutations of the 
+_`r paste(tcga_mut$top_mutations[1:length(tcga_mut$top_mutations) - 1], collapse = ', ')`_ and 
+_`r tcga_mut$top_mutations[length(tcga_mut$top_mutations)]`_ genes were present in $\geq$ 3% of the specimens each. 
+Among them, only frequencies of the _KIT_ gene mutations were found to differ significantly between the hormonal subsets. 
+Especially SEM1 and SEM2 subset cancers were affected and no _KIT_ mutations were observed in the NS PRL and NS E2 subsets. 
+A similar trend was observed for another oncogene, _KRAS_, however the effects were not significant after the multiple testing adjustment (__Figure \@ref(fig:fig-tcga-genetic-top)A__). 
+None of the copy number alterations present in at least 5% of testicular cancer specimens differed significantly between the subsets following the multiple testing adjustment. 
+Interestingly, for two genes with the largest effect size metrics, the glutamate receptor-coding _GRID2_ and the carnitine-synthesis gene _TMLHE_, trends toward more frequent deletions in the NS PRL and NS T subsets, respectively, could be observed (__Figure \@ref(fig:fig-tcga-genetic-top)B__). 
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-genetic-counts, fig.width = figur::convert(figures$tcga_genetic_counts, to = 'in')$w, fig.height = figur::convert(figures$tcga_genetic_counts, to = 'in')$h, fig.cap = 'Total numbers of somatic mutations and copy number alterations affecting protein-coding genes in the hormonal subsets of the TCGA cohort'}
+
+figures$tcga_genetic_counts$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-genetic-counts). Total numbers of somatic mutations and copy number alterations affecting protein-coding genes in the hormonal subsets of the TCGA cohort</b>
+<br>
+Somatic mutations and copy number alterations for protein-coding genes were quantified by the Mutect2 and GISTIC algorithms, respectively. Total counts of somatic mutations and copy number alterations were compared between the hormonal subsets by Kruskal-Wallis test with the $\eta^2$ effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Median counts of genetic alterations with their interquartile ranges (IQR) are visualized as boxes, whiskers span over 150$ IQR. Single samples are depicted as points. Effect sizes and p values are displayed in the plot captions. Numbers of samples in the hormonal subsets are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-tcga-mut, tab.cap = 'Frequency of the most common mutations (at least 3% of the TCGA dataset, Mutect algorithm) in the hormonal subsets of testicle cancer. The frequencies are presented as percentages of complete observations.'}
+
+tables$tcga_mut[1, 1] %>% 
+  mutate(`Gene symbol` = '') %>% 
+  set_names(' ') %>% 
+  flextable %>% 
+  width(1, width = 10, unit = 'cm')
+
+```
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-tcga-cna, tab.cap = 'Frequencies of gene amplifications and deletions in the hormonal subsets of the TCGA collective. The table is available in a supplementary Excel file.'}
+
+tables$tcga_cna[1, 1] %>% 
+  mutate(`Type of alteration` = '') %>% 
+  set_names(' ') %>% 
+  flextable %>% 
+  width(1, width = 10, unit = 'cm')
+
+```
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-genetic-top, fig.width = figur::convert(figures$tcga_genetic_top, to = 'in')$w, fig.height = figur::convert(figures$tcga_genetic_top, to = 'in')$h, fig.cap = 'Genetic alterations differentiating between hormonal subsets of the TCGA cohort.'}
+
+figures$tcga_genetic_top$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-genetic-top). Genetic alterations differentiating between hormonal subsets of the TCGA cohort.</b>
+<br>
+Somatic mutations and copy number alterations for protein-coding genes were quantified by the Mutect2 and GISTIC algorithms, respectively. Frequency of somatic mutations, gene amplifications and gene deletions were compared between the hormonal subsets by $\chi^2$ test with Cramer V effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Frequencies of mutations and deletions are presented in stack plots. Effect sizes and p values are displayed in the plot captions. Numbers of samples in the hormonal subsets are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+## Prognostic relevance of sex hormone-related gene expression in the testis cancer tissue
+
+Given the substantial variability of expression of the sex hormone-related genes of interest in the testicular cancer tissue, we asked for its prognostic relevance for the relapse risk. 
+
+The overtly non-normal and multi-modal distribution of expression values of the genes of interest precluded the use of Cox regression in univariable survival analysis. 
+Instead, we decided to stratify the patients into high and low expressors of each gene of interest based on the largest differences in survival gauged by the log-rank statistic and, subsequently, to compare relapse-free survival between such gene expression strata with Peto-Peto test [@Kassambara2016]. 
+As in case of the Innsbruck collective, the great majority of the TCGA patients demonstrated an excellent therapy response and hence, only 
+`r signif(table(tcga$clinical$relapse_factor)[2]/sum(table(tcga$clinical$relapse_factor)) * 100, 2)` of them experienced a cancer recurrence. 
+Such low event number posed an obstacle for effective multi-parameter survival modeling with canonical Cox regression and was, like in the Innsbruck collective, addressed by Elastic Net regularized Cox modeling [@Zou2005; @Friedman2010; @Simon2011]. 
+Three Elastic Net models of relapse-free survival were trained in the TCGA cohort: 
+
+1. a model employing solely clinical parameters (age, tumor stage, histology, serum marker status and radiotherapy) as explanatory variables
+
+2. a model employing the clinical parameters listed above and high/low expression strata of the sex hormone-related genes obtained with the cutoffs associated with the largest differences in survival in the univariable analysis (__Table \@ref(tab:tab-tcga-relapse)__)
+
+3. a model employing the clinical parameters and the hormonal subset assignment
+
+As revealed by results of the univariable analysis, high expression of the pituitary hormone genes _GNRH2_ and _PRL_ in the cancer tissue went hand in hand with a significantly poorer relapse-free survival. 
+Analogically, high expressors of _SHBG_, _HSD3B1_ and _HSD17B1_ were at higher risk of relapse as compared with the low expression strata (__Figure \@ref(fig:fig-tcga-gene-survival)__). 
+Additionally, there were clear trends towards shorter relapse-free survival in patients with elevated levels of _CGA_ and _HSD3B2_ in the cancer tissue. 
+These later effects missed the significance following the multiple testing adjustment (__Table \@ref(tab:tab-tcga-relapse)__).
+
+In the multi-parameter Elastic Net clinical variable-only model, S1 and S2 serum marker staging and NSGCT histology were identified as unfavorable predictors. 
+Quite surprisingly, positivity for all three cancer makers and high tumor stage at diagnosis were found to be favorable risk-modifying factors. 
+This paradox may be explained by a more aggressive surgery and post-surgical treatment of such high-stage patients. 
+In the Elastic Net model including gene expression strata along with the clinical information, high cancer tissue levels of _HSD17B1_, _HSD3B2_, _PRL_ and _LHB_ were independently associated with a higher relapse risk, while high expression of _GNRH1_, _CYP17A1_ and _HSD17B3_ could be linked to a lower risk of recurrence or progression. 
+In the Elastic Net model with the clinical information and the hormonal subset assignment serving as explanatory variables, S2 cancer stage was associated with a nearly 3-fold increase in relapse risk and patients classified as NS PRL and SEM2 were at 70% increased relapse risk as compared with the baseline. 
+Of note, the NE E2 subset characterized by the significantly poorer survival in the univariable analysis had an only marginally higher relapse risk (10%). 
+This phenomenon may be explained by the high percentage of S2 cancers in the NS E2 subset and indicate that the the high cancer marker positivity rates in this subsets are the major risk determinants (__Figure \@ref(fig:fig-tcga-elnet-coeffs)__). 
+
+All Elastic Net models displayed comparable performance in the training data and 10-fold cross-validation, which indicates a good reproducibility of the survival risk prediction. 
+Notably, the model constructed solely with the clinical data and the model with clinical data and the hormonal subset assignment displayed similar concordances (C-index) and average fit errors (integrated Brier score [IBS]). 
+This suggests that there is no substantial add-on of the hormonal subset assignment to the relapse risk prediction accuracy as compared with the routine set of clinical parameters. 
+By contrast, inclusion of the gene expression strata information in the explanatory variable set enhanced the concordance and reduces the model error (__Figure \@ref(fig:fig-tcga-elanet-performance)__).
+The effect of the gene expression information on the model calibration, i.e ability to predict relapse risk with similar accuracy at subsequent follow-up time points, was evident as well. 
+In particular, inclusion of the gene expression strata in the models could improve prediction of middle- and long-term survival as compared with with the clinical variable-only model and the model with the clinical and hormonal subset information (__Figure \@ref(fig:fig-tcga-elanet-calibration)__). 
+This later effect was also evident in a Kaplan-Meier analysis of relapse-free survival for tertiles of the linear predictor scores of the Elastic Net models. 
+Herein, the model employing both the clinical and gene expression strata could nicely discern patients with a virtually null relapse risk from individuals with moderate long-term relapse odds and patients at high risk of immediate relapse of progression (__Figure \@ref(fig:fig-tcga-elanet-tertiles)__). 
+
+Collectively, the results of the survival analysis clearly demonstrate the potential of sex hormone-related gene expression for prediction of the relapse risk. 
+Especially, mRNA levels of _HSD17B1_ in the testicular cancer tissue, identified as an unfavorable prognostic factor in both the univariable analysis and multi-parameter modeling may be investigated in more details, e.g. at the protein level in follow-up analyses.
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r tab-tcga-relapse, tab.cap = 'Differences in relapse-free survival between high and low expressors of the sex hormone-related genes of interest.  The patients were stratified by gene expression cutoffs associated with the largest differences in survival measured by the log-rank statistic.'}
+
+flextable::flextable(tables$tcga_relapse) %>% 
+  width(1, width = 2, unit = 'cm') %>% 
+  width(2, width = 2.3, unit = 'cm') %>% 
+  width(3, width = 2, unit = 'cm') %>% 
+  width(4, width = 2.3, unit = 'cm') %>% 
+  width(5, width = 2, unit = 'cm') %>% 
+  width(6, width = 2, unit = 'cm') %>% 
+  width(7, width = 2.3, unit = 'cm') %>% 
+  width(8, width = 2.3, unit = 'cm') %>% 
+  italic(j = 1, part = 'body') %>% 
+  merge_v(j = c(1, 2, 3, 4)) %>% 
+  footnote(1, 4, 
+           value = as_paragraph('Peto-Peto test, corrected for multiple testing with the false discovery rate method.'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
+  theme_vanilla
+
+```
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-gene-survival, fig.width = figur::convert(figures$tcga_gene_survival, to = 'in')$w, fig.height = figur::convert(figures$tcga_gene_survival, to = 'in')$h, fig.cap = 'Significant effects of sex hormone-related gene expression on relapse-free survival in the TCGA testicle cancer cohort.'}
+
+figures$tcga_gene_survival$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-gene-survival). Significant effects of sex hormone-related gene expression on relapse-free survival in the TCGA testicle cancer cohort.</b>
+<br>
+The TCGA testicular cancer cohort patients were stratified into low and high expressors of the sex hormone-related genes with cutoffs associated with the largest differences in relapse free survival. Differences in relapse-free survival between the gene expression strata were assessed by Peto-Peto test corrected for multiple testing with the false discovery rate method. 
+Fractions of surviving patients are presented in Kaplan-Meier plots. The stratification cutoffs are displayed in the plot captions. P values are displayed in the plots. Numbers of low and high expressions are indicated in the plot legends.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-subsets-survival, fig.width = figur::convert(figures$tcga_subsets_survival, to = 'in')$w, fig.height = figur::convert(figures$tcga_subsets_survival, to = 'in')$h, fig.cap = 'Differences in relapse-free survival between the hormonal subsets of the TCGA cohort.'}
+
+figures$tcga_subsets_survival$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-subsets-survival). Differences in relapse-free survival between the hormonal subsets of the TCGA cohort.</b>
+<br>
+Global and pairwise differences in relapse-free survival between the hormonal subsets of the TCGA testicular cancer cohort were assessed by a series of Peto-Peto tests corrected for multiple testing with the false discovery rate method. Fractions of surviving patients are presented in a Kaplan-Meier plot. The total numbers of observations and relapses are displayed in the plot caption. P values for the largest effects are displayed in the plots. Numbers of patients in the hormonal subsets are indicated in the plot legend.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-elnet-coeffs, fig.width = figur::convert(figures$tcga_elnet_coeffs, to = 'in')$w, fig.height = figur::convert(figures$tcga_elnet_coeffs, to = 'in')$h, fig.cap = 'Development of multi-parameter Elastic Net Cox models of relapse-free survival in the TCGA cohort.'}
+
+figures$tcga_elnet_coeffs$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-elnet-coeffs). Development of multi-parameter Elastic Net Cox models of relapse-free survival in the TCGA cohort.</b>
+<br>
+Relapse-free survival was modeled as a function of clinical and sex hormone-related variables by Elastic Net Cox regression. Model coefficients expressed as hazard ratios (HR) are presented in bubble plots. Point size corresponds to the absolute value of logarithm of HR, point color corresponds to the logarithm of HR. Points are labeled with their HR values. Numbers of complete observations and relapses are indicated in the plot captions.
+<br>
+(A) The survival model constructed solely with clinical explanatory variables: age, histology, tumor stage, radiotherapy and serum marker status.
+<br>
+(B) The survival modes constructed with the clinical variables listed in (A) and gene expression values stratified by cutoffs associated with the largest differences in relapse-free survival in the univariable analysis (Table \@ref(tab:tab-tcga-relapse)).
+<br>
+(C) The survival model constructed with the clinical variables listed in (A) and the hormonal subset assignment scheme.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-elanet-performance, fig.width = figur::convert(figures$tcga_elanet_performance, to = 'in')$w, fig.height = figur::convert(figures$tcga_elanet_performance, to = 'in')$h, fig.cap = 'Performance of the multi-parameter Elastic Net models at predicting relapse-free survival in the TCGA cohort.'}
+
+figures$tcga_elanet_performance$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-elanet-performance). Performance of the multi-parameter Elastic Net models at predicting relapse-free survival in the TCGA cohort.</b>
+<br>
+Elastic Net Cox models of relapse-free survival were constructed with clinical parameters (clinical), clinical parameters along with gene expression strata (genes) and clinical parameters along with the hormonal subset assignment (class) as presented in Figure \@ref(fig:fig-tcga-elnet-coeffs). Model performance was measured by Harrell's concordance index (C, high values indicative of high concordance of the observed and predicted survival) and integrated Brier score (IBS, low values indicative of low model error) for the training dataset and 10-fold cross-validation. Reference models were obtained by random re-shuffling of the explanatory variables. C-index and IBS values are presented in scatter plots. Number of complete observations and relapses are displayed in the plot captions.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-elanet-calibration, fig.width = figur::convert(figures$tcga_elanet_calibration, to = 'in')$w, fig.height = figur::convert(figures$tcga_elanet_calibration, to = 'in')$h, fig.cap = 'Calibration of the multi-parameter Elastic Net models of relapse-free survival in the TCGA cohort.'}
+
+figures$tcga_elanet_calibration$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-elanet-calibration). Calibration of the multi-parameter Elastic Net models of relapse-free survival in the TCGA cohort.</b>
+<br>
+Elastic Net Cox models of relapse-free survival were constructed with clinical parameters (clinical), clinical parameters along with gene expression strata (clinical + genes) and clinical parameters along with the hormonal subset assignment (clinical + hormonal subsets) as presented in Figure \@ref(fig:fig-tcga-elnet-coeffs). 
+Their calibration in the training data and 10-fold cross-validation (CV) was assessed by Brier scores calculated for unique survival time points. Reference models were obtained by random re-shuffling of the explanatory variables. Brier scores for subsequent time points were depicted as lines. Note substantially lower Brier scores for the middle- and long-term survival for the clinical + genes model indicative of an improved calibration as compared with the clinical and clinical + hormonal subset models.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-elanet-tertiles, fig.width = figur::convert(figures$tcga_elanet_tertiles, to = 'in')$w, fig.height = figur::convert(figures$tcga_elanet_tertiles, to = 'in')$h, fig.cap = 'Relapse-free survival in tertiles of linear predictor scores of the Elastic Net models.'}
+
+figures$tcga_elanet_tertiles$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-elanet-tertiles). Relapse-free survival in tertiles of linear predictor scores of the Elastic Net models.</b>
+<br>
+Elastic Net Cox models of relapse-free survival were constructed with clinical parameters (clinical), clinical parameters along with gene expression strata (clinical + genes) and clinical parameters along with the hormonal subset assignment (clinical + hormonal subsets) as presented in Figure \@ref(fig:fig-tcga-elnet-coeffs). Linear predictor scores of the models (Elastic Net Scores) were stratified into tertiles. Differences in survival between the score tertiles were assessed by Peto-Peto test corrected for multiple testing with the false discovery rate method. Fractions of surviving patients in the Elastic Net Score tertiles are presented in Kaplan-Meier plots. Numbers of complete observations and relapses are displayed in the plot captions. P values are shown in the plots. Numbers of patients in the Elastic Net Score tertiles are indicated in the plot legends.
+</p>
+
+<hr style = "border-top: 5px solid DarkGray" />
+
+## Sex hormone-related genes in the testis cancer tissue: implication for clinics, tumor biology and a classification attempt
+
+The final analysis step was committed to characteristic, biological and clinical significance of sex hormone-related genes expressed in the testicular cancer tissue and was addressed by analysis of the testis cancer subset of the pan-cancer TCGA project [@Liu2018]. 
+
+We demonstrated the presence of transcripts of pituitary sex hormones _GNRH1_, _GNRH2_, _PRL_, _CGA_, _LHB_ and _FSHB_ in the bulk transcriptomes of a fraction of cancer samples. 
+Out of those genes, _FSHB_ was expressed at the lowest levels and was detectable virtually in a small fraction of cancers classified later on as the SEM2 hormonal subtype. 
+By contrast, genes associated with synthesis of progesterone and testosterone, _CYP11A1_, _CYP17A1_, _HSD17B3_, _HSD3B2_, transcripts of enzymes involved in estradiol formation, _CYP19A1_ and _HSD17B1_, as well as the gene of sex hormone transport protein _SHBG_ were expressed at strongly varying levels in a great majority of testicular cancer specimens. 
+Of note, in the current analysis, we were not able to confine expression of those genes to a particular cell type. 
+In the normal testis, the investigated genes display a clear compartmentalization, with e.g. expression of [_PRL_](https://www.proteinatlas.org/ENSG00000172179-PRL/single+cell+type/testis) being specific for late spermatids, expression of [_CYP19A1_](https://www.proteinatlas.org/ENSG00000137869-CYP19A1/single+cell+type/testis) limited to spermatocytes and [_CYP11A1_](https://www.proteinatlas.org/ENSG00000140459-CYP11A1/single+cell+type/testis) present virtually only in peritubular cells. 
+Such cell type specificity of gene expression may be investigated by single cell RNA seq of testis cancer. 
+Furthermore, we could discern in part strong differences in expression of the sex hormone-related genes between the two major histological types of testicular cancer. 
+_LHB_ and _FSHB_ were present at higher levels or were confined to seminoma, in line with the differences in serum hormone levels in the Innsbruck cohort (__Figure \@ref(fig:fig-histology-fsh-ld-prl)__). 
+Almost all remaining genes including the genes of key enzymes of T and E2 biosynthesis were upregulated in NSGCT, which again suits well with the generally higher testosterone and estradiol serum concentrations in carriers of NSGCT in the local collective (__Figure \@ref(fig:fig-histology-estro-testo-hcg)__). 
+
+By Gaussian mixture modeling [@Fraley2011; @Fraley2022] with the cancer expression levels of the genes of interest as explanatory factors, we could assign the cancer samples into five hormonal subsets. 
+The subsequent analyses of demographic and clinical features and whole transcriptomes suggest that this classification scheme possesses a solid biological background. 
+The first two SEM1 and SEM2 subsets consisted almost exclusively of seminoma cancers with generally low hormone-related gene expression. 
+The key feature of the SEM2 subset was a highly specific expression of _FSHB_. 
+SEM1 and SEM2 cancers were additionally characterized by middle-age or late onset, low serum marker staging, upregulation of KIT, CHEK2 and MTOR proteins as well as strong pro-inflammatory signaling and tumor microenvironment rich in B, Treg and cytotoxic T cells. 
+Interestingly, the inflammatory and immunological features tended to be more accentuated in the SEM2 than in the SEM1 subset. 
+For instance, GAGE-family antigens preferentially upregulated in SEM2 cancers were described to elicit T cell-mediated immune response [@VandenEynde1995]. 
+The NS PRL, NS E2 and NS T subset consisted predominantly of NSGCT and were characterized by a young onset age, high serum marker stages, enrichment in genes involved in steroid hormone synthesis as well as elevated levels of fibronectin and high protein expression of ERBB2. 
+Expression of _PRL_ was basically limited to the largest NS PRL subset, which was additionally hallmarked by endothelium-like processes such as clot formation, VEGF and NOTCH signaling as well as ECM protein synthesis, abundant stroma compartment and endothelial cell content along with the scarcest infiltration by cytotoxic lymphocytes. 
+The smallest NS E2 subset encompassed cancers additionally expressing high levels of genes involved in the testosterone - estradiol conversion, cholesterol uptake, aminoacid turnover, and, notably cancer- and testis-specific _MAGE_ genes implicated in immune evasion [@Nin2023]. 
+It remains to be investigated, whether this later phenomenon may contribute to the poorest relapse-free survival characteristic for the NA E2 subset via suppression of anti-tumor immune response. 
+In turn, the NS T subset was characterized by an enrichment of genes involved in testosterone synthesis, numerous makers of steroidogenic cells such as _PROK1_ or _STAR_ along with genes implicated in developmental growth factor signaling (_INSL3_, _WISP2_, _INHA_, _RNF17_). 
+By contrast, there were only weak differences in frequency of somatic mutations, gene deletions or amplifications between the hormonal subsets of the TCGA collective. 
+These key characteristic of the hormonal subset were summarized in __Figure \@ref(fig:fig-tcga-summary)__.
+
+The results of univariable survival analysis point towards potential clinical relevance of the sex hormone-related genes as prognostic markers of cancer relapse. 
+High expression of the pituitary hormone genes _GNRH2_ or _PRL_ as well as high levels of _HSD3B1_ implicated in progesterone/testosterone synthesis, _HSD17B1_ coding for an estradiol forming enzyme, and _SHBG_ coding for a sex hormone transport protein were significantly associated with a higher relapse risk in the univariate analysis. 
+Out of them, _HSD17B1_ showed the largest negative impact on relapse-free survival in the multi-parameter Elastic Net Cox regression [@Zou2005; @Friedman2010; @Simon2011], whereas effects of the other genes found significant in the univariable analysis were much weaker. 
+This indicates that in the setting of a complex co-regulation of the sex hormone-related genes, e.g. as revealed by our PCA results, the _HSD17B1_ proves to be a true strong unfavorable prognostic marker. 
+Of interest, [_HSD17B1_](https://www.proteinatlas.org/ENSG00000108786-HSD17B1/tissue) codes for hydroxysteroid 17-beta dehydrogenase 1, which catalyzes the estrone - estradiol conversion and, to a lesser degree also the conversion of DHEA to androstenediol, a testosterone precursor [@Hilborn2017; @He2016]. 
+Among normal tissues, it displays the highest expression levels in the placenta followed by the ovary [@He2016]. 
+In [testis](https://www.proteinatlas.org/ENSG00000108786-HSD17B1/single+cell+type/testis) it is usually present in Sertoli, Leydig and endothelial cells at very low levels [@Hakkarainen2018]. 
+In the TCGA cohort cancers, its mRNA expression peaked in a the smallest NS E2 hormonal subset characterized also by aromatase expression (_CYP19A1_) and may have contributed to the poorest survival observed in those patients. 
+This let us hypothesize that pathological estradiol biosynthesis in a small subset of NSGCT may drive tumor progression and boost the metastatic potential.
+
+A close taxonomic relationship between SEM1 and SEM2, and between NS PRL and NS E2 cancers could be inferred from the results of differential gene expression comparison in the hormonal subsets. 
+These findings were corroborated by a more formal network analysis taking into account the entire signature, infiltration estimates, gene and protein expression datasets. 
+Interestingly, NS T cancers shared signature, tumor microenvironment, transcriptome and proteome features with both SEM1/SEM2 and NS PRL/NS E2 subset pairs as measured by similar cosine similarity metrics [@Meyer2022] (__Figure \@ref(fig:fig-tcga-similarity)__).
+
+Given the similarity of the SEM1/SEM2 subsets and the NS PRL/NS E2 cancers, we sought to test, whether the hormonal subset classification scheme can be emulated by Reactome pathway, Recon metabolic subset, xCell infiltration and transcriptome data. 
+Importantly, this explanatory variable set did not include sex hormone genes used for definition of the hormonal subsets of the TCGA cohort. 
+To this end, we developed a Random Forest model [@Breiman2001; @Wright2017] based on those 
+`r nrow(tcga_rf$lexicon)` explanatory factors and tested its performance in the training dataset and 50-fold cross-validation. 
+As presented in __Figure \@ref(fig:fig-tcga-classifier-performance)__, the classifier demonstrated a 100% accuracy at the hormonal cluster assignment in the training data. 
+The classification quality was substantially lower in the cross-validation setting with the 
+`r signif(tcga_rf$stats$correct_rate[2] * 100, 2)`% accuracy and $\kappa$ = 
+`r signif(tcga_rf$stats$kappa[2], 2)` indicative of an overall moderate-to-good reliability. 
+In more details, in the cross-validation setting, the three major hormonal subsets SEM1, NS PRL and NS T could be identified with > 
+`r (tcga_rf$class_accuracy$cv %>% filter(class %in% c('NS_PRL', 'SEM1', 'NS_T')) %>% .$accuracy %>% min %>% signif(2)) * 100`% accuracy. 
+In turn, `r signif((1 - tcga_rf$class_accuracy$cv$accuracy['NS_E2']) * 100, 2)`% of NS E2 patients were erroneously assigned to the NS PRL subset, and none of the SEM2 individuals could be correctly classified. 
+This further underscores the close relatedness and difficulty of the SEM1 - SEM2 discrimination with mRNA markers (__Figure \@ref(fig:fig-tcga-classifier-performance)__). 
+Signatures of Reactome pathways implicated in WNT signaling, cell junction organization and steroid hormone synthesis, signatures of Recon subsystems of vitamin B6 metabolism, nucleotide salvage and sex hormone biosynthesis, and transcripts related to WNT and developmental and oncogenic growth factor signaling, steroidogenesis and cancer-specific antigens belonged to explanatory factors most relevant for the hormonal subset classification with the Random Forest algorithm [@Breiman2001]. 
+By contrast, importance of infiltration estimates computed by the xCell algorithm was much lower (__Figures \@ref(fig:fig-tcga-classifier-signatures)__ - __\@ref(fig:fig-tcga-classfier-expression)__). 
+Out of such weighty variables, high xCell-predicted infiltration by mast cells may serve as a common marker of the SEM1 and SEM2 subsets. 
+As compared with SEM1 cancers, SEM2 specimens could be characterized by upregulated _DMRT_, _PLAC4_ and _CGB_ expression (__Figures \@ref(fig:fig-tcga-subset-hallmark-hm)__ and __\@ref(fig:fig-tcga-hallmark-sem)__). 
+As potential marker of the NS PRL subset, _WIF1_ and _ERBB2_ can be proposed. 
+Strongly elevated _CGB_ and _GATA_ transcript levels, as well as Reactome signatures of peptide hormone and mineralocorticoid biosynthesis may serve as markers of the smallest NS E2 hormonal class. 
+Finally, _STAR_, _INHA_ and _SERPINA5_ expression may be employed to differentiate NS T tumors from the remaining subsets (__Figures \@ref(fig:fig-tcga-subset-hallmark-hm)__ and __\@ref(fig:fig-tcga-hallmark-ns)__).
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-summary, fig.width = figur::convert(figures$tcga_summary, to = 'in')$w, fig.height = figur::convert(figures$tcga_summary, to = 'in')$h, fig.cap = 'Summary characteristic of the hormonal subsets of the TCGA testis cancer cohort.'}
+
+figures$tcga_summary$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-summary). Summary characteristic of the hormonal subsets of the TCGA testis cancer cohort.</b>
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-similarity, fig.width = figur::convert(figures$tcga_similarity, to = 'in')$w, fig.height = figur::convert(figures$tcga_similarity, to = 'in')$h, fig.cap = 'Relationship between the hormonal subsets of the TCGA testicle cancer subsets measured by cosine similarity coefficient.'}
+
+figures$tcga_similarity$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-similarity). Relationship between the hormonal subsets of the TCGA testicle cancer subsets measured by cosine similarity coefficient.</b>
+<br>
+Relationships between the hormonal subsets of the TCGA cohort based on gene signatures of Reactome pathways and Recon metabolic subsystems (A), tumor microenvironment composition gauged by QuanTIseq and xCell software (B), and mRNA and protein levels (C) were investigated by cosine similarity coefficients and visualized as force-directed graphs. Edge thickness and gray scale corresponds to the cosine similarity coefficients, whose values are indicated in the edge labels. 
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-classifier-performance, fig.width = figur::convert(figures$tcga_classifier_performance, to = 'in')$w, fig.height = figur::convert(figures$tcga_classifier_performance, to = 'in')$h, fig.cap = 'Performance of a Random Forest classifier for the hormonal subsets of the TCGA cohort employing Reactome pathway, Recon metabolic, xCell infiltration and transcriptome data.'}
+
+figures$tcga_classifier_performance$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-classifier-performance). Performance of a Random Forest classifier for the hormonal subsets of the TCGA cohort employing Reactome pathway, Recon metabolic, xCell infiltration and transcriptome data.</b>
+<br>
+A Random Forest classifier of the hormonal subsets was developed employing normalized, median-centered ssGSEA scores of the Reactome pathways, ssGSEA scores of the Recon metabolic subsystems, xCell-predicted fractions of non-malignant cell in the tumor microenvironment and normalized, log~2~-transformed transcript counts as explanatory variables. The sex hormone-related genes were excluded from the variable set. Performance of the classifier was assessed by overall accuracy (fraction of correctly assigned samples) and Cohen's $\kappa$ statistic in the training data and 50-fold cross validation (CV). The predicted and actual hormonal cluster assignments of the cancer samples are presented in heat maps of confusion matrices. Tile color and labeling represents to the percentage within the total dataset. The accuracy, $\kappa$ and number of complete observations are displayed in the plot captions. Rates of correct sample assignment for particular hormonal subsets are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-classifier-signatures, fig.width = figur::convert(figures$tcga_classifier_signatures, to = 'in')$w, fig.height = figur::convert(figures$tcga_classifier_signatures, to = 'in')$h, fig.cap = 'Permutation importance of Reactome pathway and Recon metabolic subsystem signatures for the Random Forest classifier for the hormonal subsets of the TCGA cohort.'}
+
+figures$tcga_classifier_signatures$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-classifier-signatures). Permutation importance of Reactome pathway and Recon metabolic subsystem signatures for the Random Forest classifier for the hormonal subsets of the TCGA cohort.</b>
+<br>
+The Random Forest classifier emulating the hormonal subset assignment based on the Reactome pathway, Recon metabolic subsystems, xCell infiltration and transcriptome data was developed as presented in Figure \@ref(fig:fig-tcga-classifier-performance). Permutation importance of explanatory factors was assessed by comparing accuracy of the genuine model with a model with the particular explanatory variable being randomly reshuffled. Importance metrics representing differences in accuracy of the genuine and the reshuffled models ($\Delta$ accuracy) for the most important Reactome pathway and Recon subsystem gene signatures are presented in bar plots.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-classifier-xcell, fig.width = figur::convert(figures$tcga_classifier_xcell, to = 'in')$w, fig.height = figur::convert(figures$tcga_classifier_xcell, to = 'in')$h, fig.cap = 'Permutation importance of xCell infiltration estimates for the Random Forest classifier for the hormonal subsets of the TCGA cohort.'}
+
+figures$tcga_classifier_xcell$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-classifier-xcell). Permutation importance of xCell infiltration estimates for the Random Forest classifier for the hormonal subsets of the TCGA cohort.</b>
+<br>
+The Random Forest classifier emulating the hormonal subset assignment based on the Reactome pathway, Recon metabolic subsystems, xCell infiltration and transcriptome data was developed as presented in Figure \@ref(fig:fig-tcga-classifier-performance). Permutation importance of explanatory factors was assessed by comparing accuracy of the genuine model with a model with the particular explanatory variable being randomly reshuffled. Importance metrics representing differences in accuracy of the genuine and the reshuffled models ($\Delta$ accuracy) for the most important xCell infiltration estimates are presented in bar plots.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-classfier-expression, fig.width = figur::convert(figures$tcga_classfier_expression, to = 'in')$w, fig.height = figur::convert(figures$tcga_classfier_expression, to = 'in')$h, fig.cap = 'Permutation importance of gene and protein expression for the Random Forest classifier for the hormonal subsets of the TCGA cohort.'}
+
+figures$tcga_classfier_expression$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-classfier-expression). Permutation importance of gene and protein expression for the Random Forest classifier for the hormonal subsets of the TCGA cohort.</b>
+<br>
+The Random Forest classifier emulating the hormonal subset assignment based on the Reactome pathway, Recon metabolic subsystems, xCell infiltration and transcriptome data was developed as presented in Figure \@ref(fig:fig-tcga-classifier-performance). Permutation importance of explanatory factors was assessed by comparing accuracy of the genuine model with a model with the particular explanatory variable being randomly reshuffled. Importance metrics representing differences in accuracy of the genuine and the reshuffled models ($\Delta$ accuracy) for the most important transcripts are presented in bar plots.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-subset-hallmark-hm, fig.width = figur::convert(figures$tcga_subset_hallmark_hm, to = 'in')$w, fig.height = figur::convert(figures$tcga_subset_hallmark_hm, to = 'in')$h, fig.cap = 'Top relevant variables differentiating between the hormone subsets of the TCGA cohort.'}
+
+figures$tcga_subset_hallmark_hm$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-subset-hallmark-hm). Top relevant variables differentiating between the hormone subsets of the TCGA cohort.</b>
+<br>
+Normalized and median centered signature scores of the top 20 most important Reactome pathways, Recon metabolic subsystems, xCell infiltration estimates and log~2~-transformed gene expression values for the Random Forest classifier of the hormonal subsets (Figure \@ref(fig:fig-tcga-classifier-performance)). Patterns of related explanatory factors were revealed by unsupervised partition around medoids (PAM) clustering with Euclidean distances between the variables. Variable values are presented as a heat map with hormonal subsets represented by horizontal facets and variable clusters depicted as vertical facets. Number of samples in the hormonal subsets are displayed in the plot caption.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-hallmark-sem, fig.width = figur::convert(figures$tcga_hallmark_sem, to = 'in')$w, fig.height = figur::convert(figures$tcga_hallmark_sem, to = 'in')$h, fig.cap = 'The key features of the SEM1 and SEM2 subsets of the TCGA cohort.'}
+
+figures$tcga_hallmark_sem$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-hallmark-sem). The key features of the SEM1 and SEM2 subsets of the TCGA cohort.</b>
+<br>
+Key variables of the Random Forest classifier discriminating the SEM1 and SEM2 subsets from the NS PRL, NS E2 and NS T subsets as well as the key features differentiating the SEM2 from SEM1 hormonal subsets were selected from the explanatory factors with the largest permutation importance metric presented in Figure \@ref(fig:fig-tcga-subset-hallmark-hm). Medians and interquartile ranges (IQR) of the normalized explanatory variables are presented as boxes, whiskers span over 150% IQR. Single observations are depicted as points. The importance metrics (differences in accuracy of the genuine model and a model with the given explanatory variable randomly reshuffled, $\Delta$ accuracy) are displayed in the plot captions. Numbers of samples assigned to the hormonal subsets are indicated in the X axes.
+</p>
+
+<hr style = "border-top: 1px solid DarkGray" />
+
+```{r fig-tcga-hallmark-ns, fig.width = figur::convert(figures$tcga_hallmark_ns, to = 'in')$w, fig.height = figur::convert(figures$tcga_hallmark_ns, to = 'in')$h, fig.cap = 'The key features of the NS PRL, NS E2 and NS T hormonal subsets of the TCGA cohort.'}
+
+figures$tcga_hallmark_ns$plot
+
+```
+
+<p class = "legend">
+<b>Figure \@ref(fig:fig-tcga-hallmark-ns). The key features of the NS PRL, NS E2 and NS T hormonal subsets of the TCGA cohort.</b>
+Key variables of the Random Forest classifier discriminating the NS PRL, NS E2 and NS T subsets were selected from the explanatory factors with the largest permutation importance metric presented in Figure \@ref(fig:fig-tcga-subset-hallmark-hm). Medians and interquartile ranges (IQR) of the normalized explanatory variables are presented as boxes, whiskers span over 150% IQR. Single observations are depicted as points. The importance metrics (differences in accuracy of the genuine model and a model with the given explanatory variable randomly reshuffled, $\Delta$ accuracy) are displayed in the plot captions. Numbers of samples assigned to the hormonal subsets are indicated in the X axes.
 </p>
 
 <hr style = "border-top: 5px solid #417a8b" />
 
 # Limitations
 
-The investigated dataset and the analysis strategy suffers from several limitations. 
+The investigated Innsbruck cohort dataset and its analysis strategy suffers from several limitations. 
 First, multiple potentially interesting variables such as SHBG or free testosterone levels were affected by high missingness precluding their use in LCA or survival modeling. 
 Second, survival analysis in general and survival modeling in particular were challenging tasks because of the excellent long-term survival in testicle cancer and low numbers of relapses. 
 Notably, this limitation was in part addressed by the regularized Cox modeling strategy employing the Elastic Net algorithm. 
 Finally, although LCA modeling used for definition of the hormonal subsets is a reliable and reproducible technique, its outcome is affected by definition of qualitative explanatory variables, in our case the hormone level strata. 
 In particular, use of age-independent cutoffs for definition of testosterone insufficiency is controversial [@Zhu2022].
 
+The most important limitation of the analyses with the TCGA testicular cancer dataset concerned the hormonal subset assignment done with Gaussian mixture modeling. 
+Notably, sex hormone-related genes used in modeling were hand-picked and the classification scheme may change with inclusion of other transcripts, e.g. of genes involved in degradation of the sex hormones and their receptors. 
+Furthermore, as demonstrated by the performance of modeling of the hormonal subsets by the Random Forest algorithm, the SEM2 subset turned out to be closely related to the major seminoma SEM1 class with only few distinctive features. 
+Whether the SEM2 subset constitutes a separate and clinically relevant molecular class of testicular cancer, needs to be investigated in other patient collectives.
+
 # Methods
 
 ## Data sources
 
-The study dataset was provided as an Excel sheet. 
+The Innsbruck cohort study dataset was provided as an Excel sheet. 
 Data import in R was accomplished with the `read_xslx()` R function (package _readxl_) [@Wickham2022]. 
 The dataset was formatted with an in-house developed script. 
 
@@ -1040,7 +2122,7 @@ In cases of missing testosterone replacement variable with provided dates of the
 
 Laboratory parameters were stratified as follows:
 
-* lactate dehydrogenase (LDH): normal: 0 - 150 U/L, elevated: > 150 U/L
+* lactate dehydrogenase (LDH): normal: 0 - 250 U/L, elevated: > 250 U/L
 * alpha fetoprotein: normal: 0 - 7 ng/mL, elevated: > 7 ng/mL
 * human chorionic gonadotropin (HCG): normal: 0 - 2 IU/L, elevated: > 2 IU/L
 * total testosterone (T total): low: 0 - 3.5 ng/mL, normal: 3.5 - 9 ng/mL, elevated: > 9 ng/mL
@@ -1053,7 +2135,10 @@ Tumor marker positivity was defined as at least one of AFP or HCG being elevated
 
 A list of study variables with stratification scheme is provided in __Table \@ref(tab:tab-study-vars)__.
 
-In the current analysis, n = `r nrow(tesca$data)` testis cancer patients with $\leq$ 50% missing variables were included.
+In the current analysis, n = `r nrow(tesca$data)` testis cancer patients of the Innsbruck cohort with $\leq$ 50% missing variables were included.
+
+The testicle cancer dataset (clinical information, expression) of the TCGA pan-cancer project [@Liu2018] with n = `r nrow(tcga$clinical)` specimens was fetched from [cBioPortal](https://www.cbioportal.org/). 
+Data of somatic mutations identified by the Mutect2 algorithm [@Benjamin2019] and of copy number alterations predicted by GISTIC [@Mermel2011] for the TCGA testicular cancer samples were obtained from the [XENA data portal](https://xenabrowser.net/datapages/) and handled with the development R package [_xena_](https://github.com/PiotrTymoszuk/xena).
 
 ## Software
 
@@ -1061,6 +2146,7 @@ Data analysis was done with R version 4.2.3.
 
 Tabular data was handled with the _tidyverse_ package bundle [@Wickham2019], _rlang_ [@Henry2022] and [_trafo_](https://github.com/PiotrTymoszuk/trafo).
 Text data manipulation and search was accomplished with _stringi_ [@Gagolewski2021]. 
+Genetic alteration datasets obtained by the Mutect and GISTIC algorithms were stored and quantified by [_xena_](https://github.com/PiotrTymoszuk/xena).
 
 Descriptive statistics were computed with _DescTools_ [@Signorell2022], _rstatix_ [@Kassambara2021] and [_ExDA_](https://github.com/PiotrTymoszuk/ExDA). 
 Statistical hypothesis testing was done for numeric and categorical variables with the packages _rstatix_ [@Kassambara2021] and [_ExDA_](https://github.com/PiotrTymoszuk/ExDA), and with the _survival_ [@Therneau2000] and _survminer_ [@Kassambara2016] packages for survival data.
@@ -1068,15 +2154,28 @@ Statistical hypothesis testing was done for numeric and categorical variables wi
 Principal component analysis (PCA) was performed with the development package [_clustTools_](https://github.com/PiotrTymoszuk/clustTools) employing the pcaPP algorithm by Croux et al. [@Croux2007; @Todorov2013]. 
 Multi-dimensional correspondence analysis (MCA) was done with the _MASS_ package [@Ripley2022].
 
-Hormonal subsets of testicle cancer were defined by maximum-likelihood latent class analysis done with _poLCA_ [@Bandeen-roche1997; @Linzer2011].
+Hormonal subsets of testicle cancers in the Innsbruck cohort were defined by maximum-likelihood latent class analysis done with _poLCA_ [@Bandeen-roche1997; @Linzer2011]. 
+Hormonal subsets of the TCGA testicle cancers based on tumor tissue expression of sex hormone-related genes were defined by Gaussian mixture modeling employing the EM algorithm of Fraley and Raftery implemented in the R package _mclust_ [@Fraley2022; @Fraley2011].
 
-Multi-parameter classifiers for cancer histology types and hormonal subsets of testicle cancer were established with the conditional Random Forest algorithm [@Strobl2007; @Hothorn2006] provided by the package _party_ [@Hothorn2022]. 
+Multi-parameter classifiers of cancer histology types and hormonal subsets of testicle cancer were established for the Innsbruck cohort with the conditional Random Forest algorithm [@Strobl2007; @Hothorn2006] provided by the package _party_ [@Hothorn2022]. 
+A multi-parameter classifier of the hormonal subsets of the TCGA collective based on large scale gene signature, infiltration estimate and whole-transcriptome datasets was developed with the canonical, speed- and memory-optimized Random Forest algorithm implemented by the R package _ranger_ [@Breiman2001; @Wright2017]. 
 For cross-validation, computation of fit statistics and quality control of the Random Forest models, the packages _caret_ [@Kuhn2008], _plotroc_ [@Sachs2017] and the development package [_caretExtra_](https://github.com/PiotrTymoszuk/caretExtra). 
 
+Single sample gene set enrichment analysis scores (ssGSEA scores) for Reactome pathways and Recon metabolic subsystem genes accessed by [_biggrExtra_](https://github.com/PiotrTymoszuk/biggrExtra) were computed with the [_gseaTools_](https://github.com/PiotrTymoszuk/gseaTools) package employing the original _GSVA_ algorithm [@Hanzelmann2013]. 
+Differences in ssGSVA scores and log~2~-transformed transcript counts between the hormonal subsets of the TCGA cancers were investigated with the [_microViz_](https://github.com/PiotrTymoszuk/microViz) development package. 
+Fractions of non-malignant cells in the TCGA tumor specimens based on transcriptome data were predicted with the _QuanTIseq_ [@Finotello2019] and _xCell_ [@Aran2017] algorithms implemented by the _immunedeconv_ package [@Sturm2020]. 
+Somatic mutation and copy number alteration frequencies were retrieved from outputs of the Mutect and GISTIC algorithms with [_xena_](https://github.com/PiotrTymoszuk/xena). 
+Differential modulation of signaling pathways based of differentially regulated transcriptome was assessed with the _SPIA_ tool [@Tarca2009].
+
 For univariable survival Cox modeling, the packages _survival_ [@Therneau2000] and [_coxExtensions_](https://github.com/PiotrTymoszuk/coxExtensions) were employed. 
+Optimal cut point stratification of sex hormone-related gene expression and assessment of differences in survival between the gene expression strata were done with the _survminer_ package [@Kassambara2016]. 
 Multi-parameter survival modeling was done with the Elastic Net Cox algorithm implemented by the _glmnet_ package [@Friedman2010; @Zou2005; @Simon2011].
 
-Analysis results were visualized with _ggplot2_ [@Wickham2016] (bar and scatter plots), [_ExDA_](https://github.com/PiotrTymoszuk/ExDA) (violin, stack and radar plots), [_caretExtra_](https://github.com/PiotrTymoszuk/caretExtra) and _plotroc_ [@Sachs2017] (receiver-operating characteristic [ROC], heat maps of confusion matrices), _survminer_ [@Kassambara2016] and [_coxExtensions_](https://github.com/PiotrTymoszuk/coxExtensions) (Kaplan-Meier and Brier Score plots), and [_clustTools_](https://github.com/PiotrTymoszuk/clustTools) (PCA loadings and MCA column factors). 
+Cosine cross-similarities between hormonal subsets were calculated with _proxy_ [@Meyer2022]. 
+The similarity matrices were converted to force-directed graphs with _igraph_ [@Csardi2006].
+
+Analysis results were visualized with _ggplot2_ [@Wickham2016] (bar, scatter and bubble plots, heat maps), [_ExDA_](https://github.com/PiotrTymoszuk/ExDA) (violin, box, stack and radar plots), [_caretExtra_](https://github.com/PiotrTymoszuk/caretExtra) and _plotroc_ [@Sachs2017] (receiver-operating characteristic [ROC], heat maps of confusion matrices), _survminer_ [@Kassambara2016] and [_coxExtensions_](https://github.com/PiotrTymoszuk/coxExtensions) (Kaplan-Meier and Brier Score plots), [_clustTools_](https://github.com/PiotrTymoszuk/clustTools) (PCA loadings and MCA column factors) and [_microViz_](https://github.com/PiotrTymoszuk/microViz) (Volcano and Forest plots). 
+Force-directed networks were visualized with _ggnetwork_ [@Briatte2021]. 
 Report figures were generated with _cowplot_ [@Wilke2019]. 
 Tables were created with _flextable_ [@Gohel2022]. 
 
@@ -1090,30 +2189,30 @@ If not indicated otherwise, statistical testing p values were corrected for mult
 Effects with FDR-corrected p < 0.05 are considered statistically significant.
 Effect sizes for categorical variables were defined with the Cramer V effect size statistic with the following cutoffs: $\leq$ 0.3: weak, 0.3 - 0.6: moderate, > 0.6: strong. 
 Effect sizes for numeric variables analyzed with Mann-Whitney test were assessed by r effect size statistic with the following cutoffs: $\leq$ 0.3: small, 0.3 - 0.5: moderate; > 0.5: strong. 
-Effect sizes for numeric variables analyzed with Kruskal-Wallis test were investigated by $\eta^2$ effect size metrics with the following cutoffs: $\leq$ 0.13: weak, 0.13 - 0.26: moderate, > 0.26: strong. 
+Effect sizes for numeric variables analyzed with Kruskal-Wallis test or one-way ANOVA were investigated by $\eta^2$ effect size metrics with the following cutoffs: $\leq$ 0.13: weak, 0.13 - 0.26: moderate, > 0.26: strong. 
 Accuracy was assessed by Cohen's $\kappa$ inter-rater reliability measure with the following effect size cutoffs: $\leq$ 0.4: weak, 0.4 - 0.6: moderate,  0.6 - 0.8: good, > 0.8: very good.
 
 ## Explorative data analysis
 
-In the first step of explorative data analysis differences in study variables between the individuals included in the analysis and excluded from the analysis due to data missingness were assessed by Mann-Whitney test and r effect size statistic (numeric variables) or $\chi^2$ test with Cramer V effect size statistic (function `compare_variables()`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)). 
-Subsequently fractions of missing observations per participant and study variable in the analyzed cohort were determined. 
-Information content or variability of study variables was assessed with Gini coefficient (function `Gini()`, package _DescTools_) (__Figure \@ref(fig:fig-gini)__, __Table \@ref(tab:tab-miss-inf)__). 
+In the first step of explorative data analysis of the Innsbruck collective, differences in study variables between the individuals included in the analysis and excluded from the analysis due to data missingness were assessed by Mann-Whitney test and r effect size statistic (numeric variables) or $\chi^2$ test with Cramer V effect size statistic (function `compare_variables()`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)). 
+Subsequently fractions of missing observations per participant and study variable in the analyzed Innsbruck cohort were determined. 
+Information contents of study variables in both Innsbruck and TCGA cohorts were assessed with Gini coefficient (function `Gini()`, package _DescTools_) (__Figure \@ref(fig:fig-gini)__, __Table \@ref(tab:tab-miss-inf)__). 
 Normality of distribution of numeric variables without any transformation and upon logarithm (log) and squared root transformation (sqrt) was assessed by Shapiro-Wilk test (function `explore(what = 'normality')`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)) and quantile-quantile plots (QQ plots, function `explore(what = 'plots', type = 'qq')`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)). 
-The optimal normality-stabilizing transformations are listed in __Table \@ref(tab:tab-best-transformation)__ and shown in __Figure \@ref(fig:fig-normality)__. 
-Descriptive characteristic of the cohort was generated with the `explore(what = 'table', pub_styled = TRUE)` function (package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)) and is presented in __Table \@ref(tab:tab-cohort-demo-cancer)__ and __Table \@ref(tab:tab-cohort-hormones)__.
+The optimal normality-stabilizing transformations for the Innsbruck dataset are listed in __Table \@ref(tab:tab-best-transformation)__ and shown in __Figure \@ref(fig:fig-normality)__. 
+Descriptive characteristic of the Innsbruck and TCGA cohorts was generated with the `explore(what = 'table', pub_styled = TRUE)` function (package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)) and is presented in __Table \@ref(tab:tab-cohort-demo-cancer)__ and __Table \@ref(tab:tab-cohort-hormones)__.
 
-## Comparison of seminoma and non-seminomatous germ cell tumors
+## Comparison of seminoma and non-seminomatous germ cell tumors in the Innsbruck cohort
 
 Demographic, clinical, pathological, therapy-related and endocrinologic parameters were compared between the histology types with Mann-Whitney test and r effect size statistic (numeric variables) or $\chi^2$ test with Cramer V effect size statistic (function `compare_variables()`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)). 
 The comparison results are presented in __Table \@ref(tab:tab-histology-demo-cancer)__ and __Table \@ref(tab:tab-histology-hormones)__.
-Differences in survival between the histology types were analyzed with log-rank test (function `surv_pvalue()`, package _survminer_, __Figure \@ref(fig:fig-histology-survival)__).
+Differences in survival between the histology types were analyzed with Peto-Peto test (function `surv_pvalue()`, package _survminer_, __Figure \@ref(fig:fig-histology-survival)__).
 
-## Multi-parameter signature of the histology types of testicle cancer
+## Multi-parameter signature of the histology types of testicle cancer in the Innsbruck cohort
 
 The multi-parameter model discriminating between the tumor histology types employing a wide range of demographic, clinical, pathological and endocrinologic explanatory variables (available observations: n = `r nrow(histo_class$analysis_tbl)`, __Figure \@ref(fig:fig-histology-class)__) was constructed with the conditional Random Forest algorithm [@Hothorn2022; @Hothorn2006; @Strobl2007] using the `train(method = 'cforest')` wrapper function from the package _caret_. 
 The optimal value of the `mtry` parameter (mtry = `r histo_class$model$bestTune$mtry[1]`) defining the size of random variable subset for tree model construction was found by 10-fold cross-validation of Random Forest models with varying parameter values. 
-The `mtry` tuning criterion was minimal value of Cohen's $\kappa$ in the cross-validation. 
-The remaining model parameters such as split rule (set to the maximum test statistic), splitting criterion (set to 1.28) and number of random trees (500) were specified by the control objects returned by the `cforest_classical()` function from the package _party_. 
+The `mtry` tuning criterion was minimal value of Cohen's $\kappa$ in the cross-validation setting. 
+The remaining model parameters such as split rule (set to the maximum test statistic), splitting criterion (set to 1.28) and number of random trees (1000) were specified in the control objects returned by the `cforest_classical()` function from the package _party_. 
 
 Performance statistics such as area under the ROC curve, sensitivity, specificity, Cohen's $\kappa$ and $R^2$ were retrieved from the model with the `summary()` method (package [_caretExtra_](https://github.com/PiotrTymoszuk/caretExtra)). 
 ROC curves for the Random Forest classifier in the training data and cross-validation were generated with the `plot(type = 'roc')` method (package [_caretExtra_](https://github.com/PiotrTymoszuk/caretExtra)). 
@@ -1128,10 +2227,10 @@ $$BS = \frac{1}{N}\sum_i^N(fitted_i - outcome_i)^2$$
 
 The key model performance statistics are presented in __Figure \@ref(fig:fig-histology-class)B__.
 
-Importance of the Random Forest model's explanatory variables was expressed as difference in out-of-bad (OOB) accuracy of the original model and a model with the particular variable randomly reshuffled (permutation importance, computed by `varimp()`, package _party_, __Figure \@ref(fig:fig-histology-class)A__). 
+Importance of the Random Forest model's explanatory variables was expressed as difference in out-of-bag (OOB) accuracy of the original model and a model with the particular variable randomly reshuffled (permutation importance, computed by `varimp()`, package _party_, __Figure \@ref(fig:fig-histology-class)A__). 
 
 
-## Components of pre-surgery sex hormone levels
+## Components of pre-surgery sex hormone levels in the Innsbruck cohort
 
 Trends or components of pre-surgery sex hormone levels treated as normalized, median-centered numeric variables were investigated by 4-dimensional PCA [@Croux2007; @Todorov2013] (function `reduce_data(kdim = 4, red_fun = 'pca')`). 
 The first four components of the PCA explained >90% of the entire hormone dataset variance as investigated by visual analysis of the scree plot (not shown). 
@@ -1143,28 +2242,26 @@ Column factors were visualized with a custom script.
 A total of n = `r nrow(pca$analysis_tbl)` observations were available for these analyses. 
 The results of component and correspondence analysis are presented in __Figure \@ref(fig:fig-hormone-components)__.
 
-## Definition of hormonal subsets with latent class analysis
+## Definition of hormonal subsets with latent class analysis in the Innsbruck cohort
 
 To define subsets of testicle cancers based on clinical strata of pre-surgery sex hormone levels (categorical variables, available observations: n = `r nrow(lca$analysis_tbl)`) termed further 'hormonal subsets', latent class analysis was employed (LCA, 5000 iterations, 5 algorithm runs, function `poLCA(maxiter = 5000, nrep = 5)`, package _poLCA_) [@Bandeen-roche1997; @Linzer2011].
 
 The optimal number of hormonal subsets was determined by comparing values of Bayesian Information Criterion (BIC) for LCA models with varying number of classes. 
 The LCA solution with k = 3 classes/hormonal subsets displayed the minimal BIC value suggestive of the optimal model fit. 
-Convergence of this model was achieved in n = `r lca$model$numiter` iterations out of 5000 iterations in total. 
-Posterior probabilities of assignment to particular hormone subsets and the final hormone assignment scheme (defined by the maximal posterior probability/modal assignment) are presented in __Table \@ref(tab:tab-lca-posterior)__ available as a supplementary Excel file.
+Convergence of this model was achieved in n = `r lca$model$numiter` iterations out of 5000 iterations in total (__Figure \@ref(fig:fig-lca-tuning)__). 
+Posterior probabilities of assignment to particular hormone subsets and the final hormone subset assignment scheme (defined by the maximal posterior probability/modal assignment) are presented in __Table \@ref(tab:tab-lca-posterior)__ available as a supplementary Excel file.
 
 Differences in distribution of sex hormone strata between the hormone subsets were assessed by $\chi^2$ test with Cramer V effect size statistic. 
-Differences in blood hormone concentrations expressed as numeric variables between the hormone subsets were investigated by Kruskal-Wallis test with $\eta^2$ effect size statistic (both comparison types done with `compare_variables()`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)). 
+Differences in blood hormone concentrations expressed as numeric variables between the hormone subsets were investigated by Kruskal-Wallis test with $\eta^2$ effect size statistic (both comparison types done with `compare_variables()`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA), __Figures \@ref(fig:fig-latent-classes)__ and __\@ref(fig:fig-hormone-classes)__). 
 
-## Demographic and clinical characteristic of the hormonal subsets
+## Demographic and clinical characteristic of the hormonal subsets of the Innsbruck cohort
 
-Demographic, clinical, pathological and therapy-related parameters were compared between the hormonal subsets with Kruskal-Wallis test and $\eta^2$ effect size statistic (numeric variables) or $\chi^2$ test with Cramer V effect size statistic (function `compare_variables()`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)). 
+Demographic, clinical, pathological and therapy-related parameters were compared between the hormonal subsets with Kruskal-Wallis test and $\eta^2$ effect size statistic (numeric variables) or $\chi^2$ test with Cramer V effect size statistic (categorical variables; function `compare_variables()`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)). 
 The comparison results are presented in __Table \@ref(tab:tab-classes)__. 
 Additionally, neutral and pituitary hormonal subset patients were split according to their AFP and HCG status (negative for both AFP/HCG versus positive for AFP or HCG) and differences between the status strata compared with Mann-Whitney test with r effect size statistic or $\chi^2$ test with Cramer V effect size statistic, as appropriate. 
 Significant differences identified in this analysis are presented in __Table \@ref(tab:tab-classes-markers)__.
 
-Differences in survival between the hormone subsets were analyzed with log-rank test (function `surv_pvalue()`, package _survminer_, __Figure \@ref(fig:fig-classes-survival)__).
-
-## Multi-paramater discrimination between the hormonal subsets
+## Multi-paramater discrimination between the hormonal subsets of the Innsbruck cohort
 
 A multi-parameter model allowing for discrimination between the hormone subsets with solely non-endocrine explanatory variables (available observations: n = `r nrow(class_rf$analysis_tbl)`, __Figure \@ref(fig:fig-classes-random-forest)A__) was established with the conditional Random Forest algorithm as described above for the histology types. 
 The optimal `mtry` parameter value obtained by cross-validation-based tuning with Cohen's $\kappa$ as the tuning metric was `r class_rf$model$bestTune$mtry[1]`. 
@@ -1172,9 +2269,50 @@ Model performance in the training dataset and 10-fold cross-validation was asses
 Confusion matrices of the predicted and actual hormone subset assignment were visualized with the `plot(type = 'confusion')` method provided by the [_caretExtra_](https://github.com/PiotrTymoszuk/caretExtra) package.
 Permutation importance for explanatory variables was computed as described for the  histology types and is presented in __Figure \@ref(fig:fig-classes-random-forest)A__.
 
-## Survival modeling
+## Expression of sex hormone-related genes in the TCGA cohort
 
-Effects of pre-surgery sex hormone levels expressed as numeric or factor variables on relapse-free survival was explored by univariable Cox regression (functions `coxph()` and `as_coxex()`, packages _survival_ and [_coxExtensions_](https://github.com/PiotrTymoszuk/coxExtensions)) [@Therneau2000]. 
+Expression of `r length(tcga$genes)` sex hormone-related genes in the tumor tissue of the TCGA cohort specimens was investigated in the current report (_`r paste(tcga$genes, collapse = ', ')`_, __Table \@ref(tab:tab-tcga-genes)__). 
+Differences in gene expression between seminoma and NSGCT samples were investigated by Mann-Whitney U test with r effect size statistic (function `compare_variables()`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)). 
+Trends in regulation of the gene expression were revealed by `r ncol(tcga_pca$pca_obj$tcga$component_tbl) - 1`-dimensional PCA (function `reduce_data(red_fun = 'pca', kdim = 8)`, package [_clustTools_](https://github.com/PiotrTymoszuk/clustTools)).
+
+## Hormonal subsets of the TCGA cancers
+
+Hormonal subsets of the TCGA cancers based on expression of the sex hormone-related genes in the tumor tissue were defined by Gaussian mixture modeling (function `Mclust()`, package _mclust_) [@Fraley2022; @Fraley2011]. 
+The optimal subset number (k = `r tcga_mix$model$G`) and model type (`r tcga_mix$model$modelName`) were motivated by the lowest value of BIC (__Figure \@ref(fig:fig-tcga-gmm)__). 
+Posterior probabilities of assignment to particular hormone subsets and the final hormone subset assignment scheme (defined by the maximal posterior probability/modal assignment) are presented in __Table \@ref(tab:tab-tcga-assignment)__ available as a supplementary Excel file.
+
+Differences in expression levels of the sex hormone-related genes of interest between the hormonal subsets were assessed by Kruskal-Wallis test and $\eta^2$ effect size statistic (function `compare_variables()`, [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)) and are presented in __Figure \@ref(fig:fig-tcga-class-features)__.
+
+## Demographic, clinical and biological differences between the homronal subsets of the TCGA collective
+
+Differences in demographic and clinical features between the hormonal subsets were assessed by Kruskal-Wallis test with $\eta^2$ effect size statistic or $\chi^2$ test with Cramer V effect size statistic, for numeric and categorical variables, respectively (function `compare_variables()`, [_ExDA_](https://github.com/PiotrTymoszuk/ExDA), __Table \@ref(tab:tab-tcga-class-clinic)__). 
+
+Gene signatures of the Reactome pathways were retrieved from the 
+[MSig database](https://www.gsea-msigdb.org/gsea/msigdb/collections.jsp) and gene signatures of metabolic subsystems of the [Recon model](http://bigg.ucsd.edu/) [@Gavai2015; @King2016] were accessed with the development package [_biggrExtra_](https://github.com/PiotrTymoszuk/biggrExtra) (function `extract_subsystems()`). 
+The signatures' single sample gene set enrichment analysis scores (ssGSEA scores) [@Hanzelmann2013] were calculated with the `calculate()` function from the development package [_gseaTools_](https://github.com/PiotrTymoszuk/gseaTools). 
+Differences in ssGSEA scores between the hormonal subsets were identified by FDR-corrected one-way ANOVA and linear modeling with the subsets SEM1 or NS PRL serving as baseline (function `test_anova()`, package [_microViz_](https://github.com/PiotrTymoszuk/microViz), __Tables \@ref(tab:tab-tcga-reactome)__ and __\@ref(tab:tab-tcga-recon)__).
+
+Infiltration of leukocytes, non-immune non-malignant cells and signatures of stroma, immunogenicity and microenvironment were predicted with the QuanTIseq [@Finotello2019] and xCell algorithms [@Aran2017] (function `deconvolute()`, package _immunedeconv_). 
+Differences in the infiltration levels and scores of signatures between the hormonal subsets were investigated by Kruskal-Wallis test with $\eta^2$ effect size statistic (function `compare_variables()`, [_ExDA_](https://github.com/PiotrTymoszuk/ExDA), __Table \@ref(tab:tab-tcga-infiltration)__). 
+
+Differential gene expression between the hormonal subsets was assessed by FDR-corrected one-way ANOVA and linear modeling with the subsets SEM1 or NS PRL serving as baselines (function `test_anova()`, package [_microViz_](https://github.com/PiotrTymoszuk/microViz)). 
+Genes differentially regulated in particular subsets as compared with the hormonal subset SEM1 or with the hormonal subset NS PRL met three criteria: 
+(1) significance in one-way ANOVA ($p_{ANOVA} < 0.05$), 
+(2) significance in linear modeling ($p(\beta\neq0) < 0.05$) and 
+(3) >1.5 fold regulation as compared with the baseline ($abs(\beta) > 1.5$). 
+The significantly differentially regulated genes are listed in the __Table \@ref(tab:tab-tcga-dge)__ available as a supplementary Excel file.
+
+Differential modulation of KEGG-listed signaling pathways in hormonal subsets as compared with the subsets SEM1 or NS PRL based on log~2~ fold-regulation estimates of the differentially regulated genes was predicted with the SPIA algorithm [@Tarca2009] (function `spia()`, package _SPIA_). 
+Significance of the pathway activity modulation was estimated with the combined enrichment/perturbation p value corrected for multiple testing with the false discovery rate method (parameter `pGFdr` of the `spia()` function output). 
+The `tA` parameter served as a pathway modulation metric [@Tarca2009]. 
+Significantly differentially modulated signaling pathways are presented in __Figures \@ref(fig:fig-tcga-signaling-sem1)__ - __\@ref(fig:fig-tcga-signaling-nsprl)__ and __Table \@ref(tab:tab-tcga-signaling)__.
+
+Levels of selected, cancer-relevant proteins in the TCGA cancers were semi-quantitatively measured by a reverse-phase protein array [@Liu2018]. 
+Differences in protein expression levels between the hormonal subsets were investigated by Kruskal-Wallis test with $\eta^2$ effect size statistic (function `compare_variables()`, [_ExDA_](https://github.com/PiotrTymoszuk/ExDA), __Table \@ref(tab:tab-tcga-protein)__).
+
+## Survival analysis and modeling in the Innsbruck cohort
+
+Effects of pre-surgery sex hormone levels in the Innsbruck cohort expressed as numeric or factor variables on relapse-free survival was explored by univariable Cox regression (functions `coxph()` and `as_coxex()`, packages _survival_ and [_coxExtensions_](https://github.com/PiotrTymoszuk/coxExtensions)) [@Therneau2000]. 
 To improve normality of numeric explanatory variables, the square root transformation was applied (__Table \@ref(tab:tab-best-transformation)__). 
 Numeric variables were included in the models as solely first-order terms and as both first- and second-order terms to account for non-linear association between the explanatory variable and relapse-free survival. 
 Numeric variables were additionally normalized prior to modeling. 
@@ -1182,16 +2320,60 @@ Model's proportional hazard assumption was checked with the `summary(type = 'ass
 Model fit stats (Harrell's concordance index [C], $R^2$, Integrated Brier Score [IBS]) [@Graf1999; @Harrell1996] were computed with the `summary(type = 'fit')` for the training data and with the `validate()` method for 10-fold cross validation (package [_coxExtensions_](https://github.com/PiotrTymoszuk/coxExtensions)). 
 Model estimates expressed as hazard ratios (HR) with their confidence intervals and statistical significance assessed by z test were calculated with the `summary(type = 'inference')` method from the [_coxExtensions_](https://github.com/PiotrTymoszuk/coxExtensions) package.
 
+Differences in relapse-free survival between the hormone subsets of the Innsbruck collective were analyzed with Peto-Peto test (function `surv_pvalue()`, package _survminer_, __Figure \@ref(fig:fig-classes-survival)__).
+
 Multi-parameter survival regression was done with the Elastic Net Cox algorithm implemented by the _glmnet_ package [@Friedman2010; @Zou2005; @Simon2011]. 
 The initial explanatory variable set encompassed `r length(multi_cox$variables)` demographic, clinical, pathological and endocrinologic variables listed in __Table \@ref(tab:tab-elastic-net)__. 
 Pre-processing of numeric variables was identical as in case of the univariate survival modeling. 
-The optimal value of the shrinkage factor $\lambda$ ($\lambda$ = `r signif(multi_cox$opt_lambda$lambda, 2)`) was found by 100-repeats 10-fold cross-validation done with the `cv.glmnet()` function (package _glmnet_) and corresponded to the minimal cross-validated model deviance. 
+The optimal values of the shrinkage factor $\lambda$ ($\lambda$ = `r signif(multi_cox$opt_lambda$lambda, 2)`) were found by 100-repeats 10-fold cross-validation done with the `cv.glmnet()` function (package _glmnet_) and corresponded to the minimal cross-validated model deviance. 
 The final Elastic Net model was constructed for the optimal $\lambda$ parameter with the `glmnet()` function (package _glmnet_). 
-HR values for the non-zero model estimates were retrieved with the `coef()` method and visualized in __Figure \@ref(fig:fig-multi-cox)A__. 
-Subsequently, the association of the linear predictor score of the glmnet model with relapse-free survival was assessed by canonical univariable Cox regression as described above. 
-Concordance of the Elastic Net model was assessed by Harrell's C index, model calibration was investigated by plotting Brier scores as a function of survival time and visual analysis of relapse-free survival in tertiles of the Elastic Net model linear score (__Figure \@ref(fig:fig-multi-cox)S__).
+HR values for the non-zero model estimates were retrieved with the `coef()` method and visualized in __Figure \@ref(fig:fig-multi-cox)A__.
+Subsequently, the association of the linear predictor score of the glmnet model (method `predict()`, package _glmnet_) with relapse-free survival was assessed by canonical univariable Cox regression as described above. 
+Concordance of the Elastic Net model was assessed by Harrell's C index [@Harrell1996] and fit error was gauged by integrated Brier scores [@Graf1999]. 
+Model calibration was investigated by plotting Brier scores (function `surv_brier()`, [_coxExtensions_](https://github.com/PiotrTymoszuk/coxExtensions)) as a function of survival time and visual analysis of relapse-free survival in tertiles of the Elastic Net model linear predictor score (Innsbruck: __Figure \@ref(fig:fig-multi-cox)B__).
+
+## Survival analysis in the TCGA cohort
+
+Effects of varying expression of the sex hormone-related genes in the TCGA cancers on relapse-free survival were assessed by comparison of survival between high and low gene expressors (dichotimization by the maximum of the log-rank statistic, minimal stratum size: 20% of the dataset, function `surv_cutpoint()`, package _survminer_). 
+Due to strongly non-normal and, in some cases, multi-modal distribution of the gene expression values, survival analysis via Cox modeling was not feasible. 
+Statistical significance of survival differences between the gene expression strata was assessed by Peto-Peto test (function `surv_pvalue`, package _survminer_, __Figure \@ref(fig:fig-tcga-gene-survival)__, __Table \@ref(tab:tab-tcga-relapse)__). 
+
+Differences in relapse-free survival between the hormone subsets of the TCGA cohort were analyzed with a series of globals and pair-wise Peto-Peto tests (function `surv_pvalue()`, package _survminer_, __Figure \@ref(fig:fig-tcga-subsets-survival)__).
+
+Multi-parameter survival regression was done with the Elastic Net Cox algorithm [@Friedman2010; @Zou2005; @Simon2011] essentially as described for the Innsbruck collective. 
+Three Elastic Net models were developed:
+
+1. a model with solely clinical explanatory variables (age, tumor stage, histology, serum cancer maker status and radiotherapy)
+
+2. a model with the clinical parameters listed above along with the expression strata of the sex hormone-related genes defined in the univariable survival analysis
+
+3. a model with the clinical information and the hormonal subset assignment scheme
+
+The optimal values of the shrinkage factor $\lambda$ found by 100-repeats 10-fold cross-validation were 
+`r signif(tcga_cox$opt_lambda$lambda[1], 2)`, 
+`r signif(tcga_cox$opt_lambda$lambda[2], 2)` and 
+`r signif(tcga_cox$opt_lambda$lambda[3], 2)` for the clinical, clinical/expression strata and clinical/hormonal subset model, respectively. 
+HR values for the non-zero model estimates are visualized in __Figure \@ref(fig:fig-tcga-elnet-coeffs)__. 
+Performance of the models was assessed by C-index and     IBS as described above (__Figure \@ref(fig:fig-tcga-elanet-performance)__). 
+Inspection of Brier scores for subsequent time points and visual analysis of survival in tertiles of the linear predictor scores of the Elastic Net models was employed to assess model calibration (__Figure \@ref(fig:fig-tcga-elanet-calibration)__ and __Figure \@ref(fig:fig-tcga-elanet-tertiles)__). 
 
 <hr style = "border-top: 5px solid #417a8b" />
+
+## Similarity of the homonal subsets of the TCGA collective
+
+Cosine cross-similarities in respect to Reactome pathway ssGSEA scores, Recon subsystem ssGSEA scores, QuanTIseq and xCell infiltration estimates, whole-transcriptome and protein expression each were computed with the function `simil()` from the _proxy_ package [@Meyer2022]. 
+The similarity matrices were subsequently converted to force-directed graphs using _igraph_ (function `graph_from_adjacency_matrix()`) [@Csardi2006] and visualized using _ggnetwork_ [@Briatte2021].
+
+## Assignment of the testicular TCGA cancers into the hormonal subsets based on gene signature, infiltration and transcriptome data
+
+A classifier of the TCGA samples to the hormonal subsets employing the Reactome pathway ssGSEA scores, Recon subsystem ssGSEA scores, xCell infiltration estimates and log~2~-transformed gene expression data was developed with the canonical Random Forest algorithm [@Breiman2001]. 
+This algorithm was chosen because of its fast, robust and memory-sparing handling of large scale data, in particular in its novel R implementation, the _ranger_ package [@Wright2017]. 
+The explanatory variables were normalized and median-centered prior to modeling (function `center_data()`, [_clustTools_](https://github.com/PiotrTymoszuk/clustTools)). 
+The Random Forest model was constructed with the `train(method = 'ranger')` wrapper function provided by the _caret_ package [@Kuhn2008] and tested in 50-fold cross-validation. 
+The `mtry` parameter value was set `r tcga_rf$model$bestTune$mtry`, which corresponded to the third of the explanatory variable number and is considered as a reasonable default setting [@Breiman2001]. 
+The model included 2000 random trees, the maximal Gini coefficient served as the variable splitting rule. 
+Performance of the model was assessed in a similar way as for the hormonal subsets of the Innsbruck collective with the overall accuracy and Cohen's $\kappa$ metric (__Figure \@ref(fig:fig-tcga-classifier-performance)__). 
+Importance of the explanatory variables was determined by permutation as outlined in detail for the Innsbruck cohort (__Figure \@ref(fig:fig-tcga-classifier-signatures)__ - __Figure \@ref(fig:fig-tcga-classfier-expression)__).
 
 # Data and code availability
 
