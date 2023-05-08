@@ -19,7 +19,11 @@ The analysis pursues thee goals:
 <img src = "https://user-images.githubusercontent.com/80723424/233738860-8d88f793-04c6-46a4-bcb8-42efd38b5767.png" width = "65%">
 </p>
 
-These tasks are addressed in a local Innsbruck cohort of 518 testis cancer patients and the testis cancer collactive of the TCGA pan-cancer project (n = 149). You may follow the analysis progress [here](https://github.com/PiotrTymoszuk/TesCa_hormones/tree/main/report).
+These tasks are addressed in a multicenter retrospective cohort of 518 testis cancer patients and the testis cancer collactive of the TCGA pan-cancer project (n = 149). 
+<br>
+You may follow the analysis progress [here](https://github.com/PiotrTymoszuk/TesCa_hormones/tree/main/report).
+<br>
+Parts of the Testicular Cancer manuscript with analyses of the retrospective cohort (Figures, Tables, Supplement) are available [here](https://github.com/PiotrTymoszuk/TesCa_hormones/tree/main/tesca%20paper).
 
 ## Terms of use
 
