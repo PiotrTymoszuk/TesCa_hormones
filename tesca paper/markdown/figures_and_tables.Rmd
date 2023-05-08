@@ -1,0 +1,219 @@
+---
+title: "Preoperative sex hormone homeostasis and imbalance in testicular cancer: a population-based study"
+subtitle: "Figures and Tables"
+author: "Uro Registry Study Team"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+
+output: 
+  bookdown::html_document2:
+    css: "style.css"
+    
+bibliography: tesca.bib
+
+csl: frontiers_medical.csl
+
+header-includes:
+  \usepackage{longtable}
+  \usepackage{tabu}
+  \usepackage{caption}
+  \usepackage{makecell}
+  \usepackage{pdflscape}
+  \usepackage{array}
+  \usepackage{booktabs}
+  \usepackage{threeparttable}
+  \usepackage{threeparttablex}
+  \usepackage{wrapfig}
+  \usepackage{multirow}
+  \usepackage[normalem]{ulem}
+  \usepackage{colortbl}
+  \usepackage{xcolor}
+  \usepackage{float} \floatplacement{figure}{H} \floatplacement{table}{H}
+
+---
+
+```{r, setup, include = FALSE}
+
+
+opts_chunk$set(echo = FALSE, 
+                      warning = FALSE, 
+                      message = FALSE, 
+                      dev = "png", 
+                      dpi = 600)
+
+set_flextable_defaults(font.family = "Cambria", 
+                       font.size = 10)
+
+
+```
+
+\newpage
+
+# Tables
+
+```{r tab-cohort, tab.cap = 'Demographic and cancer-related characteristic of the retrospective study cohort. Numeric variables are presented as medians with interquartile ranges (IQR) and ranges. Categorical variables are presented as percentages and counts within the complete observation set.'}
+
+tes_tables$cohort %>% 
+  map_dfc(stri_replace, regex = 'm2$', replacement = 'm\u00B2') %>% 
+  flextable %>% 
+  width(1, width = 6, unit = 'cm') %>% 
+  width(2, width = 5, unit = 'cm') %>% 
+  footnote(1, 1, 
+           value = as_paragraph('IGCCCG: International Germ Cell Cancer Collaborative Group; AFP: alpha fetoprotein; HCG: human chorionic gonadotropin; LDH: lactate dehydrogenase.'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
+  theme_vanilla
+
+```
+
+\newpage
+
+```{r tab-histology, tab.cap = 'Demographic, cancer-related and endocrine parameters differing significantly between seminoma and non-seminomatous germ cell tumors (NSGCT) Numeric variables are presented as medians with interquartile ranges (IQR) and ranges. Categorical variables are presented as percentages and counts within the complete observation set.'}
+
+flextable::flextable(tes_tables$histology) %>% 
+   width(1, width = 3.5, unit = 'cm') %>% 
+  width(2:3, width = 4.5, unit = 'cm') %>% 
+  width(4, width = 2.7, unit = 'cm') %>% 
+  width(5, width = 2.4, unit = 'cm') %>%
+  footnote(1, 1, 
+           value = as_paragraph('IGCCCG: International Germ Cell Cancer Collaborative Group; AFP: alpha fetoprotein; LDH: lactate dehydrogenase; HCG: human chorionic gonadotropin, Marker status: AFP/HCG+ - positive for AFP or HCG, AFP/HCG- - negative for AFP and HCG; E2: estradiol; PRL: prolactin; FSH: follicle-stimulating hormone; LH: luteinizing hormone.'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
+  footnote(1, 4:5, 
+           value = as_paragraph('Numeric variables: Mann-Whitney test with r effect size statistic. Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic. P values corrected for multiple testing with the false discovery rate method.'), 
+           part = 'header', 
+           ref_symbols = 'b') %>% 
+  theme_vanilla
+
+```
+
+\newpage
+
+```{r tab-hormones, tab.cap = 'Preoperative serum concentrations of sex hormones in the retrospective study cohort Numeric variables are presented as medians with interquartile ranges (IQR) and ranges. Categorical variables are presented as percentages and counts within the complete observation set.'}
+
+flextable::flextable(tes_tables$hormones) %>% 
+  width(1, width = 6.5, unit = 'cm') %>% 
+  width(2, width = 5, unit = 'cm') %>% 
+  footnote(1, 1, 
+           value = as_paragraph('T: testosterone; E2: estradiol; PRL: prolactin; FSH: follicle-stimulating hormone; LH: luteinizing hormone.'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
+  theme_vanilla
+
+```
+
+\newpage
+
+```{r tab-subsets, tab.cap = 'Significant differences in demographic, clinical and pathologic parameters between the hormonal subsets of the retrospective cohort. Numeric variables are presented as medians with interquartile ranges (IQR) and ranges. Categorical variables are presented as percentages and counts within the complete observation set.'}
+
+tes_tables$subsets %>% 
+  map_dfc(stri_replace, regex = 'm2$', replacement = 'm\u00B2') %>% 
+  flextable %>% 
+   width(1, width = 3.4, unit = 'cm') %>% 
+  width(2:4, width = 4.1, unit = 'cm') %>% 
+  width(5, width = 2.5, unit = 'cm') %>% 
+  width(6, width = 2.2, unit = 'cm') %>%
+  footnote(1, 1, 
+           value = as_paragraph('IGCCCG: International Germ Cell Cancer Collaborative Group; AFP: alpha fetoprotein; LDH: lactate dehydrogenase; HCG: human chorionic gonadotropin; Marker status: AFP/HCG+ - positive for AFP or HCG, AFP/HCG- - negative for AFP and HCG.'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
+  footnote(1, 5:6, 
+           value = as_paragraph('Numeric variables: Mann-Whitney test with r effect size statistic. Categorical variables: \u03C7\u00B2 test with Cramer V effect size statistic. P values corrected for multiple testing with the false discovery rate method.'), 
+           part = 'header', 
+           ref_symbols = 'b') %>% 
+  theme_vanilla
+
+```
+
+\newpage
+
+# Figures
+
+```{r fig-histology, fig.width = figur::convert(tes_figures$histology, to = 'in')$w, fig.height = figur::convert(tes_figures$histology, to = 'in')$h, fig.cap = 'Onset age, staging, invasiveness, serum cancer markers, and relapse-free survival in seminoma and non-seminomatous germ cell tumors.'}
+
+tes_figures$histology$plot
+
+```
+
+__Figure \@ref(fig:fig-histology). Onset age, staging, invasiveness, serum cancer markers, and relapse-free survival in seminoma and non-seminomatous germ cell tumors.__ 
+
+_Differences in numeric variables between seminoma and non-seminomatous germ cell tumors (NSGCT) were investigated by Mann-Whitney test with r effect size statistic. Differences in categorical variables were assessed by $\chi^2$ test with Cramer V effect size statistic. Statistical significance for differences in relapse-free survival between seminoma and NSGCT was determined by Peto-Peto test. P values were corrected for multiple testing with the false discovery rate method. Numeric values are presented in violin plots wit single observations depicted as points and medians with interquartile ranges represented by red diamonds and whiskers. Percentages of categories of qualitative variables are presented in stack plots. Fractions of surviving patients are shown in a Kaplan-Meier plots. Effect sizes and p values are displayed in the plot captions or in the Kaplan-Meier plot. Numbers of complete observations are indicated in the X axes or plot legends. Numbers of patients with complete survival data and numbers of relapses are shown in the caption of the Kaplan-Meier plot._
+
+_CS Lugano: clinical stage Lugano; IGCCCG: International Germ Cell Cancer Collaborative Group risk strata; LVI: lymphovascular invasion; AFP: alpha fetoprotein; HCG: human chorionic gonadotropin; LDH: lactate dehydrogenase._
+
+\newpage
+
+```{r fig-histo-gonadal, fig.width = figur::convert(tes_figures$histo_gonadal, to = 'in')$w, fig.height = figur::convert(tes_figures$histo_gonadal, to = 'in')$h, fig.cap = 'Differences in preoperative serum levels of gonadal sex hormones between seminoma and non-seminomatous germ cell tumors.'}
+
+tes_figures$histo_gonadal$plot
+
+```
+
+__Figure \@ref(fig:fig-histo-gonadal). Differences in preoperative serum levels of gonadal sex hormones between seminoma and non-seminomatous germ cell tumors.__ 
+
+_Differences in serum concentrations of testosterone (T) and estradiol (E2) between between seminoma and non-seminomatous germ cell tumors (NSGCT) were assessed by Mann-Whitney test with r effect size statistic. Differences in frequency of clinical strata of hormone levels were investigated by $\chi^2$ test with Cramer V effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Numeric variables are presented in violin plots with single observations depicted as points, and medians with interquartile ranges represented by red diamonds and whiskers. Frequencies for levels of categorical variables are shown in stack plots. Effect sizes and p values are displayed in the plot captions. Numbers of complete observations are indicated in the X axes._
+
+\newpage
+
+```{r fig-histo-pituitary, fig.width = figur::convert(tes_figures$histo_pituitary, to = 'in')$w, fig.height = figur::convert(tes_figures$histo_pituitary, to = 'in')$h, fig.cap = 'Differences in preoperative serum levels of pituitary sex hormones between seminoma and non-seminomatous germ cell tumors.'}
+
+tes_figures$histo_pituitary$plot
+
+```
+
+__Figure \@ref(fig:fig-histo-pituitary). Differences in preoperative serum levels of pituitary sex hormones between seminoma and non-seminomatous germ cell tumors.__ 
+
+_Differences in blood concentrations of follicle-stimulating hormone (FSH), luteinizing hormone (LH) and prolactin (PRL) between between seminoma and non-seminomatous germ cell tumors (NSGCT) were assessed by Mann-Whitney test with r effect size statistic. Differences in frequency of clinical strata of hormone levels were investigated by $\chi^2$ test with Cramer V effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Numeric variables are presented in violin plots with single observations depicted as points, and medians with interquartile ranges represented by red diamonds and whiskers. Frequencies for levels of categorical variables are shown in stack plots. Effect sizes and p values are displayed in the plot captions. Numbers of complete observations are indicated in the X axes._
+
+\newpage
+
+```{r fig-subsets-hormones, fig.width = figur::convert(tes_figures$subsets_hormones, to = 'in')$w, fig.height = figur::convert(tes_figures$subsets_hormones, to = 'in')$h, fig.cap = 'Preoperative levels of sex hormones in the hormonal subsets of the retrospective cohort.'}
+
+tes_figures$subsets_hormones$plot
+
+```
+
+__Figure \@ref(fig:fig-subsets-hormones). Preoperative levels of sex hormones in the hormonal subsets of the retrospective cohort.__
+
+_Three hormonal subsets of the retrospective cohort patients were defined by latent class analysis of clinical strata of preoperative levels of sex hormones (T: total testosterone, E: estradiol, FSH: follicle-stimulating hormone, LH: luteinizing hormone, PRL: prolactin)._
+
+_(A) Differences in frequency of clinical strata of serum hormone concentrations between the hormonal subsets were investigated by $\chi^2$ test with Cramer V effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Frequencies for levels of categorical variables are shown in stack plots. Effect sizes and p values are displayed in the plot captions. Numbers of observations in the hormonal subsets are indicated in the X axes._
+
+_(B) Differences in normalized, median-centered absolute concentrations (Z-scores) of sex hormones between the hormonal subsets were assessed by Kruskal-Wallis test with $\eta^2$ effect size statistic. P values were adjusted for multiple testing with the false discovery rate method. All differences were significant with p < 0.001. Mean Z-scores with 2 $\times$ standard error of the mean (SEM) are presented in a radar plot as this lines with tinted ribbons. Effect sizes are indicated in the plot. Numbers of complete observations in the hormonal subsets are indicated in the plot legend._
+
+\newpage
+
+```{r fig-subsets-clinics, fig.width = figur::convert(tes_figures$subsets_clinics, to = 'in')$w, fig.height = figur::convert(tes_figures$subsets_clinics, to = 'in')$h, fig.cap = 'Differences in onset age, body mass, staging, histology, invasiveness and relapse-free survival between the hormonal subsets of the retrospective cohort.'}
+
+tes_figures$subsets_clinics$plot
+
+```
+
+__Figure \@ref(fig:fig-subsets-clinics). Differences in onset age, body mass, staging, histology, invasiveness and relapse-free survival between the hormonal subsets of the retrospective cohort.__ 
+
+_Differences in numeric variables between the hormonal subsets were investigated by Kruskal-Wallis test with $\eta^2$ effect size statistic. Differences in categorical variables were assessed by $\chi^2$ test with Cramer V effect size statistic. Statistical significance for differences in relapse-free survival between seminoma and NSGCT was determined by Peto-Peto test. P values were corrected for multiple testing with the false discovery rate method. Numeric values are presented in violin plots wit single observations depicted as points and medians with interquartile ranges represented by red diamonds and whiskers. Percentages of categories of qualitative variables are presented in stack plots. Fractions of surviving patients are shown in a Kaplan-Meier plots. Effect sizes and p values are displayed in the plot captions or in the Kaplan-Meier plot. Numbers of observations in the hormonal subsets are indicated in the X axes or plot legends. Numbers of patients with complete survival data and numbers of relapses are shown in the caption of the Kaplan-Meier plot._
+
+_BMI: body mass index; CS Lugano: clinical stage Lugano; LVI: lymphovascular invasion._
+
+\newpage
+
+```{r fig-subsets-markers, fig.width = figur::convert(tes_figures$subsets_markers, to = 'in')$w, fig.height = figur::convert(tes_figures$subsets_markers, to = 'in')$h, fig.cap = 'Serum concentrations of cancer markers in the hormonal subsets.'}
+
+tes_figures$subsets_markers$plot
+
+```
+
+__Figure \@ref(fig:fig-subsets-markers). Serum concentrations of cancer markers in the hormonal subsets.__ 
+
+_Differences in blood concentrations of alpha fetoprotein (AFP) and human chorionic gonadotropin (HCG), and activity of lactate dehydrogenase (LDH) were compared between the hormonal subsets by Kruskal-Wallis test with $\eta^2$ effect size statistic. Differences in distribution of AFP, HCG and LDH clinical strata were assessed by $\chi^2$ test with Cramer V effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Numeric variables are presented in violin plots with single observations depicted as points, and medians with interquartile ranges represented by red diamonds and whiskers. Frequencies for levels of categorical variables are shown in stack plots. Effect sizes and p values are displayed in the plot captions. Numbers of observations in the hormonal subsets are indicated in the X axes._
+
+\newpage
+
+```{r fig-tcga-histology, fig.width = figur::convert(tes_figures$tcga_histology, to = 'in')$w, fig.height = figur::convert(tes_figures$tcga_histology, to = 'in')$h, fig.cap = 'Expression of sex hormone-related genes in the malignant tissue of seminoma and NSGCT samples from the TCGA cohort.'}
+
+tes_figures$tcga_histology$plot
+
+```
+
+__Figure \@ref(fig:fig-tcga-histology). Expression of sex hormone-related genes in the malignant tissue of seminoma and non-seminomatous germ cell tumors samples from the TCGA cohort.__ 
+
+_Expression of sex hormone-related genes was presented as log~2~-transformed normalized transcript counts. Differences in gene expression between seminoma and non-seminomatous germ cell tumors (NSGCT) were assessed by Mann-Whitney test with r effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Expression values are presented in violin plots with single samples depicted as points and red diamonds with whiskers representing medians with interquartile ranges. Effect sizes and p values are shown in the plot captions. Numbers of complete observations are indicated in the X axes._

@@ -1,0 +1,344 @@
+---
+title: "Preoperative sex hormone homeostasis and imbalance in testicular cancer: a population-based study"
+subtitle: "Supplementary Material"
+author: "Uro Registry Study Team"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+
+output: 
+  bookdown::html_document2:
+    css: "style.css"
+    
+bibliography: tesca.bib
+
+csl: frontiers_medical.csl
+
+header-includes:
+  \usepackage{longtable}
+  \usepackage{tabu}
+  \usepackage{caption}
+  \usepackage{makecell}
+  \usepackage{pdflscape}
+  \usepackage{array}
+  \usepackage{booktabs}
+  \usepackage{threeparttable}
+  \usepackage{threeparttablex}
+  \usepackage{wrapfig}
+  \usepackage{multirow}
+  \usepackage[normalem]{ulem}
+  \usepackage{colortbl}
+  \usepackage{xcolor}
+  \usepackage{float} \floatplacement{figure}{H} \floatplacement{table}{H}
+
+---
+
+```{r, setup, include = FALSE}
+
+
+opts_chunk$set(echo = FALSE, 
+                      warning = FALSE, 
+                      message = FALSE, 
+                      dev = "png", 
+                      dpi = 600)
+
+set_flextable_defaults(font.family = "Cambria", 
+                       font.size = 10)
+
+
+```
+
+\newpage
+
+# Supplementary Methods
+
+## Data sources
+
+The retrospective cohort study dataset was provided as an Excel sheet. 
+Data import in R was accomplished with the `read_xslx()` R function (package _readxl_) [@Wickham2022]. 
+The dataset was formatted with an in-house developed script. 
+
+Predominantly embryonic cancers, predominantly teratoma, predominantly yolk sac cancers and predominantly chorionic cancers were defined by the cutoff of $\geq$ 75% of the respective histology in pathological examination. 
+Tumor stages and Lugano clinical stages were expressed in simplified form as 'I', 'II', 'III'. 
+Laboratory parameter values beyond the detection range were set to their respective lower and upper detection limit. 
+
+Laboratory parameters were stratified as follows:
+
+* lactate dehydrogenase (LDH): normal: 0 - 250 U/L, elevated: > 250 U/L
+* alpha fetoprotein: normal: 0 - 7 ng/mL, elevated: > 7 ng/mL
+* human chorionic gonadotropin (HCG): normal: 0 - 2 IU/L, elevated: > 2 IU/L
+* total testosterone (T total): low: 0 - 3.5 ng/mL, normal: 3.5 - 9 ng/mL, elevated: > 9 ng/mL
+* estradiol (E2): low: 0 - 20 pg/mL, normal: 20 - 55 pg/mL, elevated: > 55 pg/mL
+* follicle stimulating hormone (FSH): low: 0 - 1 mU/mL, normal: 1 - 10 mU/mL, elevated: > 10 mU/mL
+* luteinizing hormone (LH): low: 0 - 1.7 mU/mL, normal: 1.7 - 8.6 mU/mL, elevated: > 8.6 mU/mL
+* prolactin (PRL): normal: 0 - 480 µU/mL, elevated: > 480 µU/mL
+
+Tumor marker positivity (AFP/HCG+) was defined as at least one of AFP or HCG being elevated according to the cutoffs presented above.
+
+In the current analysis, n = `r nrow(tesca$data)` testis cancer patients of the retrospective cohort with $\leq$ 50% missing variables were included (__Supplementary Figure S\@ref(fig:fig-inclusion-scheme)__).
+
+The testicle cancer dataset (clinical information, expression) of the TCGA pan-cancer project [@Liu2018] with n = 
+`r nrow(tcga$clinical)` specimens was fetched from [cBioPortal](https://www.cbioportal.org/). 
+The R import and formatting was accomplished with an in-house developed script.
+
+## Software
+
+Data analysis was done with R version 4.2.3.
+
+Tabular data was handled with the _tidyverse_ package bundle [@Wickham2019], _rlang_ [@Henry2022] and [_trafo_](https://github.com/PiotrTymoszuk/trafo).
+Text data manipulation and search was accomplished with _stringi_ [@Gagolewski2021]. 
+
+Descriptive statistics were computed with _DescTools_ [@Signorell2022], _rstatix_ [@Kassambara2021] and [_ExDA_](https://github.com/PiotrTymoszuk/ExDA). 
+Statistical hypothesis testing was done for numeric and categorical variables with the packages _rstatix_ [@Kassambara2021] and [_ExDA_](https://github.com/PiotrTymoszuk/ExDA), and with the _survival_ [@Therneau2000] and _survminer_ [@Kassambara2016] packages for survival data.
+
+Principal component analysis (PCA) was performed with the development package [_clustTools_](https://github.com/PiotrTymoszuk/clustTools) employing the pcaPP algorithm by Croux et al. [@Croux2007; @Todorov2013]. 
+Multi-dimensional correspondence analysis (MCA) was done with the _MASS_ package [@Ripley2022]. 
+Hormonal subsets of testicle cancers in the retrospective cohort were defined by maximum-likelihood latent class analysis (LCA) done with _poLCA_ [@Bandeen-roche1997; @Linzer2011]. 
+
+Multi-parameter classifiers of hormonal subsets of testicular cancer were established for the retrospective cohort with the conditional Random Forest algorithm [@Strobl2007; @Hothorn2006] provided by the package _party_ [@Hothorn2022]. 
+For cross-validation, computation of fit statistics and quality control of the Random Forest models, the packages _caret_ [@Kuhn2008] and the development package [_caretExtra_](https://github.com/PiotrTymoszuk/caretExtra). 
+
+Analysis results were visualized with _ggplot2_ [@Wickham2016] (bar, scatter and bubble plots, heat maps), [_ExDA_](https://github.com/PiotrTymoszuk/ExDA) (violin, box, stack and radar plots), [_caretExtra_](https://github.com/PiotrTymoszuk/caretExtra), _survminer_ [@Kassambara2016] (Kaplan-Meier plots), [_clustTools_](https://github.com/PiotrTymoszuk/clustTools) (PCA loadings and MCA column factors). 
+Report figures were generated with _cowplot_ [@Wilke2019]. 
+Tables were created with _flextable_ [@Gohel2022]. 
+
+Supplementary Material and parts of the manuscript were written in the _rmarkdown_ environment [@Allaire2022] with the package _bookdown_ [@Xie2016]. 
+Management of figures, tables, links and references in the rmarkdown document was accomplished with [_figur_](https://github.com/PiotrTymoszuk/figur).
+The report was rendered as a html document with _knitr_ [@Xie2022] and _rmdformats_ [@Barnier2022]. 
+
+## Statistical significance and multiple testing adjustment
+
+If not indicated otherwise, statistical testing p values were corrected for multiple testing with the false discovery rate method (FDR) [@Benjamini1995] within each analysis task. 
+Effects with FDR-corrected p < 0.05 are considered statistically significant.
+Effect sizes for categorical variables were defined with the Cramer V effect size statistic with the following cutoffs: $\leq$ 0.3: weak, 0.3 - 0.6: moderate, > 0.6: strong. 
+Effect sizes for numeric variables analyzed with Mann-Whitney test were assessed by r effect size statistic with the following cutoffs: $\leq$ 0.3: small, 0.3 - 0.5: moderate; > 0.5: strong. 
+Effect sizes for numeric variables analyzed with Kruskal-Wallis test were investigated by $\eta^2$ effect size metrics with the following cutoffs: $\leq$ 0.13: weak, 0.13 - 0.26: moderate, > 0.26: strong. 
+Accuracy was assessed by Cohen's $\kappa$ inter-rater reliability measure with the following effect size cutoffs: $\leq$ 0.4: weak, 0.4 - 0.6: moderate,  0.6 - 0.8: good, > 0.8: very good.
+
+## Explorative data analysis
+
+Numeric variables are presented in the text and tables as medians with interquartile ranges (IQR), ranges and numbers of complete observations. 
+Qualitative variables are presented as percentages and counts of the categories within the complete observation set. 
+Descriptive characteristic of the retrospective and TCGA cohorts was generated with the `explore(what = 'table', pub_styled = TRUE)` function (package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)) and is presented in __Table 1__, __Table 3__ and __Supplementary Table S\@ref(tab:tab-tcga)__.
+
+Normality of numeric variables was assessed with Shapiro-Wilk test (function `explore()`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA) and quantile-quantile plots. 
+Since multiple numeric variables were not-normally distributed, non-parametric statistical hypothesis tests were used.
+
+## Comparison of seminoma and non-seminomatous germ cell tumors in the retrospective cohort
+
+Demographic, clinical, pathological, therapy-related and endocrine parameters were compared between the histology types with Mann-Whitney test and r effect size statistic (numeric variables) or $\chi^2$ test with Cramer V effect size statistic (function `compare_variables()`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)). 
+The comparison results are presented in __Table 2__, __Figures 1 - 3__ and __Supplementary Figure S\@ref(fig:fig-histo-markers)__.
+Differences in survival between the histology types were analyzed with Peto-Peto test (function `surv_pvalue()`, package _survminer_, __Figure 1__).
+
+## Co-regulation of pre-surgery sex hormones in the retrospective cohort
+
+Co-regulation of pre-surgery sex hormones treated as normalized, median-centered absolute concentrations were investigated by 4-dimensional PCA [@Croux2007; @Todorov2013] (function `reduce_data(kdim = 4, red_fun = 'pca')`, package [_clustTools_](https://github.com/PiotrTymoszuk/clustTools)). 
+The first four components of the PCA explained >90% of the entire hormone dataset variance as investigated by visual analysis of the scree plot (not shown). 
+PCA loadings for the first two major principal components were visualized with the `plot(type = 'loadings')` method (package [_clustTools_](https://github.com/PiotrTymoszuk/clustTools)). 
+
+Trends or overlaps in strata of sex hormone levels (concentrations stratified by limits of reference ranges) were explored by two-dimensional MCA performed with the `mca()` function from the _MASS_ package [@Ripley2022]. 
+Column factors were visualized with a custom script. 
+
+A total of n = `r nrow(pca$analysis_tbl)` observations were available for these analyses. 
+The results of component and correspondence analysis are presented in 
+__Supplementary Figure S\@ref(fig:fig-hormone-components)__.
+
+## Definition of hormonal subsets with latent class analysis in the retrospective cohort
+
+To define subsets of testicular cancers based on clinical strata of pre-surgery sex hormone levels (categorical variables, absolute concentrations stratified by limits of their reference ranges, available observations: n = `r nrow(lca$analysis_tbl)`) termed further 'hormonal subsets', LCA was employed (5000 iterations, 5 algorithm runs, function `poLCA(maxiter = 5000, nrep = 5)`, package _poLCA_) [@Bandeen-roche1997; @Linzer2011].
+
+The optimal number of hormonal subsets was determined by comparing values of Bayesian Information Criterion (BIC) for LCA models with varying number of classes. 
+The LCA solution with k = 3 classes/hormonal subsets displayed the minimal BIC value suggestive of the optimal model fit. 
+Convergence of this model was achieved in n = `r lca$model$numiter` iterations out of 5000 iterations in total (__Figure \@ref(fig:fig-lca)A__). 
+Conditional probabilities for the hormonal subset assignment estimates for the hormone concentration strata by the final LCA model are presented in __Supplementary Figure S\@ref(fig:fig-lca)__. 
+
+Differences in distribution of sex hormone strata between the hormone subsets were assessed by $\chi^2$ test with Cramer V effect size statistic. 
+Differences in blood hormone concentrations expressed as numeric variables between the hormone subsets were investigated by Kruskal-Wallis test with $\eta^2$ effect size statistic (both comparison types done with `compare_variables()`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)). 
+Differences in sex hormone levels between the hormonal subsets are shown in __Figure 4__ and __Supplementary Table \@ref(tab:tab-abs-hormones)__.
+
+## Demographic and clinical characteristic of the hormonal subsets of the retrospective cohort
+
+Demographic, clinical, pathological and therapy-related parameters were compared between the hormonal subsets with Kruskal-Wallis test and $\eta^2$ effect size statistic (numeric variables) or $\chi^2$ test with Cramer V effect size statistic (categorical variables; function `compare_variables()`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)). 
+The comparison results are presented in __Table 4__, __Figures 5 - 6__ and 
+__Supplementary Figure S\@ref(fig:fig-subsets-therapy__. 
+Additionally, neutral and pituitary hormonal subset patients were split according to their AFP and HCG status (negative for both AFP/HCG versus positive for AFP or HCG) and differences between the status strata compared with Mann-Whitney test with r effect size statistic or $\chi^2$ test with Cramer V effect size statistic, as appropriate. 
+Significant differences identified in this analysis are presented in __Supplementary Figure S\@ref(fig:fig-marker-cancer)__.
+
+## Multi-paramater discrimination between the hormonal subsets of the retrospective cohort
+
+A multi-parameter model allowing for discrimination between the hormone subsets with solely non-endocrine explanatory variables (available observations: n = `r nrow(class_rf$analysis_tbl)`, __Supplementary Figure S\@ref(fig:fig-classes-random-forest)A__) was established with the conditional Random Forest algorithm  [@Hothorn2022; @Hothorn2006; @Strobl2007] using the `train(method = 'cforest')` wrapper function from the package _caret_ [@Kuhn2008]. 
+The optimal `mtry` parameter value obtained by cross-validation-based tuning with Cohen's $\kappa$ as the tuning metric was 
+`r class_rf$model$bestTune$mtry[1]`. 
+The remaining model parameters such as split rule (set to the maximum test statistic), splitting criterion (set to 1.28) and number of random trees (1000) were specified in the control objects returned by the `cforest_classical()` function from the package _party_. 
+
+Model performance in the training dataset and 10-fold cross-validation was assessed by the accuracy and Cohen's $\kappa$ statistics computed with the `summary()` method (package [_caretExtra_](https://github.com/PiotrTymoszuk/caretExtra)) and are presented in __Supplementary Figure S\@ref(fig:fig-classes-random-forest)B__. 
+Confusion matrices of the predicted and actual hormone subset assignment were visualized with the `plot(type = 'confusion')` method provided by the [_caretExtra_](https://github.com/PiotrTymoszuk/caretExtra) package.
+Permutation importance for explanatory variables was computed as described for the  histology types and is presented in 
+__Supplementary Figure S\@ref(fig:fig-classes-random-forest)A__.
+
+## Expression of sex hormone-related genes in the TCGA cohort
+
+Expression of `r length(tcga$genes)` sex hormone-related genes in the tumor tissue of the TCGA cohort specimens was investigated in the current report (_`r paste(tcga$genes, collapse = ', ')`_). 
+Differences in gene expression between seminoma and NSGCT samples were investigated by Mann-Whitney U test with r effect size statistic (function `compare_variables()`, package [_ExDA_](https://github.com/PiotrTymoszuk/ExDA)). 
+Trends in regulation of the gene expression were revealed by `r ncol(tcga_pca$pca_obj$tcga$component_tbl) - 1`-dimensional PCA (function `reduce_data(red_fun = 'pca', kdim = 8)`, package [_clustTools_](https://github.com/PiotrTymoszuk/clustTools)).
+
+# Supplementary tables
+
+```{r tab-abs-hormones, tab.cap = 'Differences in preoperative absolute serum concentrations of sex hormones between the hormonal subsets of the retrospective cohort. Concentrations are presented as medians with intequartile ranges (IQR) and ranges.'}
+
+flextable::flextable(tes_suptables$abs_hormones) %>% 
+   width(1, width = 3.4, unit = 'cm') %>% 
+  width(2:4, width = 4.1, unit = 'cm') %>% 
+  width(5, width = 2.5, unit = 'cm') %>% 
+  width(6, width = 2.2, unit = 'cm') %>%
+  footnote(1, 1, 
+           value = as_paragraph('T: total testosterone; E2: estradiol; FSH: follicle-stimulating hormone; LH: luteinizing hormone; PRL: prolactin,'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
+  footnote(1, 5:6, 
+           value = as_paragraph('Kruskal-Wallis test with \u3B7\u00B2 size statistic. P values corrected for multiple testing with the false discovery rate method.'), 
+           part = 'header', 
+           ref_symbols = 'b') %>% 
+  theme_vanilla
+
+```
+
+\newpage
+
+```{r tab-tcga, tab.cap = 'Characteristic of the TCGA cohort. Numeric variables are presented as medians with interquartile ranges (IQR) and ranges. Categorical variables are presented as percentages and counts within the complete observation set.'}
+
+flextable::flextable(tes_suptables$tcga) %>% 
+  width(1, width = 6, unit = 'cm') %>% 
+  width(2, width = 7, unit = 'cm') %>% 
+  footnote(1, 1, 
+           value = as_paragraph('IGCCCG: International Germ Cell Cancer Collaborative Group.'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
+  theme_vanilla
+
+```
+
+\newpage
+
+```{r tab-tcga-histology, tab.cap = 'Differences in expression of the hormone-related genes of interest between seminoma and NSGCT in the TCGA cohort. Numeric variables are presented as medians with interquartile ranges (IQR) and ranges. Categorical variables are presented as percentages and counts within the complete observation set.'}
+
+flextable::flextable(tes_suptables$tcga_histo) %>% 
+  width(1, width = 3, unit = 'cm') %>% 
+  width(2:3, width = 4, unit = 'cm') %>% 
+  width(4:5, width = 3, unit = 'cm') %>% 
+  italic(i = 2:15, j = 1) %>% 
+  footnote(1, 4:5, 
+           value = as_paragraph('Mann-Whitney test with r effect size statistic. P values corrected for multiple testing with the false disocvery rate method.'), 
+           part = 'header', 
+           ref_symbols = 'a') %>% 
+  theme_vanilla
+
+```
+
+\newpage
+
+# Supplementary figures
+
+```{r fig-inclusion-scheme, fig.width = figur::convert(tesca_supfigures$inclusion, to = 'in')$w, fig.height = figur::convert(tesca_supfigures$inclusion, to = 'in')$h, fig.cap = 'Analysis inclusion scheme and data analysis strategy.'}
+
+tesca_supfigures$inclusion$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-inclusion-scheme). Analysis inclusion scheme and data analysis strategy.__ 
+
+\newpage
+
+```{r fig-histo-markers, fig.width = figur::convert(tesca_supfigures$histo_markers, to = 'in')$w, fig.height = figur::convert(tesca_supfigures$histo_markers, to = 'in')$h, fig.cap = 'Preoperative absolute serum concentrations of cancer markers in seminoma and non-seminomatous germ cell tumors.'}
+
+tesca_supfigures$histo_markers$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-histo-markers). Preoperative absolute serum concentrations of cancer markers in seminoma and non-seminomatous germ cell tumors.__ 
+
+_Differences in serum concentrations of alpha fetoprotein (AFP), human chorionic gonadotropin (HCG) and activity of lactate dehydrogenase (LDH) between seminoma and non-seminomatous germ cell tumors (NSGCT) were assessed by Mann-Whitney test with r effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Concentrations are presented in violin plots wit single observations depicted as points and medians with interquartile ranges represented by red diamonds and whiskers. Effect sizes and p values are displayed in the plot captions. Numbers of complete observations are indicated in the X axes._
+
+\newpage
+
+```{r fig-hormone-components, fig.width = figur::convert(tesca_supfigures$hormone_components, to = 'in')$w, fig.height = figur::convert(tesca_supfigures$hormone_components, to = 'in')$h, fig.cap = 'Principal component and correspondence analysis of pre-surgery sex hormone levels.'}
+
+tesca_supfigures$hormone_components$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-hormone-components). Principal component and correspondence analysis of pre-surgery sex hormone levels.__ 
+
+_Blood concentrations of sex hormones (T: testosterone, E2: estradiol, FSH: follicle stimulating hormone, LH: luteinizing hormone; PRL: prolactin) as normalized median-centered numeric variables and as clinical strata were subjected to 4-dimensional principal component analysis (PCA, A) and multidimensional correspondence analysis (MCA, B), respectively. Loadings (PCA) and column factors (MCA) for the first two dimensions are presented in scatter plots plots. Numbers of observations are indicated in the plot captions._
+
+\newpage
+
+```{r fig-lca, fig.width = figur::convert(tesca_supfigures$lca, to = 'in')$w, fig.height = figur::convert(tesca_supfigures$lca, to = 'in')$h, fig.cap = 'Definition of the hormonal subsets with latent class analysis.'}
+
+tesca_supfigures$lca$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-lca). Definition of the hormonal subsets with latent class analysis.__ 
+
+_Hormonal subsets of testicle cancer were defined by latent class analysis (LCA) employing pre-surgery blood concentration of sex hormones (T: testosterone, E2: estradiol, FSH: follicle stimulating hormone, LH: luteinizing hormone, PRL: prolactin) stratified by limits of their reference ranges._
+
+_(A) Goodness of fit of the LCA models for various subset numbers was measured by Bayesian Information Criterion (BIC). Note: the goodness-of-fit improves with decreasing BIC. BIC values for the investigated class numbers are presented in a line plot. The vertical dashed line indicates the subset number chosen for the final model._
+
+_(B) Hormonal subset conditional response probabilities estimated by the final LCA model presented as heat maps. Numbers of observations in the subsets and percentage within the hormone dataset are indicated in the plot captions._
+
+\newpage
+
+```{r fig-subsets-therapy, fig.width = figur::convert(tesca_supfigures$subsets_therapy, to = 'in')$w, fig.height = figur::convert(tesca_supfigures$subsets_therapy, to = 'in')$h, fig.cap = 'Therapy in the hormonal subsets of the retrospective cohort.'}
+
+tesca_supfigures$subsets_therapy$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-subsets-therapy). Therapy in the hormonal subsets of the retrospective cohort.__ 
+
+_Rates of retroperitoneal lymphadenectomy (RLA), chemo- and radiotherapy in the hormonal subsets were compared by $\chi^2$ test with Cramer V effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Therapy frequencies in the subsets are presented in stack plots. Effect sizes and p values are displayed in the plot captions. Numbers of observations in the subsets are indicated in the X axes._
+
+\newpage
+
+```{r fig-marker-cancer, fig.width = figur::convert(tesca_supfigures$marker_cancer, to = 'in')$w, fig.height = figur::convert(tesca_supfigures$marker_cancer, to = 'in')$h, fig.cap = 'Differences in tumor pathology between neutral and pituitary hormonal subset participants split by the alpha fetoprotein and human chorionic gonadotropin status.'}
+
+tesca_supfigures$marker_cancer$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-marker-cancer). Differences in tumor pathology between neutral and pituitary hormonal subset participants split by the alpha fetoprotein and human chorionic gonadotropin status.__ 
+
+_The retrospective cohort patients were stratified according to positivity of alpha fetoprotein (AFP, cutoff: 7 ng/mL) and human chorionic gonadotropin (HCG, cutoff: 2 IU/L): the AFP/HCG- patients were negative for both markers and AFP/HCG+ patients were positive for at least one of the markers. Subsequently, differences in study variables between AFP/HCG- and AFP/HCG+ patients assigned to the neutral and pituitary hormone subset were investigated. Differences in maximal tumor size (A) and lactate dehydrogenase activity (LDH, B) were assessed by Mann-Whitney test with r effect size statistic. Differences in tumor stages (C), Lugano classes (D), rates of lymphovascular invasion (LVI, E) and distribution of histological types (NSGCT: non-seminomatous germ cell tumors, F) were assessed by $\chi^2$ test with Cramer V effect size statistic. P values were corrected for multiple testing with the false discovery rate method. Numeric variables are presented in violin plots with single observations depicted as points, and medians with interquartile ranges represented by red diamonds and whiskers. Frequencies for levels of categorical variables are shown in stack plots. Effect sizes and p values are displayed in the plot captions. Numbers of observations in the subsets are indicated in the X axes._
+
+\newpage
+
+```{r fig-classes-random-forest, fig.width = figur::convert(tesca_supfigures$classes_random_forest, to = 'in')$w, fig.height = figur::convert(tesca_supfigures$classes_random_forest, to = 'in')$h, fig.cap = 'Demographic and clinical signature of the hormonal subsets of testicular cancer developed by conditional Random Forest modeling.'}
+
+tesca_supfigures$classes_random_forest$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-classes-random-forest). Demographic and clinical signature of the hormonal subsets of testicular cancer developed by conditional Random Forest modeling.__ 
+
+_Multi-parameter model employing demographic, clinical, pathological, therapy and hormone explanatory variables for discrimination between the hormonal subsets of testicle cancer was developed with the conditional Random Forest algorithm and corroborated by 10-fold cross-validation (CV)._
+
+_(A) Permutation importance of explanatory variables expressed as difference in accuracy ($\Delta$ accuracy) between the original model and the model with a particular variable randomly re-shuffled. Accuracy differences are displayed in a bar plot. Numbers of samples in the hormonal subsets are shown in the plot caption._
+
+_(B) Discriminant performance of the Random Forest model in the original data set and 10-fold CV was visualized as heat maps of confusion matrices. The overall subset assignment accuracy and Cohen's $\kappa$ are displayed in the plot captions. Fractions of observations correctly assigned to the neutral, testicle and pituitary subsets are indicated in X axes._
+
+_HCG: human chorionic gonadotropin; NSGCT: non-seminomatous germ cell tumors; T replacement: testosterone replacement; AFP: alpha fetoprotein; LDH: lactate dehydrogenase; LVI: lymphovascular invasion; SemiCa: percentage of seminoma histology; CS Lugano: Lugano class; RLA: retroperitoneal lymphadenectomy; YSCa: percentage of yolk sac histology; ECa: percentage of embryonic histology; RTI: rete testis invasion._
+
+\newpage
+
+```{r fig-tcga-expression, fig.width = figur::convert(tesca_supfigures$expression, to = 'in')$w, fig.height = figur::convert(tesca_supfigures$expression, to = 'in')$h, fig.cap = 'Expression of sex hormone-related genes in the malignant tissue in the TCGA testicle cancer cohort.'}
+
+tesca_supfigures$expression$plot
+
+```
+
+__Supplementary Figure S\@ref(fig:fig-tcga-expression). Expression of sex hormone-related genes in the malignant tissue in the TCGA testicle cancer cohort.__ 
+
+_Expression of pituitary sex hormone genes and gonadal sex hormone-related genes was presented as log~2~-transformed transcript counts in violin plots with single cancer samples depicted as points and medians with interquartile ranges depicted as red diamonds with whiskers. Numbers of complete observations are indicated in the plot captions._
+
+\newpage
+
+# References
