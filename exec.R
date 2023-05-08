@@ -8,5 +8,6 @@
                      'hormones.R', 
                      'survival.R', 
                      'TCGA_analysis.R', 
-                     'report.R'), 
+                     #'report.R', 
+                     'tesca_paper.R'), 
                    crash = TRUE, message = TRUE))

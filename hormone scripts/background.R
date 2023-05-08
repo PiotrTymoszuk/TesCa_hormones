@@ -110,7 +110,8 @@
          x_lab = 'Hormonal subset', 
          cust_theme = globals$common_theme, 
          scale = 'percent', 
-         x_n_labs = TRUE) %>% 
+         x_n_labs = TRUE, 
+         point_hjitter = 0) %>% 
     set_names(class_bcg$lexicon$variable)
   
   ## adjustment of the numeric and factor variables

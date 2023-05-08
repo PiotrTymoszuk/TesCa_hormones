@@ -109,6 +109,99 @@
                                '#3' = 'testicle'"), 
            class = factor(class, c('neutral', 'testicle', 'pituitary')))
   
+# Plots of the conditional probabilities ---------
+  
+  insert_msg('Plots of the conditional probabilities')
+  
+  ## plotting data
+  
+  lca$cond_prob$plot_data <- lca$model$probs %>% 
+    map(as.data.frame) %>% 
+    map(rownames_to_column, 'class') %>% 
+    map(mutate, 
+        class = ifelse(class == 'class 1: ', 
+                       'pituitary', 
+                       ifelse(class == 'class 2: ', 
+                              'neutral', 'testicle')), 
+        class = factor(class, c('neutral', 'testicle', 'pituitary'))) %>% 
+    map(~pivot_longer(.x, 
+                      cols = names(.x)[names(.x) != 'class'], 
+                      names_to = 'strata', 
+                      values_to = 'p'))
+  
+  lca$cond_prob$plot_data <- 
+    map2(lca$cond_prob$plot_data, 
+         map(lca$analysis_tbl[names(lca$cond_prob$plot_data)], 
+             levels), 
+         ~mutate(.x, 
+                 strata = factor(strata, .y), 
+                 strata = as.numeric(strata)))
+  
+  lca$cond_prob$plot_data[c("E2_class", 
+                            "T_total_class", 
+                            "FSH_class", 
+                            "LH_class")] <- 
+    lca$cond_prob$plot_data[c("E2_class", 
+                              "T_total_class", 
+                              "FSH_class", 
+                              "LH_class")] %>% 
+    map(mutate, 
+        strata = car::recode(strata, 
+                             "1 = 'low'; 
+                             2 = 'normal'; 
+                             3 = 'high'"), 
+        strata = factor(strata, c('low', 'normal', 'high')))
+  
+  lca$cond_prob$plot_data$PRL_class <- 
+    lca$cond_prob$plot_data$PRL_class %>% 
+    mutate(strata = car::recode(strata, 
+                                "1 = 'normal'; 
+                                2 = 'high'"), 
+           strata = factor(strata, c('low', 'normal', 'high')))
+  
+  lca$cond_prob$plot_data <- lca$cond_prob$plot_data %>% 
+    compress(names_to = 'variable') %>% 
+    blast(class)
+  
+  ## numbers and percentages of observations in the subsets
+  
+  lca$cond_prob$n_numbers <- lca$assingment %>% 
+    count(class) %>% 
+    mutate(percent = n/sum(n) * 100)
+  
+  lca$cond_prob$plot_cap <- 
+    map2(lca$cond_prob$n_numbers$n, 
+         lca$cond_prob$n_numbers$percent, 
+         ~paste0('n = ', .x, ', ', signif(.y, 2), '% of observations'))
+  
+  ## heat maps
+  
+  lca$cond_prob$plots <- 
+    list(x = lca$cond_prob$plot_data, 
+         y = c('Neutral subset', 'Testicle subset', 'Pituitary subset'), 
+         z = lca$cond_prob$plot_cap) %>% 
+    pmap(function(x, y, z) x %>% 
+           ggplot(aes(x = strata, 
+                      y = variable, 
+                      fill = p)) + 
+           geom_tile(color = 'black') + 
+           geom_text(aes(label = signif(p, 2)), 
+                     size = 2.5) + 
+           scale_fill_gradient(low = 'white', 
+                               high = 'firebrick3', 
+                               limits = c(0, 1), 
+                               name = 'Conditional p') + 
+           scale_y_discrete(labels = function(x) stri_replace(x, regex = '_.*', replacement = ''), 
+                            limits = c('PRL_class', 
+                                       'LH_class', 
+                                       'FSH_class', 
+                                       'E2_class', 
+                                       'T_total_class')) + 
+           globals$common_theme + 
+           theme(axis.title = element_blank()) + 
+           labs(title = y, 
+                subtitle = z))
+
 # END -------
   
   insert_tail()

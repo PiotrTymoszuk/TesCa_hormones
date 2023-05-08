@@ -86,7 +86,7 @@
                                 k = 10, 
                                 list = FALSE, 
                                 returnTrain = TRUE)) %>% 
-    set_names(paste0('rep_', 1:multi_cox$n_repeats))
+    set_names(paste0('rep_', 1:tcga_cox$n_repeats))
   
 # Model tuning -------
   

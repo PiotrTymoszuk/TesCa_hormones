@@ -13,7 +13,7 @@
   library(ggnetwork)
   library(proxy)
 
-# formatting of tabled with descriptive stats ------
+# formatting of tables with descriptive stats ------
 
   format_tbl <- function(x, 
                          lexicon = tesca$lexicon, 

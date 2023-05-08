@@ -124,6 +124,17 @@
     set_names(class_hormo$ribbon_labs$plot_cap, 
               class_hormo$ribbon_labs$variable)
   
+  ## shorter axis labels for the paper mauscript figure
+  
+  class_hormo$ribbon_short_labs <- class_hormo$test %>% 
+    mutate(plot_cap = paste(exchange(variable, 
+                                     dict = tesca$lexicon), 
+                            eff_size, sep = '\n'))
+  
+  class_hormo$ribbon_short_labs <- 
+    set_names(class_hormo$ribbon_short_labs$plot_cap, 
+              class_hormo$ribbon_short_labs$variable)
+  
   ## plot
 
   class_hormo$ribbon_plot <- class_hormo$analysis_tbl %>% 

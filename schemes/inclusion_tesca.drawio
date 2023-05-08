@@ -1,0 +1,64 @@
+<mxfile host="Electron" modified="2023-05-08T13:06:29.953Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.1.2 Chrome/106.0.5249.199 Electron/21.4.3 Safari/537.36" etag="9gVO9adPUZcgSfW96hAU" version="21.1.2" type="device">
+  <diagram name="Page-1" id="yGozCTqb1JnejrZYd856">
+    <mxGraphModel dx="978" dy="571" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="690" pageHeight="980" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="rKHckfa7pBqVRsVSqDrz-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=8;" parent="1" source="rKHckfa7pBqVRsVSqDrz-1" target="rKHckfa7pBqVRsVSqDrz-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xJWx_xpuj4zCaQ8g-o8u-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="rKHckfa7pBqVRsVSqDrz-1" target="rKHckfa7pBqVRsVSqDrz-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rKHckfa7pBqVRsVSqDrz-1" value="Retrospective Testicular Cancer Dataset&lt;br style=&quot;font-size: 8px;&quot;&gt;n = 549" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="185" y="10" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xJWx_xpuj4zCaQ8g-o8u-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="rKHckfa7pBqVRsVSqDrz-2" target="rKHckfa7pBqVRsVSqDrz-13" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xJWx_xpuj4zCaQ8g-o8u-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="rKHckfa7pBqVRsVSqDrz-2" target="rKHckfa7pBqVRsVSqDrz-22" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xJWx_xpuj4zCaQ8g-o8u-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="rKHckfa7pBqVRsVSqDrz-2" target="rKHckfa7pBqVRsVSqDrz-15" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rKHckfa7pBqVRsVSqDrz-2" value="&lt;p style=&quot;margin-bottom: 0in; line-height: 100%&quot;&gt;&amp;nbsp;≤ 50% missing information&lt;/p&gt;n = 518" style="rounded=1;whiteSpace=wrap;html=1;fontSize=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="185" y="90" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rKHckfa7pBqVRsVSqDrz-7" value="excluded due to &amp;gt;50% data missingness&lt;br style=&quot;border-color: var(--border-color); font-size: 8px;&quot;&gt;n = 31" style="rounded=1;whiteSpace=wrap;html=1;fontSize=8;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="50" y="50" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="T_p0wyjpbNfTupfzQzGn-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.551;entryY=-0.051;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="T_p0wyjpbNfTupfzQzGn-1" target="T_p0wyjpbNfTupfzQzGn-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="T_p0wyjpbNfTupfzQzGn-1" value="TCGA Testicle Cancer Dataset&lt;br style=&quot;font-size: 8px;&quot;&gt;n = 149" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="520" y="10" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rKHckfa7pBqVRsVSqDrz-13" value="Cohort characteristic&lt;br style=&quot;font-size: 8px;&quot;&gt;max: n = 518" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=8;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="10" y="170" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rKHckfa7pBqVRsVSqDrz-14" value="Demographics&lt;br&gt;&lt;br style=&quot;font-size: 8px;&quot;&gt;Tumor pathology&lt;br&gt;&lt;br style=&quot;font-size: 8px;&quot;&gt;Biochemical cancer markers&lt;br&gt;&lt;br style=&quot;font-size: 8px;&quot;&gt;Cancer treatment&lt;br&gt;&lt;br style=&quot;font-size: 8px;&quot;&gt;Outcome&lt;br&gt;&lt;br style=&quot;font-size: 8px;&quot;&gt;Pre-surgery sex hormone levels" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=5;verticalAlign=top;fontSize=8;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="10" y="220" width="150" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="rKHckfa7pBqVRsVSqDrz-22" value="Pre-surgery sex hormone levels&lt;br&gt;(T, E2, FSH, LH, PRL)&lt;br&gt;max: n = 422" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=8;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="350" y="170" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rKHckfa7pBqVRsVSqDrz-23" value="Trends/components of sex hormone levels (principle component and correcpondence analysis)&lt;br&gt;&lt;br&gt;Hormonal subsets of testicle cancers (latent class analysis)&lt;br&gt;&lt;br&gt;Differences in demographic, clinical and pathologic features, and biochemical cancer markers between the hormonal subsets&lt;br&gt;&lt;br&gt;Multi-paramater signature of the hormonal subsets based on non-endocrine parmeters&lt;br&gt;&lt;br&gt;Survival in the hormonal subsets" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=5;verticalAlign=top;fontSize=8;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="350" y="220" width="150" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="rKHckfa7pBqVRsVSqDrz-15" value="Seminoma and&amp;nbsp;non-seminomatous germ cell tumors&lt;br&gt;max: n = 518" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=8;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="180" y="170" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rKHckfa7pBqVRsVSqDrz-16" value="Comparison of demographic, clinical and pathologic features, and biochemical cancer markers&lt;br&gt;&lt;br&gt;Differences in pre-surgery levels of sex hormones&lt;br&gt;&lt;br&gt;Multi-parameter signatures of seminoma and mixed-histology cancers&lt;br&gt;&lt;br&gt;Differences in survival" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=5;verticalAlign=top;fontSize=8;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="180" y="220" width="150" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="T_p0wyjpbNfTupfzQzGn-3" value="Cohort characteristic, gene expression" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=8;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+          <mxGeometry x="520" y="170" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="T_p0wyjpbNfTupfzQzGn-4" value="Demographics&lt;br&gt;&lt;br style=&quot;font-size: 8px;&quot;&gt;Tumor pathology&lt;br&gt;&lt;br style=&quot;font-size: 8px;&quot;&gt;Biochemical cancer markers&lt;br&gt;&lt;br style=&quot;font-size: 8px;&quot;&gt;Cancer treatment and outcome&lt;br&gt;&lt;br style=&quot;font-size: 8px;&quot;&gt;Expression of sex hormone-related genes in the cancer tissue in the whole dataset, and seminoma and HSGCT" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=5;verticalAlign=top;fontSize=8;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="520" y="220" width="150" height="120" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

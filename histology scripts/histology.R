@@ -61,7 +61,7 @@
                       exact = FALSE, 
                       pub_styled = TRUE, 
                       adj_method = 'BH') %>% 
-    mutate(plot_cap = paste(eff_size, significance))
+    mutate(plot_cap = paste(eff_size, significance, sep = ', '))
   
 # Significant factors ------
   
@@ -84,9 +84,11 @@
          histology$analysis_tbl, 
          scale = 'percent', 
          cust_theme = globals$common_theme, 
-         x_n_labs = TRUE) %>% 
+         x_n_labs = TRUE, 
+         point_hjitter = 0) %>% 
     map(~.x + 
-          scale_fill_brewer()) %>%  
+          scale_fill_brewer() +
+          theme(axis.title.x = element_blank())) %>%  
     set_names(histology$lexicon$variable)
   
 # Result table --------
