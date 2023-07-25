@@ -22,7 +22,10 @@ The analysis pursues thee goals:
 These tasks are addressed in a multicenter retrospective cohort of 518 testis cancer patients and the testis cancer collactive of the TCGA pan-cancer project (n = 149). 
 <br>
 <br>
-You may follow the analysis progress [here](https://github.com/PiotrTymoszuk/TesCa_hormones/tree/main/report).
+You may follow the analysis progress [here](https://github.com/PiotrTymoszuk/TesCa_hormones/tree/main/report). In particular
+In particular, the analysis report figures as high-resolution pdf files are available [here](https://github.com/PiotrTymoszuk/TesCa_hormones/tree/main/report/figures). 
+The latest version of the analysis report is available from [Dropbox](https://www.dropbox.com/scl/fo/w96e1kqafl15e1d44rifz/h?rlkey=5zvknl4sza7moubz20sojvng9&dl=0).
+
 <br>
 Parts of the Testicular Cancer manuscript with analyses of the retrospective cohort (Figures, Tables, Supplement) are available [here](https://github.com/PiotrTymoszuk/TesCa_hormones/tree/main/tesca%20paper).
 
