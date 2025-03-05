@@ -31,7 +31,7 @@ Parts of the Testicular Cancer manuscript with analyses of the retrospective coh
 
 ## Terms of use
 
-To reference and use analysis results, please cite our GitHub repository and our publication if available. In any questions, please contact [Renate Pichler](mailto:renate.pichler@i-med.ac.at) or [Piotr Tymoszuk](mailto:piotr.s.tymoszuk@gmail.com).
+To reference and use analysis results, please cite our GitHub repository and [our publication (DOI: 10.1038/s41598-023-41915-7)](https://www.nature.com/articles/s41598-023-41915-7). In any questions or requests of the Innsbruck cohort data, please contact [Renate Pichler](mailto:renate.pichler@i-med.ac.at) or [Piotr Tymoszuk](mailto:piotr.s.tymoszuk@gmail.com).
 
 ## Usage
 
